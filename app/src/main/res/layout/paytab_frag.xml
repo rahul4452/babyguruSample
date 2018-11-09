@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_gravity="bottom"
+android:id="@+id/pay_layout"
+android:background="@drawable/pay_bg"
+tools:context=".Bottom_Tabs.Paytab_frag">
+
+    <include
+        android:id="@+id/toolbar_pay"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:src="@mipmap/pay_logo"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_pay" />
+
+<TextView
+    android:id="@+id/pay_txt"
+    android:layout_width="@dimen/_238sdp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_12sdp"
+    android:gravity="center_horizontal|center_vertical"
+    android:lineSpacingExtra="@dimen/_4sdp"
+    android:text="@string/Paytxt1"
+    android:textSize="@dimen/_14sdp"
+    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+    app:layout_constraintStart_toStartOf="@+id/guideline5"
+    app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+<EditText
+    android:id="@+id/amt_txt"
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="@dimen/_50sdp"
+
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_20sdp"
+    android:background="@drawable/button_with_border"
+    android:ems="10"
+    android:gravity="center_horizontal|center_vertical"
+    android:hint="Enter Amount"
+    android:inputType="textPersonName"
+
+    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+    app:layout_constraintHorizontal_bias="0.504"
+    app:layout_constraintStart_toStartOf="@+id/guideline5"
+    app:layout_constraintTop_toBottomOf="@+id/pay_txt" />
+
+<TextView
+    android:id="@+id/pay_txt2"
+    android:layout_width="@dimen/_224sdp"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_20sdp"
+    android:gravity="center_horizontal"
+    android:text="@string/paytxt2"
+    android:textSize="@dimen/_14sdp"
+    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+    app:layout_constraintStart_toStartOf="@+id/guideline5"
+    app:layout_constraintTop_toBottomOf="@+id/amt_txt" />
+
+<TextView
+    android:id="@+id/ref_code_txt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_19sdp"
+    android:text="@string/refe_link"
+    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+    app:layout_constraintHorizontal_bias="0.504"
+    app:layout_constraintStart_toStartOf="@+id/guideline5"
+    app:layout_constraintTop_toBottomOf="@+id/pay_txt2" />
+
+<Button
+    android:id="@+id/pay_btn"
+    android:layout_width="@dimen/_215sdp"
+    android:layout_height="@dimen/_50sdp"
+    android:layout_marginBottom="@dimen/_19sdp"
+    android:layout_marginEnd="@dimen/_8sdp"
+    android:layout_marginStart="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_24sdp"
+    android:gravity="center_vertical|center_horizontal"
+    android:background="@drawable/button_backgrond"
+    android:text="@string/pay"
+    android:textAllCaps="false"
+    android:textColor="@color/white"
+    android:textSize="@dimen/_18sdp"
+    android:visibility="visible"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@+id/guideline6"
+    app:layout_constraintHorizontal_bias="0.513"
+    app:layout_constraintStart_toStartOf="@+id/guideline5"
+    app:layout_constraintTop_toBottomOf="@+id/ref_code_txt"
+    app:layout_constraintVertical_bias="0.0" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/guideline5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_begin="37dp" />
+
+<android.support.constraint.Guideline
+    android:id="@+id/guideline6"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_end="38dp" />
+
+
+
+</android.support.constraint.ConstraintLayout>
+
+
+
+

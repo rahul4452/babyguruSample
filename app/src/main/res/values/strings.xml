@@ -1,0 +1,257 @@
+<resources>
+    <string name="app_name">baby_guru_sample</string>
+    <!--front page-->
+    <string name="baby_guru">baby guru</string>
+    <string name="baby_guru_sub">Pathway to responsive sleep</string>
+
+    <!--SignUP PAGE-->
+    <string name="signup">sign up</string>
+    <string name="second_check">I agree to Newsletter Subscription</string>
+
+    <!--Login PAGE-->
+    <string name="login">login</string>
+
+    <!--Hints-->
+    <string name="name">Enter Name</string>
+    <string name="email">Enter Email</string>
+    <string name="pwd">Password(7+ character)</string>
+    <string name="sym_pwd">* * * * * * * * *</string>
+    <string name="ref_txt_hint">e.g.RF0122</string>
+    <string name="dob">Date Of Birth</string>
+
+
+    <!--Forgot FRag-->
+    <string name="frag_text">Enter registered email address</string>
+    <string name="frg_btn">reset password</string>
+    <string name="frgt_head">forgot password</string>
+
+    <!--otp FRag-->
+    <string name="otp_btn">submit</string>
+    <string name="otp_msg">Please enter the OTP sent to your registered email address</string>
+    <string name="otp">Enter OTP</string>
+
+    <!--Password activity -->
+    <string name="new_pwd">New password</string>
+    <string name="con_pwd">Confirm password</string>
+    <string name="pwd_chng_msg">Your password has been successfully changed</string>
+    <string name="title_activity_pay_activity">pay_activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- Pay text-->
+    <string name="Paytxt1">Everything you need to monitor your pathway to responsive sleep</string>
+    <string name="paytxt2">Pay once and get access to the complete guide.</string>
+
+    <string name="refe_link">Have a referral/discount code ?</string>
+    <string name="pay">pay</string>
+    <string name="toolbar_pay">sleep coaching</string>
+
+    <string name="sleep">sleep coaching</string>
+
+    <!-- Refferal code fragment -->
+    <string name="enter_ref">Enter referral/discount code to get discount.</string>
+    <string name="ref_code">referral code</string>
+    <string name="apply">apply</string>
+    <string name="cancel">cancel</string>
+
+    <!-- After adding refferal code-->
+    <string name="yippee">Yippee!! You have got a discount of 25% with your discount code.</string>
+    <string name="pay_to_get">Pay to get started.</string>
+
+
+    <!--Before we Start-->
+    <string name="It_is">It’s also important you follow the current NHS Cot Death &amp; SIDS guidelines at all times </string>
+    <string name="let_start_btn">lets start</string>
+    <string name="before">before you start</string>
+
+    <!-- Add Child  -->
+    <string name="child_name">Name</string>
+    <string name="child_birth">Birthday</string>
+    <string name="gender">Gender</string>
+    <string name="add">add</string>
+    <string name="boy">Boy</string>
+    <string name="girl">Girl</string>
+    <string name="tb_name">add child</string>
+    <string name="add_child">Add Child</string>
+    
+
+
+    <!--Select Child-->
+    <string name="select_your">Select your little one to start your Pathway to responsive sleep session.</string>
+    <string name="tim">Tim Bailey</string>
+    <string name="mary">Mary Hardy</string>
+
+    <!--Choosemethod-->
+    <string name="cuddle">
+        The method for under 6 months is designed around a “cuddle, calm, continue“. There is an initial 10-minute wait while you give them a chance to self-settle.
+        You then listen and respond depending on the level of crying, which is described in the crying scale. read more</string>
+    <string name="respond">The method used for 6 months and over is based around "respond, reassure &amp;  resume”. There is an initial 10-minute wait while you give them a chance to self-settle.
+        You then listen and respond depending on the level of crying, which is described in the crying scale. read more</string>
+    <string name="cuddle_heading">cuddle, calm &amp; continue</string>
+    <string name="respond_heading">respond, reassure &amp; resume </string>
+    <string name="choose_method">choose method</string>
+
+
+    <!--Recommeded and Other String-->
+
+    <string name="recommeded">recommended</string>
+    <string name="other">other</string>
+
+    <!--testing string-->
+    <string-array name="a">
+        <item>Put baby down after their regular bedtime routine, as awake as you can, say goodnight reassuringly and leave the room.</item>
+
+        <item>They may start to cry immediately. Whatever happens, you leave them for 10 minutes. This stage is giving your baby a chance to settle themselves and many babies can settle within that first
+                10 minutes. Your baby may or may not. </item>
+
+        <item>You should go in if your baby is sick which does occasionally happen. In this case change your little one and the bedding, cuddle and calm them before putting back down. Come out and continue
+                the process</item>
+
+        <item>Once the first 10 minutes has passed…listen: Now follow the crying scale suggestions.1</item>
+
+        <item>If your little one is crying consistently at 4 or above on the crying scale. Go into them calmly, but don’t pick them up, reassure them , you can stroke them , talk to them gently ,
+                then leave. They may still be crying or start immediately but still leave, you have reassured them you are still there.</item>
+
+        <item>Listen again. Wait for a minute or two as they may be really cross so wait and …. Repeat You may need to go in frequently every 2-3 minutes or it may be 15-20 minutes. Listen and
+                respond. If you find that going in makes your baby cry more, climbing the crying scale quicker then don’t go in so often. If it helps, though, then repeat frequently.</item>
+
+        <item>Continue this listen &amp; responded until they have gone to sleep.</item>
+
+        <item>If they wake in the night, follow the method again, always leaving that initial 10 minutes of self-settling,
+                before using the crying scale to decide whether to respond and reassure , until they have gone back to sleep.</item>
+
+        <item>It is quite normal on the first evening for this process to take a minimum of 45 minutes, with visits in and out when needed, but it can take longer.</item>
+
+        <item>Stay strong this will get easier for you and for them each time</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string-array name="b">
+        <item>Put baby down after their regular bedtime routine, as awake as you can, say goodnight reassuringly and leave the room.</item>
+        <item>
+            They may start to cry immediately. Whatever happens, you leave them for 10 minutes. This stage is giving your baby a chance to settle themselves and many babies can settle within that
+            first 10 minutes. Your baby may or may not.
+        </item>
+        <item>
+            	You should go in if your baby is sick which does occasionally happen. In this case change your little one and the bedding, cuddle and calm them before putting back down.
+            Come out and continue the process
+        </item>
+
+        <item>Once the first 10 minutes has passed…listen: Now follow the crying scale suggestions.1</item>
+
+        <item>If your little one is crying consistently at 4 or above on the crying scale. Go into them calmly, but don’t pick them up, reassure them , you can stroke them , talk to them gently ,
+            then leave. They may still be crying or start immediately but still leave, you have reassured them you are still there.</item>
+
+        <item>Listen again. Wait for a minute or two as they may be really cross so wait and …. Repeat You may need to go in frequently every 2-3 minutes or it may be 15-20 minutes.
+            Listen and respond. If you find that going in makes your baby cry more, climbing the crying scale quicker then don’t go in so often. If it helps, though, then repeat frequently.</item>
+
+        <item>Continue this listen &amp; responded until they have gone to sleep.</item>
+        <item>If they wake in the night, follow the method again, always leaving that initial 10 minutes of self-settling, before using the crying scale to decide whether to respond and reassure ,
+            until they have gone back to sleep.</item>
+        <item>It is quite normal on the first evening for this process to take a minimum of 45 minutes, with visits in and out when needed, but it can take longer.</item>
+        <item>Stay strong this will get easier for you and for them each time</item>
+    </string-array>
+
+
+    <!--JoyRider -->
+    <string-array name="d">
+        <item>Put baby down after their regular bedtime routine, as awake as you can, say goodnight reassuringly and leave the room.</item>
+        <item>
+            They may start to cry immediately. Whatever happens, you leave them for 10 minutes. This stage is giving your baby a chance to settle themselves and many babies can settle within that
+            first 10 minutes. Your baby may or may not.
+        </item>
+        <item>
+            	You should go in if your baby is sick which does occasionally happen. In this case change your little one and the bedding, cuddle and calm them before putting back down.
+            Come out and continue the process
+        </item>
+
+        <item>Once the first 10 minutes has passed…listen: Now follow the crying scale suggestions.1</item>
+
+        <item>If your little one is crying consistently at 4 or above on the crying scale. Go into them calmly, but don’t pick them up, reassure them , you can stroke them , talk to them gently ,
+            then leave. They may still be crying or start immediately but still leave, you have reassured them you are still there.</item>
+
+        <item>Listen again. Wait for a minute or two as they may be really cross so wait and …. Repeat You may need to go in frequently every 2-3 minutes or it may be 15-20 minutes.
+            Listen and respond. If you find that going in makes your baby cry more, climbing the crying scale quicker then don’t go in so often. If it helps, though, then repeat frequently.</item>
+    </string-array>
+
+    <string-array name="c">
+        <item>head1</item>
+
+        <item>head2</item>
+        <item>head3</item>
+        <item>head4</item>
+        <item>head5</item>
+        <item>head6</item>
+    </string-array>
+
+
+    <!--Guru Tips-->
+    <string name="guru_heading">guru’s tips</string>
+    <string name="guru_contact">contact us</string>
+    <string name="guru_ok">ok, no problem!</string>
+
+
+    <!--Crying Scale-->
+
+    <string name="crying_head">crying scale</string>
+    <string name="crying_1">The self-settling time is now over. Please select your little one’s crying level right now by choosing the relevant emoji below. </string>
+    <string name="crying_ques">Stop…listen….What is my baby telling me?</string>
+
+
+    <!--crying chnge text-->
+
+    <string name="lev_1">An infrequent moan or squeal.</string>
+    <string name="lev_2"> Increasing now in volume and frequency.  Spikes of shouting but still some pauses from crying. If using a baby monitor with a green to red colour light,
+        it is in the green with occasional spikes in the red.</string>
+    <string name="lev_3">The cry has turned angry now and is louder with longer spikes in the red on the monitor.</string>
+    <string name="lev_4"> A loud, cross and demanding cry with little or no breaks, on the monitor. It’s in the red and staying there.</string>
+    <string name="lev_5">  The top of the scale with constant high level crying.</string>
+
+
+    <string name="cry_dia_3">Leave your little one, they are fine and super cross that they are not getting their normal cuddle,
+        feed, etc. Remember they are tired and okay. Give the method time and respond when needed</string>
+    <string name="ok">ok</string>
+    <string name="cry_dia_3_1">As your little one’s cry is at level 3, we suggest you</string>
+
+
+    <string name="pager_1">The inner timer is the initial 10 minute self settling period</string>
+    <string name="pager_2">Learning to self settle and sleep independently is a great life skill</string>
+
+    <!-- Child Profile -->
+    <string name="details">details</string>
+    <string name="edit">edit</string>
+    <string name="sleeping_his">sleep coaching history</string>
+    <string name="see_graph">sleep garph</string>
+    <string name="session">Session </string>
+    <string name="adele">Adele Bailey</string>
+    <string name="born">born on</string>
+    <string name="born_date">09-26-2017</string>
+    <string name="baby">Baby</string>
+    <string name="baby_gen">Boy</string>
+
+    <!-- child_graph-->
+    <string name="graph_txt">The graph shows you how well your little one is doing at self settling, session by session.</string>
+
+    <!-- Basic Details Parent -->
+    <string name="relation">Relation with child</string>
+    <string name="email_name">Email address</string>
+    <string name="done">done</string>
+    <string name="basic_detail">basic details</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="nameerror">Enter a valid name</string>
+    <string name="emailerror">Enter a valid email</string>
+
+
+
+    <string name="invalid_name">Please enter a valid Name</string>
+    <string name="invalid_email">Please enter a valid email</string>
+    <string name="invalid_confirm_email">Email does not match</string>
+    <string name="invalid_password">Please enter a valid password</string>
+    <string name="invalid_confirm_password">Password does not match</string>
+    <string name="internet_valid">Please Check User InterNet Connection</string>
+
+</resources>

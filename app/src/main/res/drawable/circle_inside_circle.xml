@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/timer_logo_out"/>
+            <size
+                android:width="@dimen/_25sdp"
+                android:height="@dimen/_25sdp"/>
+        </shape>
+    </item>
+    <!-- Larger blue circle in back -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/white"/>
+            <stroke android:color="@android:color/transparent"
+                android:width="@dimen/_2sdp"/>
+
+            <size
+                android:width="@dimen/_15sdp"
+                android:height="@dimen/_15sdp"/>
+        </shape>
+    </item>
+    <!-- Smaller red circle in front -->
+    <item>
+        <shape android:shape="oval">
+            <!-- transparent stroke = larger_circle_size - smaller_circle_size -->
+            <stroke android:color="@android:color/transparent"
+                android:width="@dimen/_4sdp"/>
+            <solid android:color="@color/timer_logo"/>
+            <size
+                android:width="@dimen/_10sdp"
+                android:height="@dimen/_10sdp"/>
+        </shape>
+    </item>
+</layer-list>

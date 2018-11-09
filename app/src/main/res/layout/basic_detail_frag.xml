@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user_Profile.Basic_detail_frag">
+
+    <include
+        android:id="@+id/toolbar_basic"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_basic">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/parentShowImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:orientation="horizontal">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/parent_profile_pic"
+                    android:layout_width="@dimen/_92sdp"
+                    android:layout_height="@dimen/_92sdp"
+                    android:layout_marginLeft="@dimen/_110sdp"
+                    android:background="@drawable/tab1"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@mipmap/large_logo"
+                    app:civ_circle_background_color="@color/tab1_color" />
+
+
+                <ImageView
+                    android:id="@+id/user_select_profile"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/_minus24sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:src="@mipmap/upload_image" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/parentShowImage"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/parent_name_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_26sdp"
+
+                    android:text="@string/child_name"
+                    android:textColor="@color/light_purple"
+                    android:textSize="@dimen/_13sdp" />
+
+                <EditText
+                    android:id="@+id/ed_parent_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:padding="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/button_with_border"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:hint="@string/name"
+                    android:inputType="textPersonName" />
+
+                <TextView
+                    android:id="@+id/relation_parent_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:text="@string/relation"
+                    android:textColor="@color/light_purple"
+                    android:textSize="@dimen/_13sdp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginBottom="@dimen/_28sdp"
+                    android:background="@color/white">
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="@dimen/_250sdp"
+                        android:layout_height="@dimen/_50sdp"
+                        android:layout_gravity="center_horizontal"
+
+                        android:background="@drawable/button_with_border" />
+
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_minus30sdp"
+                        android:src="@drawable/sppiner_bg" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/parent_mail_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_minus10sdp"
+                    android:text="@string/email_name"
+                    android:textColor="@color/light_purple"
+                    android:textSize="@dimen/_13sdp" />
+
+                <EditText
+                    android:id="@+id/parent_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_marginEnd="@dimen/_30sdp"
+                    android:padding="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/button_with_border"
+                    android:enabled="false"
+                    android:ems="10"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:inputType="textEmailAddress" />
+
+                <Button
+                    android:id="@+id/add_parent_btn_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_45sdp"
+                    android:layout_marginEnd="@dimen/_45sdp"
+                    android:padding="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:background="@drawable/button_backgrond"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:lineSpacingExtra="@dimen/_12sdp"
+                    android:text="@string/ok"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_23sdp" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

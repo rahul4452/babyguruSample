@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/_30sdp"
+    android:layout_marginStart="@dimen/_30sdp">
+
+    <TextView
+        android:id="@+id/txt_4_alert"
+        android:layout_width="@dimen/_179sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_45sdp"
+        android:gravity="center_vertical|center_horizontal"
+        android:lineSpacingExtra="@dimen/_4sdp"
+        android:padding="@dimen/_4sdp"
+        android:text="@string/cry_dia_3_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_back_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/ic_arrow_back_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_4_alert"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002" />
+
+    <Button
+        android:id="@+id/consis_btn"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_68sdp"
+        android:background="@drawable/alert_bg"
+        android:gravity="center_horizontal|center_vertical"
+        android:lineSpacingExtra="@dimen/_12sdp"
+        android:text="consistent"
+        android:textAllCaps="false"
+        android:textColor="@color/select_chiild"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintBottom_toTopOf="@+id/inconsis"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_4_alert"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/inconsis"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_54sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:background="@drawable/guru_contact"
+        android:gravity="center_horizontal|center_vertical"
+        android:lineSpacingExtra="@dimen/_12sdp"
+        android:text="inconsistent"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

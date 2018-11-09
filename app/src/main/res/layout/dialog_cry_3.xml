@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_12sdp">
+
+    <TextView
+        android:id="@+id/txt_4_alert"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:gravity="center_vertical|center_horizontal"
+        android:lineSpacingExtra="@dimen/_4sdp"
+        android:padding="@dimen/_4sdp"
+        android:text="@string/cry_dia_3_1"
+        app:layout_constraintBottom_toTopOf="@+id/guideline67"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39" />
+
+    <TextView
+        android:id="@+id/txt_cry_alert_2"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_9sdp"
+        android:layout_marginEnd="@dimen/_68sdp"
+        android:layout_marginStart="@dimen/_68sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/bef_list_1_text"
+        android:gravity="center_horizontal|center_vertical"
+        android:lineSpacingExtra="@dimen/_4sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_18sdp"
+        android:paddingLeft="@dimen/_12sdp"
+        android:paddingTop="@dimen/_18sdp"
+        android:text="@string/cry_dia_3"
+        app:layout_constraintBottom_toTopOf="@+id/btn_alert_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline67"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_alert_1"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/guru_contact"
+        android:gravity="center_horizontal|center_vertical"
+        android:lineSpacingExtra="@dimen/_12sdp"
+        android:text="@string/ok"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline66" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline66"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/_342sdp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline67"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="200dp" />
+
+    <TextView
+        android:id="@+id/level_4_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/ic_arrow_back_black_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_cry_alert_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.060000002" />
+
+</android.support.constraint.ConstraintLayout>

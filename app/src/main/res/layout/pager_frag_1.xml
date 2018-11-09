@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_10sdp"
+
+    tools:context=".view_pager_frag.Pager_frag_1">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/outer_tv"
+        android:layout_width="@dimen/_205sdp"
+        android:layout_height="@dimen/_105sdp"
+        android:layout_marginBottom="@dimen/_13sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_13sdp"
+        android:background="@drawable/pager_frag_back"
+        android:gravity="center_vertical|center_horizontal"
+        android:lineSpacingExtra="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_30sdp"
+        android:textColor="@color/pager_txt_color"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pager_inner_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textColor="@color/tab4_color"
+        android:gravity="center_horizontal|center_vertical"
+        android:padding="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/outer_tv"
+        app:layout_constraintEnd_toEndOf="@+id/outer_tv"
+        app:layout_constraintStart_toStartOf="@+id/outer_tv"
+        app:layout_constraintTop_toTopOf="@+id/outer_tv" />
+
+
+</android.support.constraint.ConstraintLayout>

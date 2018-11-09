@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <stroke android:width="@dimen/_1sdp" android:color="@color/tab3_color" />
+                    <solid android:color="@color/tab3_color" />
+                    <size android:width="@dimen/_32sdp"
+                        android:height="@dimen/_32sdp"/>
+
+                </shape>
+            </item>
+            <item android:drawable="@drawable/play"></item>
+        </layer-list>
+    </item>
+</selector>

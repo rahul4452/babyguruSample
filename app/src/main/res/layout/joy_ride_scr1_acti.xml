@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_purple"
+    tools:context=".joyride_screen.JoyRide_scr1">
+
+  <VideoView
+      android:id="@+id/videoView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/light_purple"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/wetcome_txt"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/_30sdp"
+      android:text="welcome"
+      android:textColor="@color/white"
+      android:textSize="@dimen/_25sdp"
+      android:layout_marginBottom="@dimen/_10sdp"
+      app:layout_constraintBottom_toTopOf="@+id/see_txt"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/see_txt"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/_15sdp"
+      android:layout_marginStart="@dimen/_26sdp"
+      android:layout_marginEnd="@dimen/_26sdp"
+      android:layout_marginBottom="@dimen/_10sdp"
+      android:gravity="center_horizontal|center_vertical"
+      android:lineSpacingExtra="@dimen/_8sdp"
+      android:padding="@dimen/_6sdp"
+      android:text="See the video below to get started on the Pathway to responsive sleep"
+      android:textColor="@color/white"
+      android:textSize="@dimen/_13sdp"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintBottom_toTopOf="@id/close_image"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.506"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/wetcome_txt" />
+
+  <android.support.v7.widget.AppCompatImageView
+      android:id="@+id/close_image"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginTop="@dimen/_13sdp"
+      android:adjustViewBounds="true"
+      android:scaleType="centerInside"
+      app:layout_constraintBottom_toBottomOf="@+id/videoView"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/see_txt"
+      app:srcCompat="@drawable/joyride_new" />
+
+  <Button
+      android:id="@+id/get_start_btn"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/_65sdp"
+      android:layout_marginTop="8dp"
+      android:background="@drawable/joyride_footer"
+      android:gravity="center_horizontal|center_vertical"
+      android:text="skip"
+      android:textAllCaps="false"
+      android:textColor="@color/selet_child_inner"
+      android:textSize="@dimen/_25sdp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/close_image"
+      app:layout_constraintVertical_bias="1.0" />
+
+</android.support.constraint.ConstraintLayout>

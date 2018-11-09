@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pay_bg"
+    tools:context=".crying_scale.Crying_Scale">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/crying_toolbar"/>
+
+    <TextView
+        android:id="@+id/cry_txt1"
+        android:layout_width="@dimen/_278sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:lineSpacingExtra="@dimen/_3sdp"
+        android:padding="@dimen/_7sdp"
+        android:text="@string/crying_1"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crying_toolbar" />
+
+    <TextView
+        android:id="@+id/cry_txt2"
+        android:layout_width="@dimen/_190sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:gravity="center_vertical|center_horizontal"
+        android:lineSpacingExtra="@dimen/_4sdp"
+        android:padding="@dimen/_6sdp"
+        android:text="@string/crying_ques"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cry_txt1"/>
+
+    <TextView
+        android:id="@+id/cry_txt_chnge"
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:gravity="center_vertical|center_horizontal"
+        android:lineSpacingExtra="@dimen/_4sdp"
+        android:padding="@dimen/_6sdp"
+        android:text="@string/crying_ques"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline65"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline63"
+        app:layout_constraintVertical_bias="0.26" />
+
+
+    <Button
+        android:id="@+id/cry_done"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/guru_contact"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Done"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline65" />
+
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_65sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        app:rcBackgroundColor="@color/crying"
+        app:rcProgressColor="@color/tab4_color"
+        app:rcRadius="@dimen/_25sdp"
+        app:rcProgress="20"
+        app:rcReverse="false"
+        app:layout_constraintBottom_toTopOf="@+id/guideline63"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cry_txt2" />
+
+    <!--android:progressDrawable="@drawable/progress"-->
+
+    <ImageView
+        android:id="@+id/cry_lev_1"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_63sdp"
+        android:padding="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/cry_lev_2"
+        app:layout_constraintHorizontal_bias="0.27"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.59000003"
+        app:srcCompat="@drawable/cry_baby_level_1" />
+
+    <ImageView
+        android:id="@+id/cry_lev_2"
+        android:layout_width="@dimen/_57sdp"
+        android:layout_height="@dimen/_63sdp"
+        android:padding="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/cry_lev_3"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:srcCompat="@drawable/cry_baby_level_2" />
+
+    <ImageView
+        android:id="@+id/cry_lev_3"
+        android:layout_width="@dimen/_57sdp"
+        android:layout_height="@dimen/_63sdp"
+        android:padding="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/cry_lev_4"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:srcCompat="@drawable/cry_baby_level_3" />
+
+    <ImageView
+        android:id="@+id/cry_lev_4"
+        android:layout_width="@dimen/_57sdp"
+        android:layout_height="@dimen/_63sdp"
+        android:padding="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toStartOf="@+id/cry_lev_5"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:srcCompat="@drawable/cry_baby_level_4" />
+
+    <ImageView
+        android:id="@+id/cry_lev_5"
+        android:layout_width="@dimen/_57sdp"
+        android:layout_height="@dimen/_63sdp"
+        android:padding="@dimen/_2sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:srcCompat="@drawable/cry_baby_level_5" />
+
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline63"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/_190sdp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/_90sdp" />
+
+
+</android.support.constraint.ConstraintLayout>

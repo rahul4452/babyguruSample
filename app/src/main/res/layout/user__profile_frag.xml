@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".user_Profile.User_Profile_frag">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_User"/>
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_User">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/detailEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/userDetailLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed">
+                <TextView
+                    android:id="@+id/userDetailTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:text="@string/details"
+                    android:textColor="@color/selet_child_inner"
+                    android:textSize="@dimen/_18sdp" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <Button
+                    android:id="@+id/detailEditParent"
+                    android:layout_width="@dimen/_95sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/child_btn_bg"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/userDetailLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/myChildrenTV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailEdit"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:layout_editor_absoluteY="58dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/parent_profile_pic"
+                    android:layout_width="@dimen/_72sdp"
+                    android:layout_height="@dimen/_72sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:background="@drawable/tab1"
+                    android:src="@mipmap/large_logo"
+                    app:civ_circle_background_color="@color/tab1_color" />
+
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="183dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/parentNameTv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_11sdp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:gravity="start|center_vertical"
+                        android:textSize="@dimen/_16sdp" />
+
+                    <TextView
+                        android:id="@+id/parentRelationTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_3sdp"
+                        android:textColor="@color/light_purple"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/parentEmailTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:textSize="@dimen/_13sdp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/myChildrenTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:text="my Children"
+                android:textColor="@color/selet_child_inner"
+                android:textSize="@dimen/_18sdp"
+
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/userDetailLayout"
+                app:layout_constraintVertical_bias="0.666" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_6sdp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/myChildrenTV"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/childPicInUser"
+                        android:layout_width="@dimen/_92sdp"
+                        android:layout_height="@dimen/_92sdp"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:background="@drawable/tab1"
+                        android:src="@mipmap/large_logo"
+                        app:civ_circle_background_color="@color/tab1_color" />
+
+                    <ImageView
+                        android:id="@+id/addChildFromUser"
+                        android:layout_width="@dimen/_75sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:visibility="visible"
+                        android:src="@drawable/select_child_bg1"
+                        app:layout_constraintBottom_toTopOf="@+id/child1_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/selct_your"
+                        />
+                    <TextView
+                        android:id="@+id/addFirstChildTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:textSize="@dimen/_11sdp"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/secondChildLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/secondChildPicInUser"
+                        android:layout_width="@dimen/_92sdp"
+                        android:layout_height="@dimen/_92sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:background="@drawable/tab1"
+                        android:visibility="gone"
+                        android:src="@mipmap/large_logo"
+                        app:civ_circle_background_color="@color/tab1_color" />
+
+                    <ImageView
+                        android:id="@+id/addSecondChildFromUser"
+                        android:layout_width="@dimen/_75sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_1sdp"
+                        android:layout_marginEnd="@dimen/_8sdp"
+                        android:visibility="gone"
+                        android:src="@drawable/select_child_bg1"
+                        app:layout_constraintBottom_toTopOf="@+id/child1_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/selct_your"
+                        />
+                    <TextView
+                        android:id="@+id/secondChildName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        android:padding="@dimen/_3sdp"
+                        android:textSize="@dimen/_11sdp"
+                        android:gravity="center"
+                        android:layout_gravity="center_horizontal"/>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/inviteIcon"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/invite_icon" />
+                    <TextView
+                        android:id="@+id/txtInvite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:paddingBottom="@dimen/_2sdp"
+                        android:text="@string/add_child"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:textSize="@dimen/_11sdp"
+                        android:gravity="center"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_1sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_52sdp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintVertical_chainStyle="packed">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp">
+
+                    <TextView
+                        android:id="@+id/chngPwdTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/selet_child_inner"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Button
+                            android:id="@+id/chngPwdBtn"
+                        android:layout_width="@dimen/_95sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:textColor="@color/black"
+                        android:background="@drawable/child_btn_bg"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_1sdp">
+
+                    <TextView
+                        android:id="@+id/contactUsTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/selet_child_inner"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/contactUsBtn"
+                        android:layout_width="@dimen/_95sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:background="@drawable/child_btn_bg"
+                        android:src="@mipmap/mail_user"
+                        android:text="Button" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_1sdp">
+
+                    <TextView
+                        android:id="@+id/legalAgreeTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/selet_child_inner"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/legalAgreeBtn"
+                        android:layout_width="@dimen/_95sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:background="@drawable/child_btn_bg"
+                        android:src="@mipmap/copy_user"
+                        android:text="Button" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_1sdp">
+
+                    <TextView
+                        android:id="@+id/logoutTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/selet_child_inner"
+                        android:textSize="@dimen/_15sdp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/logoutBtn"
+                        android:layout_width="@dimen/_95sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:background="@drawable/child_btn_bg"
+                        android:src="@mipmap/logout_user"
+                        android:text="Button" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/getUserProcessingPb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/scrollView3" />
+
+
+</android.support.constraint.ConstraintLayout>
