@@ -7,24 +7,17 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
@@ -36,10 +29,7 @@ import com.example.poplify.baby_guru_sample.rest.ApiInterface;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
-import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -94,6 +84,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 Intent main1 = new Intent(getApplicationContext(), MainActivity.class);
+                main1.putExtra("finish", true); // if you are checking for this in your other Activities
+                main1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(main1);
 
             }
@@ -201,7 +195,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 save.save("login_token", loginToken);
                                 save.save("login_email", loginEmail);
                                 Intent login = new Intent(getApplicationContext(), Bottom_tabs.class);
-                                login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                login.putExtra("finish", true); // if you are checking for this in your other Activities
+                                login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                        Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(login);
                                 finish();
                             }

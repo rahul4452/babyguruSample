@@ -60,10 +60,8 @@ dependencies {
     //Google Pay
     implementation 'com.google.android.gms:play-services-wallet:16.0.0'
 
-
     //Form Validation Library
     implementation 'com.basgeekball:awesome-validation:4.2'
-
 
     //Top SnackBar Library
     implementation 'com.androidadvance:topsnackbar:1.1.1'
@@ -77,8 +75,6 @@ dependencies {
 
     //Easy permission
     implementation 'pub.devrel:easypermissions:2.0.0'
-
-
 
 
 }

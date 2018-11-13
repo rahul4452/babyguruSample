@@ -80,6 +80,7 @@
         <activity android:name=".Testing_acti"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/Customtheme1">
+
         </activity>
 
         <activity android:name=".child_profile.Graph_child"

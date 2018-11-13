@@ -20,7 +20,7 @@ public class Graph_child extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("all"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager123);
+        final ViewPager viewPager = findViewById(R.id.pager123);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);

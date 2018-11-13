@@ -4,6 +4,7 @@ import com.example.poplify.baby_guru_sample.pojo.request.userRequest.OtpUser;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.OtpUserValid;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.ResetPassword;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.SignUpDetails;
+import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.GetUserDetails;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.LoginResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.SignUpDetailsRes;
@@ -77,5 +78,9 @@ public interface ApiInterface {
     @Headers({"Content-Type: application/json", "Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
     @POST("/update_password_details")
     Call<JsonObject> chnagePassword(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Body JsonObject chngepwd);
+
+    @Headers({"Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
+    @GET()
+    Call<BeforeYouStartResponse> getBeforeDetail(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Url String url);
 
 }

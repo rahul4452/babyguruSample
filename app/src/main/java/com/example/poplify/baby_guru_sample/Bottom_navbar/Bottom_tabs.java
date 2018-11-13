@@ -119,7 +119,8 @@ public class Bottom_tabs extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        this.finishAffinity();
+
+
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
         if (count == 0) {
@@ -136,7 +137,6 @@ public class Bottom_tabs extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener navlistener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
 
 
             navigationBackground(menuItem.getItemId());

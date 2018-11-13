@@ -74,7 +74,6 @@
     <string name="girl">Girl</string>
     <string name="tb_name">add child</string>
     <string name="add_child">Add Child</string>
-    
 
 
     <!--Select Child-->
@@ -244,7 +243,6 @@
 
     <string name="nameerror">Enter a valid name</string>
     <string name="emailerror">Enter a valid email</string>
-
 
 
     <string name="invalid_name">Please enter a valid Name</string>

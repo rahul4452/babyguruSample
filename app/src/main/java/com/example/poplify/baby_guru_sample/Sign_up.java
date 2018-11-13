@@ -114,7 +114,6 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
     public void onBackPressed() {
         super.onBackPressed();
 
-
     }
 
     private void init() {
@@ -136,6 +135,10 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 Intent main2 = new Intent(getApplicationContext(), MainActivity.class);
+                main2.putExtra("finish", true); // if you are checking for this in your other Activities
+                main2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                        Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(main2);
             }
         });
@@ -325,6 +328,10 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
                                 saveData.save("signToken", sendToken);
                                 saveData.save("email", headerEmail);
                                 Intent pay = new Intent(getApplicationContext(), Bottom_tabs.class);
+                                pay.putExtra("finish", true); // if you are checking for this in your other Activities
+                                pay.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                        Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(pay);
                                 finish();
                             }

@@ -20,6 +20,7 @@ import android.widget.VideoView;
 
 import com.example.poplify.baby_guru_sample.MainActivity;
 import com.example.poplify.baby_guru_sample.R;
+import com.example.poplify.baby_guru_sample.adapter.SaveData;
 
 import java.net.URI;
 
@@ -32,6 +33,7 @@ import java.net.URI;
     ImageView temp_image;
     MediaController mediaController;
     Button getStart_btn;
+    SaveData saveData;
      Uri uri;
      private int flag=1;
      private int stopPosition;
@@ -42,6 +44,7 @@ import java.net.URI;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.joy_ride_scr1_acti);
 
+        saveData = new SaveData(getApplicationContext());
 
         initJoyRider();
         setupUI();
@@ -49,6 +52,23 @@ import java.net.URI;
 
 
     }
+
+     @Override
+     protected void onStart() {
+
+         super.onStart();
+
+       /*  String checkJoy = saveData.getString("login_token");
+
+
+         if(!checkJoy.equals(null))
+         {
+             Intent home = new Intent(getApplicationContext(), MainActivity.class);
+             startActivity(home);
+             finish();
+         }*/
+
+     }
 
      @Override
      public void onWindowFocusChanged(boolean hasFocus) {

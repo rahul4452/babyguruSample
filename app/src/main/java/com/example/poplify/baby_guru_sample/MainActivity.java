@@ -12,12 +12,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
+import com.example.poplify.baby_guru_sample.adapter.SaveData;
+import com.example.poplify.baby_guru_sample.user_Profile.User_Profile_frag;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button btn_login,btn_sign;
     private static final String TAG = "MainActivity";
     ImageView blink;
     Typeface bold,regular,regularMon;
+    SaveData saveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +33,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         regularMon = Typeface.createFromAsset(getAssets(),"Montserrat-Regular.otf");
 
 
+        saveData = new SaveData(getApplicationContext());
+
+
         blink=findViewById(R.id.slide_up_view);
 
         //setting first welcome window
         btn_sign  = findViewById(R.id.sign_up);
+        //btn_sign.setVisibility(View.GONE);
         btn_sign.setOnClickListener(this);
         btn_login  = findViewById(R.id.login);
         btn_login.setOnClickListener(this);
+        //btn_login.setVisibility(View.GONE);
         btn_sign.setTypeface(regular);  //Comfortaa
         btn_login.setTypeface(regular); //Comfortaa
 
 
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+       /*String checkJoy = saveData.getString("login_token");
+
+
+        if(!checkJoy.equals(null))
+        {
+
+            Intent home = new Intent(getApplicationContext(), Bottom_tabs.class);
+            startActivity(home);
+            finish();
+        }
+        else {
+            btn_sign.setVisibility(View.VISIBLE);
+            btn_login.setVisibility(View.VISIBLE);
+        }*/
     }
 
     @Override
@@ -71,17 +101,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d(TAG, "onClick: askkldsaklsdnakl");
                 Intent sign = new Intent(getApplicationContext(), Sign_up.class);
                 startActivity(sign);
-                finish();
+                //finish();
                 break;
 
             case R.id.login:
                 Log.d(TAG, "onClick: askkldsaklsdnakl"+R.id.sign_up);
                 Intent log = new Intent(getApplicationContext(), Login.class);
                 startActivity(log);
-               // finish();
+                //finish();
                 break;
             default:
-                Toast.makeText(getApplicationContext(), "Selct button", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), "selectButton", Toast.LENGTH_LONG);
         }
     }
 
