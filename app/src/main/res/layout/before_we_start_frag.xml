@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_color"
     tools:context=".before_u_start.Before_we_start_frag">
+
     <include
         android:id="@+id/toolbar_we_start1"
         layout="@layout/toolbar" />
@@ -13,39 +14,109 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_we_start1">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <FrameLayout
                 android:id="@+id/relativeLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:background="@color/light_purple">
+                android:layout_height="match_parent"
+
+
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@drawable/before_we_start" />
+
                 <ImageView
                     android:layout_width="@dimen/_146sdp"
                     android:layout_height="@dimen/_146sdp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="@dimen/_minus41sdp"
                     android:src="@mipmap/large_logo"
-                    android:layout_marginBottom="@dimen/_4sdp"
                     android:visibility="visible" />
 
 
             </FrameLayout>
 
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/viewpagerLinear"
+                android:layout_width="match_parent"
+                android:layout_height="437dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_22sdp"
+                android:visibility="visible"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/let_start_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayoutBefore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginEnd="@dimen/_23sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+
+                    android:background="@drawable/child_btn_bg"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:theme="@style/Base.Widget.Design.TabLayout"
+                    app:layout_constraintBottom_toTopOf="@id/pagerForBefore"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pagerForBefore"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tabLayoutBefore" />
+            </android.support.constraint.ConstraintLayout>
 
 
+            <Button
+                android:id="@+id/let_start_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_43sdp"
+                android:layout_marginEnd="@dimen/_43sdp"
+                android:background="@drawable/let_start"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_19sdp"
+                android:gravity="center_vertical|center_horizontal"
+                android:padding="@dimen/_15sdp"
+                android:text="@string/let_start_btn"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewpagerLinear" />
 
-        </RelativeLayout>
+
+        </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

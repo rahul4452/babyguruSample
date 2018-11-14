@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:gravity="top">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/light_pink"/>
-            <corners android:bottomLeftRadius="@dimen/_240sdp"
-                android:bottomRightRadius="@dimen/_240sdp"/>
+    <item android:gravity="top"
+        android:top="@dimen/_minus60sdp"
+        android:left="@dimen/_minus6sdp"
+        android:right="@dimen/_minus6sdp"
+        android:bottom="@dimen/_minus2sdp"
+        >
+        <shape android:shape="oval">
+
+            <solid android:color="@color/light_purple"/>
+
         </shape>
 
     </item>

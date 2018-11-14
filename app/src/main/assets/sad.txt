@@ -1042,6 +1042,38 @@ asda
     </android.support.constraint.ConstraintLayout>
 
 
+===========================================
+
+<FrameLayout
+                android:id="@+id/relativeLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/tempsldf"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                app:layout_constraintVertical_chainStyle="spread">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:background="@drawable/before_we_start">
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/_146sdp"
+                    android:layout_height="@dimen/_146sdp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="@dimen/_minus41sdp"
+                    android:src="@mipmap/large_logo"
+                    android:visibility="visible" />
+
+
+            </FrameLayout>
+
 
                     ====================================
 
@@ -1077,57 +1109,64 @@ asda
                                     app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
 
                                     <FrameLayout
-                                        android:id="@+id/relativeLayout4"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                                    android:id="@+id/relativeLayout4"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="match_parent"
 
-                                        android:background="@drawable/before_we_start">
 
-                                        <ImageView
-                                            android:layout_width="@dimen/_146sdp"
-                                            android:layout_height="@dimen/_146sdp"
-                                            android:layout_gravity="center_horizontal"
-                                            android:layout_marginTop="@dimen/_2sdp"
-                                            android:layout_marginBottom="@dimen/_17sdp"
-                                            android:src="@mipmap/large_logo"
+                                                    android:background="@color/white"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toTopOf="parent">
 
-                                            android:visibility="visible" />
+                                                    <RelativeLayout
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="match_parent"
 
-                                        <View
-                                            android:layout_width="match_parent"
-                                            android:layout_height="@dimen/_40sdp"
-                                            android:layout_gravity="bottom"
-                                            android:layout_marginBottom="@dimen/_12sdp"
-                                            android:background="@color/white" />
+                                                        android:background="@drawable/before_we_start" />
 
-                                    </FrameLayout>
+                                                    <ImageView
+                                                        android:layout_width="@dimen/_146sdp"
+                                                        android:layout_height="@dimen/_146sdp"
+                                                        android:layout_gravity="bottom|center_horizontal"
+                                                        android:layout_marginBottom="@dimen/_minus41sdp"
+                                                        android:src="@mipmap/large_logo"
+                                                        android:visibility="visible" />
 
-                                    <LinearLayout
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="@dimen/_minus51sdp"
-                                        android:background="@color/white"
-                                        android:orientation="vertical"
-                                        android:paddingTop="@dimen/_26sdp"
-                                        android:visibility="visible">
 
-                                        <android.support.design.widget.TabLayout
-                                            android:id="@+id/tabLayoutBefore"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginStart="@dimen/_38sdp"
-                                            android:layout_marginTop="@dimen/_10sdp"
-                                            android:layout_marginEnd="@dimen/_38sdp"
-                                            android:background="@drawable/child_btn_bg"
-                                            android:theme="@style/Base.Widget.Design.TabLayout" />
+                                                </FrameLayout>
 
-                                        <android.support.v4.view.ViewPager
-                                            android:id="@+id/pagerForBefore"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_below="@id/tab_layout"
-                                            android:layout_marginTop="@dimen/_10sdp" />
-                                    </LinearLayout>
+                                     <LinearLayout
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginStart="8dp"
+                                                    android:layout_marginTop="8dp"
+                                                    android:layout_marginEnd="8dp"
+                                                    android:background="@color/white"
+                                                    android:orientation="vertical"
+                                                    android:paddingTop="@dimen/_26sdp"
+                                                    android:visibility="visible"
+                                                    app:layout_constraintEnd_toEndOf="parent"
+                                                    app:layout_constraintStart_toStartOf="parent"
+                                                    app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
+                                                    <android.support.design.widget.TabLayout
+                                                        android:id="@+id/tabLayoutBefore"
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_marginStart="@dimen/_38sdp"
+                                                        android:layout_marginTop="@dimen/_10sdp"
+                                                        android:layout_marginEnd="@dimen/_38sdp"
+                                                        android:background="@drawable/child_btn_bg"
+                                                        android:theme="@style/Base.Widget.Design.TabLayout" />
+
+                                                    <android.support.v4.view.ViewPager
+                                                        android:id="@+id/pagerForBefore"
+                                                        android:layout_width="match_parent"
+                                                        android:layout_height="wrap_content"
+                                                        android:layout_below="@id/tab_layout"
+                                                        android:layout_marginTop="@dimen/_10sdp" />
+                                                </LinearLayout>
 
 
                                 </LinearLayout>
@@ -1162,3 +1201,19 @@ asda
                                         android:textColor="@color/white"
                                         android:textSize="@dimen/_15sdp" />
                                 </LinearLayout>
+
+
+
+<item android:gravity="top"
+        android:top="@dimen/_minus60sdp"
+        android:left="@dimen/_minus2sdp"
+        android:right="@dimen/_minus2sdp"
+        android:bottom="@dimen/_minus2sdp"
+        >
+        <shape android:shape="oval">
+
+            <solid android:color="@color/light_purple"/>
+
+        </shape>
+
+    </item>

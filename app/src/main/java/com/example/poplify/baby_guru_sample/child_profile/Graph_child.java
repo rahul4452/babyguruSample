@@ -14,7 +14,7 @@ public class Graph_child extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph_child_child);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("today"));
 
         tabLayout.addTab(tabLayout.newTab().setText("all"));

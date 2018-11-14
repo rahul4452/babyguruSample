@@ -1,9 +1,10 @@
 package com.example.poplify.baby_guru_sample.pojo.response.childResponse;
 
+import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-public class BeforeYouStartResponse {
+public class BeforeYouStartResponse  implements Serializable {
 
     @SerializedName("has_child")
     @Expose
@@ -126,7 +127,7 @@ public class BeforeYouStartResponse {
         return this;
     }
 
-    public class BeforeYouStart {
+    public class BeforeYouStart implements Serializable {
 
         @SerializedName("title")
         @Expose
@@ -215,8 +216,7 @@ public class BeforeYouStartResponse {
 
     }
 
-
-    public class Buttons {
+    public class Buttons implements Serializable {
 
         @SerializedName("proceed_to_go")
         @Expose
@@ -503,7 +503,7 @@ public class BeforeYouStartResponse {
 
     }
 
-    public class Detail {
+    public class Detail implements Serializable{
 
         @SerializedName("id")
         @Expose
@@ -574,7 +574,7 @@ public class BeforeYouStartResponse {
 
     }
 
-    public class Footer {
+    public class Footer implements Serializable{
 
         @SerializedName("label")
         @Expose
@@ -627,7 +627,7 @@ public class BeforeYouStartResponse {
 
     }
 
-    public class GuruTips {
+    public class GuruTips implements Serializable {
 
         @SerializedName("description")
         @Expose
@@ -680,7 +680,7 @@ public class BeforeYouStartResponse {
 
     }
 
-    public class Header {
+    public class Header implements Serializable {
 
         @SerializedName("choose_method")
         @Expose
@@ -805,7 +805,7 @@ public class BeforeYouStartResponse {
 
     }
 
-    public class Labels {
+    public class Labels implements  Serializable{
 
         @SerializedName("self_settling_timer")
         @Expose
@@ -858,7 +858,7 @@ public class BeforeYouStartResponse {
 
     }
 
-    public class MainContent {
+    public class MainContent implements Serializable {
 
         @SerializedName("id")
         @Expose
@@ -929,7 +929,7 @@ public class BeforeYouStartResponse {
 
     }
 
-    public class SleepCoachingLabels {
+    public class SleepCoachingLabels implements Serializable {
 
         @SerializedName("header")
         @Expose
