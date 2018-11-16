@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
 import com.example.poplify.baby_guru_sample.MainActivity;
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
@@ -58,12 +59,12 @@ import java.net.URI;
 
          super.onStart();
 
-       /*  String checkJoy = saveData.getString("login_token");
+      /*  String checkJoy = saveData.getString("login_token");
 
 
          if(!checkJoy.equals(null))
          {
-             Intent home = new Intent(getApplicationContext(), MainActivity.class);
+             Intent home = new Intent(getApplicationContext(), Bottom_tabs.class);
              startActivity(home);
              finish();
          }*/

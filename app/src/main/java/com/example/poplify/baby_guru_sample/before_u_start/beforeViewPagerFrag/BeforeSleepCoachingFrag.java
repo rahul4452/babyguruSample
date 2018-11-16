@@ -1,10 +1,14 @@
 package com.example.poplify.baby_guru_sample.before_u_start.beforeViewPagerFrag;
 
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +21,15 @@ import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.ExpandableListAdapt;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
 
+import org.xml.sax.XMLReader;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import br.tiagohm.markdownview.MarkdownView;
+import br.tiagohm.markdownview.css.styles.Github;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,9 +43,20 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
     HashMap<String, List<String>> listDataChild;
     private ImageView iv;
     private TextView it_also;
+    private Bundle bundle;
+    private String SERIALIZED_KEY = "before_you_start";
+    private MarkdownView markdownView;
 
     public BeforeSleepCoachingFrag() {
         // Required empty public constructor
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        bundle = getArguments();
+        beforeYouStart = (BeforeYouStartResponse.BeforeYouStart) bundle.getSerializable(SERIALIZED_KEY);
     }
 
 
@@ -47,14 +67,22 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
         View view = inflater.inflate(R.layout.before_sleep_coaching_frag, container, false);
 
         it_also = view.findViewById(R.id.its_also);
-        Bundle getData = getArguments();
+        markdownView = view.findViewById(R.id.markDownView);
+        markdownView.addStyleSheet(new Github());
 
-        beforeYouStart = (BeforeYouStartResponse.BeforeYouStart) getData.getSerializable("before_you_start");
-        it_also.setText(Html.fromHtml(beforeYouStart.getDescription()));
+            it_also.setText(beforeYouStart.getDescription());
+        //if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            markdownView.loadMarkdown(it_also.getText().toString());
+            //it_also.setText(Html.fromHtml(beforeYouStart.getDescription(), Html.FROM_HTML_MODE_LEGACY));
+        //} else {
+          //  it_also.setText(Html.fromHtml(beforeYouStart.getDescription(),null, new UlTagHandler()));
+        //}
+
+        //it_also.setText(Html.fromHtml(beforeYouStart.getDescription(),Html.FROM_HTML_SEPARATOR_LINE_BREAK_DIV));
         expListView = view.findViewById(R.id.lvexpand);
 
 
-       // setupExpendableList(view);
+        // setupExpendableList(view);
 
 
         return view;
@@ -63,9 +91,6 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
-
 
 
         prepareListData();
@@ -103,8 +128,6 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
         listDataChild = new HashMap<String, List<String>>();
 
 
-
-
         // Adding child data
         listDataHeader.add("Which method?");
         listDataHeader.add("What age can you start?");
@@ -132,5 +155,24 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
         listDataChild.put(listDataHeader.get(3), When_do);
         listDataChild.put(listDataHeader.get(4), Do_I_have);
 
+    }
+
+
+    public class UlTagHandler implements Html.TagHandler{
+        @Override
+        public void handleTag(boolean opening, String tag, Editable output,
+                              XMLReader xmlReader) {
+            if(tag.equals("ul") && !opening) output.append("\n");
+            if(tag.equals("li") && opening) output.append("\n \u25CB");
+
+
+            if(tag.equals("span")&& opening)
+            {
+                while (!opening)
+                {
+
+                }
+            }
+        }
     }
 }

@@ -2,9 +2,9 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:gravity="top"
         android:top="@dimen/_minus60sdp"
-        android:left="@dimen/_minus6sdp"
-        android:right="@dimen/_minus6sdp"
-        android:bottom="@dimen/_minus2sdp"
+        android:left="@dimen/_minus16sdp"
+        android:right="@dimen/_minus16sdp"
+        android:bottom="@dimen/_minus1sdp"
         >
         <shape android:shape="oval">
 

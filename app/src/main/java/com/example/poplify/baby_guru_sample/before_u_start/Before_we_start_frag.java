@@ -65,7 +65,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     BeforePagerAdapter beforePagerAdapter;
     private static final String TAG = "Before_we_start_frag";
     private BeforeYouStartResponse serverExistUser;
-    Bundle bundle = new Bundle();
+
     BeforeSleepCoachingFrag beforeSleepCoachingFrag = new BeforeSleepCoachingFrag();
 
 
@@ -74,16 +74,19 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.before_we_start_frag, container, false);
         fragmentManager = getActivity().getSupportFragmentManager();
-
-
         saveData = new SaveData(getContext());
-
-
+        initBefore(view);
+        setupBefore(view);
         callBeforeApi(view);
         // preparing list data
 
@@ -95,10 +98,6 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        initBefore(view);
-        setupBefore(view);
-
 
     }
 
@@ -161,43 +160,18 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
 
         //setting Toolbar Title
         tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());
-        bundle.putSerializable("before_you_start", serverExistUser.getBeforeYouStart());
-        beforeSleepCoachingFrag.setArguments(bundle);
-        setupTablayout();
 
-
-    }
-
-    private void initBefore(View view) {
-        //Setting fonts
-        regular = Typeface.createFromAsset(getResources().getAssets(), "Comfortaa_Regular.ttf");
-        regularMon = Typeface.createFromAsset(getResources().getAssets(), "Montserrat-Regular.otf");
-
-        //toolbar Title
-        tb_title_before = view.findViewById(R.id.toolbar_title);
-
-        //tb_title_before.setTextSize(12);
-        tb_title_before.setTypeface(regular);
-    }
-
-    private void setupBefore(View view) {
-
-
-        tabLayout = view.findViewById(R.id.tabLayoutBefore);
-        viewPager = view.findViewById(R.id.pagerForBefore);
-        start_btn = view.findViewById(R.id.let_start_btn);
-        //button click to go to select child
-        start_btn.setOnClickListener(this);
-    }
-
-    private void setupTablayout() {
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getSleepCoaching()));
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getGuruTips()));
 
+        setCustomFont();
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        beforePagerAdapter = new BeforePagerAdapter(fragmentManager, tabLayout.getTabCount());
+
+        beforePagerAdapter = new BeforePagerAdapter(fragmentManager, tabLayout.getTabCount(),serverExistUser);
+
         viewPager.setAdapter(beforePagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -216,6 +190,54 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
             }
         });
 
+
+       // setupTablayout();
+
+
+    }
+
+
+    public void setCustomFont() {
+
+        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+        int tabsCount = vg.getChildCount();
+
+        for (int j = 0; j < tabsCount; j++) {
+            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+
+            int tabChildsCount = vgTab.getChildCount();
+
+            for (int i = 0; i < tabChildsCount; i++) {
+                View tabViewChild = vgTab.getChildAt(i);
+                if (tabViewChild instanceof TextView) {
+                    //Put your font in assests folder
+                    //assign name of the font here (Must be case sensitive)
+                    ((TextView) tabViewChild).setTypeface(regularMon);
+                }
+            }
+        }
+    }
+    private void initBefore(View view) {
+        //Setting fonts
+        regular = Typeface.createFromAsset(getResources().getAssets(), "Comfortaa_Regular.ttf");
+        regularMon = Typeface.createFromAsset(getResources().getAssets(), "Montserrat-Regular.otf");
+
+        //toolbar Title
+        tb_title_before = view.findViewById(R.id.toolbar_title);
+
+        //tb_title_before.setTextSize(12);
+        tb_title_before.setTypeface(regular);
+    }
+
+    private void setupBefore(View view) {
+
+
+        tabLayout = view.findViewById(R.id.tabLayoutBefore);
+
+        viewPager = view.findViewById(R.id.pagerForBefore);
+       // start_btn = view.findViewById(R.id.let_start_btn);
+        //button click to go to select child
+        //start_btn.setOnClickListener(this);
     }
 
     //Checking which group is expanded and change the right indicator
@@ -241,7 +263,6 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void onClick(View view) {

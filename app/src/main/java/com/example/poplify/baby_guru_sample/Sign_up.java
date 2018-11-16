@@ -150,101 +150,15 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
 
     private void setupUI() {
         sign_name_txt = findViewById(R.id.sign_in_name);
-
         sign_mail_txt = findViewById(R.id.sign_in_mail);
-      /*  sign_mail_txt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                mailTxt = sign_mail_txt.getText().toString();
-                String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
-                if (mailTxt.matches(emailPattern) && s.length() > 0){
-                    validationTXT.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            validationTXT.setVisibility(View.VISIBLE);
-                            validationTXT.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),android.R.anim.fade_in));
-                            validationTXT.setText("Enter a Valid Email");
-                        }
-                    },4000);
-                    boolean focus = sign_mail_txt.requestFocus();
-                    if(focus) {
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                    }
-                }
-            }
-        });*/
-
         sign_pwd_txt = findViewById(R.id.sign_in_pwd);
-
-       /* sign_pwd_txt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if(!b)
-                {
-                    if (pwdTxt.length()<8){
-                        validationTXT.setText("Enter a Strong Password");
-                        if(validationTXT.getVisibility()==View.GONE) {
-                            slideToBottom(validationTXT);
-                        }
-                    }
-                }
-            }
-        });
-
-        sign_pwd_txt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                pwdTxt = sign_mail_txt.getText().toString();
-                if (pwdTxt.length()<8){
-                    validationTXT.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            validationTXT.setVisibility(View.VISIBLE);
-                            validationTXT.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(),android.R.anim.fade_in));
-                            validationTXT.setText("Enter a Strong Password");
-                        }
-                    },4000);
-                    boolean focus = sign_pwd_txt.requestFocus();
-                    if(focus) {
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-                    }
-                }
-            }
-        });*/
-
-
         sign_up_btn = findViewById(R.id.sign_up);
         sign_up_btn.setOnClickListener(this);
         sign_up_btn.setTypeface(regular);
-
-
         term_nd_condi.setTypeface(regularMon);
         sign_pwd_txt.setTypeface(regularMon);
         sign_mail_txt.setTypeface(regularMon);
-
         sign_name_txt.setTypeface(regularMon);
-
         babyImage = findViewById(R.id.signUpbaby);
         // babyImage.bringToFront();
 

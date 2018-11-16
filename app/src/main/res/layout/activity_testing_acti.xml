@@ -7,136 +7,113 @@
     android:background="@color/bg_color"
     tools:context=".before_u_start.Before_we_start_frag">
 
+    <include
+        android:id="@+id/toolbar_we_start1"
+        layout="@layout/toolbar" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_we_start1">
+
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/toolbarLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/relativeLayout4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <include
-                    android:id="@+id/toolbar_we_start1"
-                    layout="@layout/toolbar" />
-            </LinearLayout>
-
             <FrameLayout
                 android:id="@+id/relativeLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/toolbarLayout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/viewpagerLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:background="@drawable/before_we_start">
-
-            </FrameLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="92dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_horizontal"
-                app:layout_constraintBottom_toTopOf="@+id/btnlayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
-
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="@dimen/_186sdp"
-                    android:layout_height="@dimen/_186sdp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="@dimen/_minus40sdp"
-                    android:adjustViewBounds="true"
-                    app:srcCompat="@mipmap/large_logo" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/viewpagerLayout"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginBottom="@dimen/_50sdp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toTopOf="@+id/btnlayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
-
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabLayoutBefore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_38sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_38sdp"
-                    android:background="@drawable/child_btn_bg"
-                    android:theme="@style/Base.Widget.Design.TabLayout" />
-
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/pagerForBefore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tab_layout"
-                    android:layout_marginTop="@dimen/_10sdp" />
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                android:id="@+id/btnlayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/viewpagerLayout"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <Button
-                    android:id="@+id/let_start_btn"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/before_we_start">
+
+                    <ImageView
+                        android:layout_width="@dimen/_146sdp"
+                        android:layout_height="@dimen/_146sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginBottom="@dimen/_minus42sdp"
+                        android:src="@mipmap/large_logo"
+                        android:visibility="visible" />
+                </RelativeLayout>
+            </FrameLayout>
+
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/cord"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintBottom_toTopOf="@id/pagerForBefore"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+
+                <android.support.design.widget.AppBarLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_marginStart="@dimen/_40sdp"
-                    android:layout_marginEnd="@dimen/_40sdp"
-                    android:padding="@dimen/_15sdp"
-                    android:background="@drawable/let_start"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/let_start_btn"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_15sdp" />
-            </LinearLayout>
+                    android:fitsSystemWindows="true">
+
+                    <android.support.design.widget.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fitsSystemWindows="true"
+                        app:contentScrim="@color/light_pink"
+                        app:expandedTitleMarginEnd="64dp"
+                        app:expandedTitleMarginStart="48dp"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                        <android.support.design.widget.TabLayout
+                            android:id="@+id/tabLayoutBefore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_38sdp"
+                            android:layout_marginEnd="@dimen/_38sdp"
+                            android:background="@drawable/child_btn_bg"
+                            android:theme="@style/Base.Widget.Design.TabLayout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/graph_toolbar" />
+
+                    </android.support.design.widget.CollapsingToolbarLayout>
+                </android.support.design.widget.AppBarLayout>
+            </android.support.design.widget.CoordinatorLayout>
 
 
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pagerForBefore"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cord" />
 
         </android.support.constraint.ConstraintLayout>
 
-    </ScrollView>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
 </android.support.constraint.ConstraintLayout>

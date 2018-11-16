@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag">
 
+
+    <br.tiagohm.markdownview.MarkdownView
+        android:id="@+id/markDownView"
+        app:escapeHtml="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/its_also"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/_26sdp"
-        android:paddingStart="@dimen/_26sdp"
-
-        android:layout_marginTop="@dimen/_30sdp"
         android:layout_gravity="center_horizontal"
-        android:lineSpacingExtra="@dimen/_7sdp"
-        android:text="@string/It_is"
-        android:textSize="@dimen/_11sdp"
-        />
+        android:visibility="gone" />
 
 
     <com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView
         android:id="@+id/lvexpand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_20sdp"
         android:childDivider="@color/white"
         android:choiceMode="multipleChoice"
-        android:layout_marginTop="@dimen/_20sdp"
         android:divider="@color/white"
         android:groupIndicator="@null"
-        android:scrollbars="none"
-        android:layout_gravity="center_horizontal"
-        />
+        android:scrollbars="none" />
 </LinearLayout>
