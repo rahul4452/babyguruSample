@@ -7,113 +7,54 @@
     android:background="@color/bg_color"
     tools:context=".before_u_start.Before_we_start_frag">
 
-    <include
-        android:id="@+id/toolbar_we_start1"
-        layout="@layout/toolbar" />
-
-    <android.support.v4.widget.NestedScrollView
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/cord"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_we_start1">
+        app:layout_constraintStart_toStartOf="parent">
 
-
-        <android.support.constraint.ConstraintLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
 
-            <FrameLayout
-                android:id="@+id/relativeLayout4"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/before_we_start">
-
-                    <ImageView
-                        android:layout_width="@dimen/_146sdp"
-                        android:layout_height="@dimen/_146sdp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginBottom="@dimen/_minus42sdp"
-                        android:src="@mipmap/large_logo"
-                        android:visibility="visible" />
-                </RelativeLayout>
-            </FrameLayout>
-
-
-            <android.support.design.widget.CoordinatorLayout
-                android:id="@+id/cord"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                app:layout_constraintBottom_toTopOf="@id/pagerForBefore"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
-
-                <android.support.design.widget.AppBarLayout
+                <FrameLayout
+                    android:id="@+id/relativeLayout4"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fitsSystemWindows="true">
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <android.support.design.widget.CollapsingToolbarLayout
-                        android:id="@+id/collapsing_toolbar"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:fitsSystemWindows="true"
-                        app:contentScrim="@color/light_pink"
-                        app:expandedTitleMarginEnd="64dp"
-                        app:expandedTitleMarginStart="48dp"
-                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                        <android.support.design.widget.TabLayout
-                            android:id="@+id/tabLayoutBefore"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_38sdp"
-                            android:layout_marginEnd="@dimen/_38sdp"
-                            android:background="@drawable/child_btn_bg"
-                            android:theme="@style/Base.Widget.Design.TabLayout"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/graph_toolbar" />
-
-                    </android.support.design.widget.CollapsingToolbarLayout>
-                </android.support.design.widget.AppBarLayout>
-            </android.support.design.widget.CoordinatorLayout>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/before_we_start" >
+                        <ImageView
+                            android:layout_width="@dimen/_146sdp"
+                            android:layout_height="@dimen/_146sdp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="@dimen/_minus42sdp"
+                            android:src="@mipmap/large_logo"
+                            android:visibility="visible" />
+                    </RelativeLayout>
 
 
+                </FrameLayout>
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/pagerForBefore"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cord" />
-
-        </android.support.constraint.ConstraintLayout>
-
-
-    </android.support.v4.widget.NestedScrollView>
-
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
 </android.support.constraint.ConstraintLayout>
