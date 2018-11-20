@@ -82,7 +82,7 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
         expListView = view.findViewById(R.id.lvexpand);
 
 
-        // setupExpendableList(view);
+        setupExpendableList(view);
 
 
         return view;
@@ -93,12 +93,13 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
         super.onViewCreated(view, savedInstanceState);
 
 
-        prepareListData();
+
     }
 
     private void setupExpendableList(View view) {
 
 
+        prepareListData();
         listAdapter = new ExpandableListAdapt(getContext(), listDataHeader, listDataChild);
 
         // setting list adapter
@@ -158,21 +159,4 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
     }
 
 
-    public class UlTagHandler implements Html.TagHandler{
-        @Override
-        public void handleTag(boolean opening, String tag, Editable output,
-                              XMLReader xmlReader) {
-            if(tag.equals("ul") && !opening) output.append("\n");
-            if(tag.equals("li") && opening) output.append("\n \u25CB");
-
-
-            if(tag.equals("span")&& opening)
-            {
-                while (!opening)
-                {
-
-                }
-            }
-        }
-    }
 }

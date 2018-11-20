@@ -7,30 +7,41 @@
     android:orientation="vertical"
     tools:context=".before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag">
 
-
-    <br.tiagohm.markdownview.MarkdownView
-        android:id="@+id/markDownView"
-        app:escapeHtml="false"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <br.tiagohm.markdownview.MarkdownView
+                android:id="@+id/markDownView"
+                app:escapeHtml="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/its_also"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone" />
+            <TextView
+                android:id="@+id/its_also"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
 
 
-    <com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView
-        android:id="@+id/lvexpand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:childDivider="@color/white"
-        android:choiceMode="multipleChoice"
-        android:divider="@color/white"
-        android:groupIndicator="@null"
-        android:scrollbars="none" />
+            <com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView
+                android:id="@+id/lvexpand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:childDivider="@color/white"
+                android:choiceMode="multipleChoice"
+                android:divider="@color/white"
+                android:groupIndicator="@null"
+                android:scrollbars="none" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
 </LinearLayout>

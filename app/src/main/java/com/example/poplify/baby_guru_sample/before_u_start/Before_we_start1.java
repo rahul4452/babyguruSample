@@ -46,8 +46,8 @@ public class Before_we_start1 extends AppCompatActivity {
 
 
         //textview
-        it_also = findViewById(R.id.its_also);
-        it_also.setTypeface(regularMon);
+       // it_also = findViewById(R.id.its_also);
+        //it_also.setTypeface(regularMon);
 
         //expendable List
        start_btn = findViewById(R.id.let_start_btn);

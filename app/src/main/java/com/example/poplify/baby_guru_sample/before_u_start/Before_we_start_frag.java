@@ -1,50 +1,49 @@
 package com.example.poplify.baby_guru_sample.before_u_start;
 
 
+
+import android.animation.ObjectAnimator;
+import android.animation.StateListAnimator;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.example.poplify.baby_guru_sample.R;
-import com.example.poplify.baby_guru_sample.adapter.ExpandableListAdapt;
+
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.example.poplify.baby_guru_sample.before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
 import com.example.poplify.baby_guru_sample.rest.ApiClient;
 import com.example.poplify.baby_guru_sample.rest.ApiInterface;
-import com.example.poplify.baby_guru_sample.sleep_Timer.Timer_frag;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -236,6 +235,11 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         appBarLayout =  view.findViewById(R.id.app_bar_layout);
 
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            StateListAnimator stateListAnimator = new StateListAnimator();
+            stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(appBarLayout, "elevation", 0.1f));
+            appBarLayout.setStateListAnimator(stateListAnimator);
+        }
 
 
         //toolbar Title
