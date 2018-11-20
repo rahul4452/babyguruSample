@@ -1450,11 +1450,13 @@ asda
 
 
 
-        <FrameLayout
+     <FrameLayout
                       android:id="@+id/relativeLayout4"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"
+                      android:layout_marginTop="?attr/actionBarSize"
                       android:background="@color/white"
+                      app:layout_collapseMode="none"
                       app:layout_constraintEnd_toEndOf="parent"
                       app:layout_constraintStart_toStartOf="parent"
                       app:layout_constraintTop_toTopOf="parent">
@@ -1462,21 +1464,17 @@ asda
                       <RelativeLayout
                           android:layout_width="match_parent"
                           android:layout_height="match_parent"
-
                           android:background="@drawable/before_we_start" />
 
                       <ImageView
                           android:layout_width="@dimen/_146sdp"
                           android:layout_height="@dimen/_146sdp"
+
                           android:layout_gravity="bottom|center_horizontal"
                           android:layout_marginBottom="@dimen/_minus41sdp"
                           android:src="@mipmap/large_logo"
                           android:visibility="visible" />
-
-
                   </FrameLayout>
-
-
 
 
 

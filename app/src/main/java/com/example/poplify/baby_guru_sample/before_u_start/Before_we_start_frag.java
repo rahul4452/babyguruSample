@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -64,7 +66,9 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     SaveData saveData;
     BeforePagerAdapter beforePagerAdapter;
     private static final String TAG = "Before_we_start_frag";
-    private BeforeYouStartResponse serverExistUser;
+    private BeforeYouStartResponse serverExistUser1;
+    CollapsingToolbarLayout collapsingToolbarLayout ;
+    AppBarLayout appBarLayout;
 
     BeforeSleepCoachingFrag beforeSleepCoachingFrag = new BeforeSleepCoachingFrag();
 
@@ -115,7 +119,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
             public void onResponse(Call<BeforeYouStartResponse> call, Response<BeforeYouStartResponse> response) {
 
                 boolean success = response.isSuccessful();
-                serverExistUser = response.body();
+                serverExistUser1 = response.body();
 
                 if (!success) {
                     switch (response.code()) {
@@ -140,7 +144,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
                 } else {
 
                     // saveData.save("changePwd",serverExistUser.getUserLabels().getButtons().getChangePassword());
-                    setServerResponse(serverExistUser);
+                    setServerResponse(serverExistUser1);
 
                     Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
                 }
@@ -158,8 +162,12 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
 
     private void setServerResponse(BeforeYouStartResponse serverExistUser) {
 
+
+
+
+
         //setting Toolbar Title
-//        tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());
+        tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());
 
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getSleepCoaching()));
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getGuruTips()));
@@ -222,11 +230,19 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         regular = Typeface.createFromAsset(getResources().getAssets(), "Comfortaa_Regular.ttf");
         regularMon = Typeface.createFromAsset(getResources().getAssets(), "Montserrat-Regular.otf");
 
+        collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbar);
+        //collapsingToolbarLayout.setTitleEnabled(true);
+        //collapsingToolbarLayout.setTitle("Hello WOrld");
+        appBarLayout =  view.findViewById(R.id.app_bar_layout);
+
+
+
+
         //toolbar Title
         tb_title_before = view.findViewById(R.id.toolbar_title);
 
-        //tb_title_before.setTextSize(12);
-       // tb_title_before.setTypeface(regular);
+       // tb_title_before.setTextSize(12);
+        tb_title_before.setTypeface(regular);
     }
 
     private void setupBefore(View view) {
