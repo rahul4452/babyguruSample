@@ -11,49 +11,47 @@
         android:id="@+id/cord"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbar_we_start1"
+            layout="@layout/toolbar" />
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
+            <FrameLayout
+                android:id="@+id/relativeLayout4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:background="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll">
 
-                <FrameLayout
-                    android:id="@+id/relativeLayout4"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize"
-                    android:background="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/before_we_start">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/before_we_start" >
-                        <ImageView
-                            android:layout_width="@dimen/_146sdp"
-                            android:layout_height="@dimen/_146sdp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginBottom="@dimen/_minus42sdp"
-                            android:src="@mipmap/large_logo"
-                            android:visibility="visible" />
-                    </RelativeLayout>
+                    <ImageView
+                        android:layout_width="@dimen/_146sdp"
+                        android:layout_height="@dimen/_146sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/_minus42sdp"
+                        android:src="@mipmap/large_logo"
+                        android:visibility="visible" />
+                </RelativeLayout>
 
+            </FrameLayout>
 
-                </FrameLayout>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
     </android.support.design.widget.CoordinatorLayout>
 
