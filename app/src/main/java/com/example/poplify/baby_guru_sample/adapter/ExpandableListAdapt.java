@@ -72,7 +72,6 @@ public class ExpandableListAdapt implements ExpandableListAdapter {
     @Override
     public View getChildView(int i, int i1, boolean islastChild, View view, ViewGroup viewGroup) {
 
-
         String childtext = (String) getChild(i,i1);
         if(view == null)
         {
@@ -189,7 +188,6 @@ public class ExpandableListAdapt implements ExpandableListAdapter {
 
     @Override
     public Object getGroup(int i) {
-
         return this.list_header.get(i);
     }
 

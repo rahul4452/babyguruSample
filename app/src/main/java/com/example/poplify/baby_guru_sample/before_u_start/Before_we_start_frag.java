@@ -69,7 +69,6 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     CollapsingToolbarLayout collapsingToolbarLayout ;
     AppBarLayout appBarLayout;
 
-    BeforeSleepCoachingFrag beforeSleepCoachingFrag = new BeforeSleepCoachingFrag();
 
 
     public Before_we_start_frag() {
@@ -255,7 +254,8 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         tabLayout = view.findViewById(R.id.tabLayoutBefore);
 
         viewPager = view.findViewById(R.id.pagerForBefore);
-       // start_btn = view.findViewById(R.id.let_start_btn);
+        start_btn = view.findViewById(R.id.let_start_btn);
+        start_btn.setTypeface(regular);
         //button click to go to select child
         //start_btn.setOnClickListener(this);
     }
