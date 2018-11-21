@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.Html;
@@ -34,7 +35,7 @@ import br.tiagohm.markdownview.css.styles.Github;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
+public class BeforeSleepCoachingFrag extends Fragment {
 
     ExpandableListAdapt listAdapter;
     ExpandableListView expListView;
@@ -74,12 +75,15 @@ public class BeforeSleepCoachingFrag extends Fragment implements Serializable {
             markdownView.addStyleSheet(new Github());
             markdownView.loadMarkdown(beforeYouStart.getDescription());
             expListView = view.findViewById(R.id.lvexpand);
+
+
+            setupExpendableList(view);
         }catch (Exception e )
         {
          e.printStackTrace();
         }
 
-        setupExpendableList(view);
+
         return view;
     }
 

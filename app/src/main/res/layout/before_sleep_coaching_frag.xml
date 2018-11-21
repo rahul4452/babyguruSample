@@ -1,46 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     tools:context=".before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag">
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <br.tiagohm.markdownview.MarkdownView
+            android:id="@+id/markDownView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <br.tiagohm.markdownview.MarkdownView
-                android:id="@+id/markDownView"
-                app:escapeHtml="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+            app:escapeHtml="false" />
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView
-                    android:id="@+id/lvexpand"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:childDivider="@color/white"
-                    android:visibility="gone"
-                    android:choiceMode="multipleChoice"
-                    android:divider="@color/white"
-                    android:groupIndicator="@null"
-                    android:scrollbars="none" />
+        <com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView
+            android:id="@+id/lvexpand"
+            android:paddingBottom="@dimen/_60sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:choiceMode="singleChoice"
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+            android:childDivider="@color/white"
+            android:divider="@color/white"
+            android:groupIndicator="@null"
+            android:scrollbars="none"
+            android:visibility="visible" />
 
-        </LinearLayout>
+    </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.NestedScrollView>
 
 
-
-</LinearLayout>

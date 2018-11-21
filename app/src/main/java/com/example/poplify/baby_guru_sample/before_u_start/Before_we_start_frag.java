@@ -1,7 +1,6 @@
 package com.example.poplify.baby_guru_sample.before_u_start;
 
 
-
 import android.animation.ObjectAnimator;
 import android.animation.StateListAnimator;
 import android.graphics.Color;
@@ -66,9 +65,8 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     BeforePagerAdapter beforePagerAdapter;
     private static final String TAG = "Before_we_start_frag";
     private BeforeYouStartResponse serverExistUser1;
-    CollapsingToolbarLayout collapsingToolbarLayout ;
+    CollapsingToolbarLayout collapsingToolbarLayout;
     AppBarLayout appBarLayout;
-
 
 
     public Before_we_start_frag() {
@@ -90,6 +88,9 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         initBefore(view);
         setupBefore(view);
         callBeforeApi(view);
+
+
+
         // preparing list data
 
 
@@ -161,9 +162,6 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     private void setServerResponse(BeforeYouStartResponse serverExistUser) {
 
 
-
-
-
         //setting Toolbar Title
         tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());
 
@@ -173,7 +171,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         setCustomFont();
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        beforePagerAdapter = new BeforePagerAdapter(fragmentManager, tabLayout.getTabCount(),serverExistUser);
+        beforePagerAdapter = new BeforePagerAdapter(fragmentManager, tabLayout.getTabCount(), serverExistUser);
 
         viewPager.setAdapter(beforePagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -197,7 +195,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         });
 
 
-       // setupTablayout();
+        // setupTablayout();
 
 
     }
@@ -223,33 +221,35 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
             }
         }
     }
+
     private void initBefore(View view) {
+
         //Setting fonts
         regular = Typeface.createFromAsset(getResources().getAssets(), "Comfortaa_Regular.ttf");
         regularMon = Typeface.createFromAsset(getResources().getAssets(), "Montserrat-Regular.otf");
 
         collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbar);
-        //collapsingToolbarLayout.setTitleEnabled(true);
-        //collapsingToolbarLayout.setTitle("Hello WOrld");
-        appBarLayout =  view.findViewById(R.id.app_bar_layout);
+        appBarLayout = view.findViewById(R.id.app_bar_layout);
 
 
+        //********************************************************
+        //=========  Appbar layout hiding bottom shadow ==========
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             StateListAnimator stateListAnimator = new StateListAnimator();
             stateListAnimator.addState(new int[0], ObjectAnimator.ofFloat(appBarLayout, "elevation", 0.1f));
             appBarLayout.setStateListAnimator(stateListAnimator);
         }
 
-
+        //*********************************************************
         //toolbar Title
         tb_title_before = view.findViewById(R.id.toolbar_title);
 
-       // tb_title_before.setTextSize(12);
+        //*********************************************************
+        // tb_title_before.setTextSize(12);
         tb_title_before.setTypeface(regular);
     }
 
     private void setupBefore(View view) {
-
 
         tabLayout = view.findViewById(R.id.tabLayoutBefore);
 
