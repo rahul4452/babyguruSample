@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.text.Editable;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -41,11 +42,14 @@ public class BeforeSleepCoachingFrag extends Fragment {
     ExpandableListView expListView;
     BeforeYouStartResponse.BeforeYouStart beforeYouStart;
     List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    HashMap<String,List<String>>  listDataChild;
     private ImageView iv;
     private Bundle bundle;
     private String SERIALIZED_KEY = "before_you_start";
     private MarkdownView markdownView;
+    private List<BeforeYouStartResponse.Detail> beforeDetails;
+    private List<String> listChildData;
+
 
     public BeforeSleepCoachingFrag() {
         // Required empty public constructor
@@ -68,14 +72,15 @@ public class BeforeSleepCoachingFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.before_sleep_coaching_frag, container, false);
-
         markdownView = view.findViewById(R.id.markDownView);
 
         try{
             markdownView.addStyleSheet(new Github());
             markdownView.loadMarkdown(beforeYouStart.getDescription());
             expListView = view.findViewById(R.id.lvexpand);
-
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                ViewCompat.setNestedScrollingEnabled(expListView,true);
+//            }
 
             setupExpendableList(view);
         }catch (Exception e )
@@ -112,32 +117,60 @@ public class BeforeSleepCoachingFrag extends Fragment {
 
     private void prepareListData() {
         listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<String, List<String>>();
+        listChildData = new ArrayList<String>();
+        listDataChild = new HashMap<>();
 
-        // Adding child data
-        listDataHeader.add("Which method?");
-        listDataHeader.add("What age can you start?");
-        listDataHeader.add("When not to start?");
-        listDataHeader.add("When do I start?");
-        listDataHeader.add("Do I have to stay in forever for naps?");
+        try {
+            beforeDetails = beforeYouStart.getDetails();
 
-        // Adding child data
-        List<String> Which_method = new ArrayList<>();
-        Which_method.add("If your little one is under 6 months we always recommend Cuddle, Calm & Continue. Over the 6 months picking them up can sometimes over stimulate them and make it worse so see how your little one responds and follow the Respond, Reassure and Repeat if more appropriate.");
-        List<String> When_not = new ArrayList<>();
-        When_not.add("Group2");
-        List<String> What_age = new ArrayList<>();
-        What_age.add("Group3");
-        List<String> When_do = new ArrayList<>();
-        When_do.add("Group4");
-        List<String> Do_I_have = new ArrayList<>();
-        Do_I_have.add("Group5");
 
-        listDataChild.put(listDataHeader.get(0), Which_method); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), When_not);
-        listDataChild.put(listDataHeader.get(2), What_age);
-        listDataChild.put(listDataHeader.get(3), When_do);
-        listDataChild.put(listDataHeader.get(4), Do_I_have);
+            for (BeforeYouStartResponse.Detail detailList : beforeDetails)
+            {
+
+                listDataHeader.add(detailList.getQuestion());
+                listChildData.add(detailList.getAnswers());
+                listDataChild.put(listDataHeader.get(detailList.getId()),listChildData);
+
+                //listDataChild.put(listDataHeader.get(detailList.getId()),detailList.getAnswers())
+                //listDataChild.put(listDataHeader,detailList.getAnswers());
+            }
+
+
+
+
+            // Adding child data
+//        listDataHeader.add("Which method?");
+//        listDataHeader.add("What age can you start?");
+//        listDataHeader.add("When not to start?");
+//        listDataHeader.add("When do I start?");
+//        listDataHeader.add("Do I have to stay in forever for naps?");
+//
+//
+//
+//            // Adding child data
+//            List<String> Which_method = new ArrayList<>();
+//            Which_method.add("If your little one is under 6 months we always recommend Cuddle, Calm & Continue. Over the 6 months picking them up can sometimes over stimulate them and make it worse so see how your little one responds and follow the Respond, Reassure and Repeat if more appropriate.");
+//            List<String> When_not = new ArrayList<>();
+//            When_not.add("Group2");
+//            List<String> What_age = new ArrayList<>();
+//            What_age.add("Group3");
+//            List<String> When_do = new ArrayList<>();
+//            When_do.add("Group4");
+//            List<String> Do_I_have = new ArrayList<>();
+//            Do_I_have.add("Group5");
+//
+//
+//            listDataChild.put(listDataHeader.get(0), Which_method); // Header, Child data
+//            listDataChild.put(listDataHeader.get(1), When_not);
+//            listDataChild.put(listDataHeader.get(2), What_age);
+//            listDataChild.put(listDataHeader.get(3), When_do);
+//            listDataChild.put(listDataHeader.get(4), Do_I_have);
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
 }

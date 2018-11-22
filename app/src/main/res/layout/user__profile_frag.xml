@@ -87,6 +87,7 @@
                     android:layout_marginStart="@dimen/_25sdp"
                     android:background="@drawable/tab1"
                     android:src="@mipmap/large_logo"
+                    android:visibility="visible"
                     app:civ_circle_background_color="@color/tab1_color" />
 
 

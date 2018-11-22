@@ -256,7 +256,7 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         List<GetUserDetails.Relation> realtionList = serverExistUser.getRelations();
 
         for (GetUserDetails.Relation relation : realtionList) {
-                if (relation.getSelected().booleanValue() == true && tvParentRelation.getText() == "") {
+                if (relation.getSelected().equals(true) && tvParentRelation.getText() == "") {
                     tvParentRelation.setText(relation.getName());
                 } else {
                    Toast.makeText(getContext(),relation.getName(),Toast.LENGTH_SHORT);

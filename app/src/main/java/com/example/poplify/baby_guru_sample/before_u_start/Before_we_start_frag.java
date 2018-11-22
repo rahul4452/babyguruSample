@@ -33,7 +33,6 @@ import com.androidadvance.topsnackbar.TSnackbar;
 import com.example.poplify.baby_guru_sample.R;
 
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
-import com.example.poplify.baby_guru_sample.before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
 import com.example.poplify.baby_guru_sample.rest.ApiClient;
 import com.example.poplify.baby_guru_sample.rest.ApiInterface;
@@ -69,7 +68,8 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     AppBarLayout appBarLayout;
 
 
-    public Before_we_start_frag() {
+    public
+    Before_we_start_frag() {
         // Required empty public constructor
     }
 
@@ -179,18 +179,15 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
                 viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 

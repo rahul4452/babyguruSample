@@ -239,8 +239,8 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
                                     sendToken = token;
                                     headerEmail = getEmail;
                                 }
-                                saveData.save("signToken", sendToken);
-                                saveData.save("email", headerEmail);
+                                saveData.save("login_token", sendToken);
+                                saveData.save("login_email", headerEmail);
                                 Intent pay = new Intent(getApplicationContext(), Bottom_tabs.class);
                                 pay.putExtra("finish", true); // if you are checking for this in your other Activities
                                 pay.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |

@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".before_u_start.Before_we_start_frag">
-
-
     <include
         android:id="@+id/toolbar_we_start1"
         layout="@layout/toolbar" />
@@ -15,11 +13,13 @@
         android:id="@+id/cord"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:nestedScrollingEnabled="false"
         app:layout_constraintBottom_toTopOf="@id/letStartBtnLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_we_start1">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_we_start1"
+        tools:targetApi="lollipop">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar_layout"
@@ -53,21 +53,16 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:fillViewport="true"
-            android:visibility="visible"
-            app:layout_anchor="@id/app_bar_layout"
-            app:layout_anchorGravity="bottom|center_horizontal"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/white"
+                app:layout_anchor="@id/app_bar_layout"
+                app:layout_anchorGravity="bottom|center_horizontal"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:visibility="visible">
 
                 <android.support.design.widget.TabLayout
@@ -90,14 +85,16 @@
                     android:id="@+id/pagerForBefore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tabLayoutBefore" />
+                    app:layout_constraintTop_toBottomOf="@+id/tabLayoutBefore"
+                    />
             </android.support.constraint.ConstraintLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+
 
     </android.support.design.widget.CoordinatorLayout>
 

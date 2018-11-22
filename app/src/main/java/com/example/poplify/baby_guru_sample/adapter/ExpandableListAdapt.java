@@ -27,13 +27,16 @@ import com.example.poplify.baby_guru_sample.before_u_start.Before_we_start_frag;
 import java.util.HashMap;
 import java.util.List;
 
+import br.tiagohm.markdownview.MarkdownView;
+
 public class ExpandableListAdapt implements ExpandableListAdapter {
 
     private Context context;
     private List<String> list_header;
     private HashMap<String,List<String>> list_data_child;
-    Child_Viewholder child_viewholder;
+
     Group_Holder group_holder;
+    private MarkdownView txtListchild;
 
 
     public ExpandableListAdapt(Context context, List<String> list_header, HashMap<String, List<String>> list_data_child) {
@@ -55,17 +58,7 @@ public class ExpandableListAdapt implements ExpandableListAdapter {
     }
 
 
-    class Child_Viewholder{
-        private TextView txtListchild;
 
-        public TextView getTxtListchild() {
-            return txtListchild;
-        }
-
-        public void setTxtListchild(TextView txtListchild) {
-            this.txtListchild = txtListchild;
-        }
-    }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @SuppressLint("ResourceAsColor")
@@ -77,43 +70,47 @@ public class ExpandableListAdapt implements ExpandableListAdapter {
         {
             LayoutInflater inflate  = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view  = inflate.inflate(R.layout.list_item_child,null);
-            child_viewholder = new Child_Viewholder();
-            TextView txtListchild = view.findViewById(R.id.lblListitem);
-            child_viewholder.setTxtListchild(txtListchild);
+
+           txtListchild = view.findViewById(R.id.lblListitem);
+//            child_viewholder.setTxtListchild(txtListchild);
+
+
+            /////
+            Typeface regularMon = Typeface.createFromAsset(view.getResources().getAssets(),"Montserrat-Regular.otf");
+
+
+
+
+
+            //Using Holder  Class to maintain the efficency and flexibilty
+
+//            Child_Viewholder child_viewholder1 = (Child_Viewholder) view.getTag();
+
+            //Setting Resource
+
+            if(i%2==0)
+            {
+
+                txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_1_text));//pink
+            }
+            else if (i%3==0)
+            {
+                txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//green
+            }
+
+            else if (i%5==0){
+
+                txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//purple
+            }
+            else {
+               txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//yellow
+            }
+
+            txtListchild.loadMarkdown(childtext);
+
         }
 
-        Typeface regularMon = Typeface.createFromAsset(view.getResources().getAssets(),"Montserrat-Regular.otf");
 
-        view.setTag(child_viewholder);
-
-
-
-        //Using Holder  Class to maintain the efficency and flexibilty
-
-        Child_Viewholder child_viewholder1 = (Child_Viewholder) view.getTag();
-
-        //Setting Resource
-
-        if(i%2==0)
-        {
-
-            child_viewholder1.getTxtListchild().setBackground(context.getDrawable(R.drawable.bef_list_1_text));//pink
-        }
-        else if (i%3==0)
-        {
-            child_viewholder1.getTxtListchild().setBackground(context.getDrawable(R.drawable.bef_list_2_text));//green
-        }
-
-        else if (i%5==0){
-
-            child_viewholder1.getTxtListchild().setBackground(context.getDrawable(R.drawable.bef_list_2_text));//purple
-        }
-        else {
-            child_viewholder1.getTxtListchild().setBackground(context.getDrawable(R.drawable.bef_list_2_text));//yellow
-        }
-
-        child_viewholder1.getTxtListchild().setTypeface(regularMon);
-        child_viewholder1.getTxtListchild().setText(childtext);
         return view;
     }
 

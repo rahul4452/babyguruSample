@@ -59,15 +59,15 @@ import java.net.URI;
 
          super.onStart();
 
-        String checkJoy = saveData.getString("login_token");
-
-
-         if(!checkJoy.equals(null))
-         {
-             Intent home = new Intent(getApplicationContext(), Bottom_tabs.class);
-             startActivity(home);
-             finish();
-         }
+//        String checkJoy = saveData.getString("login_token");
+//
+//
+//         if(!checkJoy.equals(null))
+//         {
+//             Intent home = new Intent(getApplicationContext(), Bottom_tabs.class);
+//             startActivity(home);
+//             finish();
+//         }
 
      }
 
