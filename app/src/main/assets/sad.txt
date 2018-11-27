@@ -1543,3 +1543,203 @@ asda
                                 app:layout_constraintGuide_end="1dp" />
 
                         </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+                  public ExpandableListAdapt(Context context, List<String> list_header, HashMap<String, List<String>> list_data_child) {
+                         this.context = context;
+                         this.list_header = list_header;
+                         this.list_data_child = list_data_child;
+
+                     }
+
+                     @Override
+                     public Object getChild(int i, int i1) {
+                         return this.list_data_child.get(this.list_header.get(i)).get(i1);
+                     }
+
+
+                     @Override
+                     public int getChildrenCount(int i) {
+                         return this.list_data_child.get(this.list_header.get(i)).size();
+                     }
+
+
+
+                     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                     @SuppressLint("ResourceAsColor")
+                     @Override
+                     public View getChildView(int i, int i1, boolean islastChild, View view, ViewGroup viewGroup) {
+
+
+
+
+
+                             String childtext = (String) getChild(i,i1);
+                             LayoutInflater inflate  = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                             view  = inflate.inflate(R.layout.list_item_child,null);
+
+                             MarkdownView txtListchild = view.findViewById(R.id.lblListitem);
+
+                             if(i%2==0)
+                             {
+
+                                 txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_1_text));//pink
+                             }
+                             else if (i%3==0)
+                             {
+                                 txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//green
+                             }
+
+                             else if (i%5==0){
+
+                                 txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//purple
+                             }
+                             else {
+                                 txtListchild.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//yellow
+                             }
+
+                             txtListchild.loadMarkdown(childtext);
+
+                         //Setting Resource
+
+
+                         return view;
+                     }
+
+                     @Override
+                     public long getChildId(int i, int i1) {
+                         return i1;
+                     }
+
+
+                     class Group_Holder{
+                         private TextView txtlistHeader;
+
+                         public TextView getTxtlistHeader() {
+                             return txtlistHeader;
+                         }
+
+                         public void setTxtlistHeader(TextView txtlistHeader) {
+                             this.txtlistHeader = txtlistHeader;
+                         }
+                     }
+
+
+
+                     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                     @Override
+                     public View getGroupView(int i, boolean b, View Rootview, ViewGroup viewGroup) {
+
+
+                         String headTitle = (String) getGroup(i);
+
+                             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                             Rootview = inflater.inflate(R.layout.list_group,null);
+
+                             TextView txtlistHeader =  Rootview.findViewById(R.id.lblListheader);
+                             Typeface regularMon = Typeface.createFromAsset(Rootview.getResources().getAssets(),"Montserrat-Regular.otf");
+
+
+                             if(i%2==0)
+                             {
+                                 txtlistHeader.setBackground(context.getDrawable(R.drawable.bef_list_1_head));//pink
+                             }
+                             else if (i%3==0)
+                             {
+                                 txtlistHeader.setBackground(context.getDrawable(R.drawable.bef_list_2_head));//green
+                             }
+                             else if (i%5==0){
+                                 txtlistHeader.setBackground(context.getDrawable(R.drawable.bef_list_3_head));//purple
+                             }
+                             else {
+                                 txtlistHeader.setBackground(context.getDrawable(R.drawable.bef_list_4_head));//yellow
+                             }
+                             txtlistHeader.setTypeface(regularMon);
+                             txtlistHeader.setText(headTitle);
+
+
+                         return Rootview;
+                     }
+
+
+
+                     @Override
+                     public Object getGroup(int i) {
+
+                         return this.list_header.get(i);
+                     }
+
+                     @Override
+                     public void registerDataSetObserver(DataSetObserver dataSetObserver) {
+
+                     }
+
+                     @Override
+                     public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
+
+                     }
+
+                     @Override
+                     public int getGroupCount() {
+                         return this.list_header.size();
+                     }
+
+
+                     @Override
+                     public long getGroupId(int i) {
+                         return i;
+                     }
+
+
+
+                     @Override
+                     public boolean hasStableIds() {
+                         return false;
+                     }
+
+
+                     @Override
+                     public boolean isChildSelectable(int i, int i1) {
+                         return true;
+                     }
+
+
+                     @Override
+                     public boolean areAllItemsEnabled() {
+                         return false;
+                     }
+
+                     @Override
+                     public boolean isEmpty() {
+                         return false;
+                     }
+
+
+                     @Override
+                     public void onGroupExpanded(int i) {
+
+                         //isExpanded=true;
+
+                     }
+
+                     @Override
+                     public void onGroupCollapsed(int i) {
+                         //isExpanded=false;
+                     }
+
+                     @Override
+                     public long getCombinedChildId(long l, long l1) {
+                         return 0;
+                     }
+
+                     @Override
+                     public long getCombinedGroupId(long l) {
+                         return 0;
+                     }

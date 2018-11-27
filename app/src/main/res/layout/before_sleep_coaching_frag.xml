@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     tools:context=".before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag"
     >
 
@@ -21,17 +20,17 @@
 
         <com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView
             android:id="@+id/lvexpand"
-            android:paddingBottom="@dimen/_60sdp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:choiceMode="singleChoice"
-
+            android:layout_marginBottom="@dimen/_65sdp"
             android:childDivider="@color/white"
+            android:choiceMode="singleChoice"
+            android:nestedScrollingEnabled="true"
             android:divider="@color/white"
             android:groupIndicator="@null"
-            android:scrollbars="none"
-            android:visibility="visible" />
+            android:scrollbars="vertical"
+            tools:targetApi="lollipop" />
 
     </LinearLayout>
 

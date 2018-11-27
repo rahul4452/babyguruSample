@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.example.poplify.baby_guru_sample.Login;
 import com.example.poplify.baby_guru_sample.R;
-import com.example.poplify.baby_guru_sample.before_u_start.Before_we_start1;
+
 import com.example.poplify.baby_guru_sample.before_u_start.Before_we_start_frag;
 
 import butterknife.ButterKnife;

@@ -11,7 +11,8 @@
         android:id="@+id/lblListitem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_with_border"
+        android:layout_marginStart="@dimen/_18sdp"
+        android:layout_marginEnd="@dimen/_18sdp"
         app:escapeHtml="false" />
 
 </LinearLayout>

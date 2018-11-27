@@ -55,11 +55,11 @@ import static com.example.poplify.baby_guru_sample.forgot_pwd.Forgot_pwd.fragmen
 public class User_Profile_frag extends Fragment implements View.OnClickListener {
 
 
-    Typeface regular, regularMon;
-    TextView detailTextView, tvParentName, tvParentRelation, tvParentEmail, tvMyChildren, tvChngePwd,
+    private Typeface regular, regularMon;
+    private TextView detailTextView, tvParentName, tvParentRelation, tvParentEmail, tvMyChildren, tvChngePwd,
             tvContactUs, tvLegalArgu, tvLogoutUser, tvFirstChildName, tvSecondChildName, tvInvite;
-    Button editDetailbtn, chngePwdBtn;
-    SaveData saveData;
+    private Button editDetailbtn, chngePwdBtn;
+    private SaveData saveData;
     FragmentManager fragmentManager;
     ProgressBar progressBar;
     ImageView addFirstChildIV, addSecondChildIV, inviteIconIV;
@@ -67,11 +67,9 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
     ImageButton btnContactUs, btnLegalAgree, btnLogout;
     CircleImageView parentImage, firstChildImage, secondChildImage;
     private GetUserDetails serverExistUser;
-    private List<GetUserDetails.Child> childrenResponse;
+
     private GetUserDetails.UserLabels labels;
-    private List<GetUserDetails.Relation> relationResponse;
-    private GetUserDetails.User userResponse;
-    private Bitmap bitmap;
+
 
     public User_Profile_frag() {
         // Required empty public constructor
