@@ -26,8 +26,7 @@ public class NonScrollExpandableListView extends ExpandableListView {
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int heightMeasureSpec_custom = MeasureSpec.makeMeasureSpec(
-                Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+        int heightMeasureSpec_custom = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec_custom);
         ViewGroup.LayoutParams params = getLayoutParams();
         params.height = getMeasuredHeight();

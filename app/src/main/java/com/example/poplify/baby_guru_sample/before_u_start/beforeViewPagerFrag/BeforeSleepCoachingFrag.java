@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.ExpandableListAdapt;
+import com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
 import com.google.gson.JsonObject;
 
@@ -49,15 +51,13 @@ public class BeforeSleepCoachingFrag extends Fragment {
     BeforeYouStartResponse.BeforeYouStart beforeYouStart;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    private ImageView iv;
-    private TextView it_also;
     private Bundle bundle;
     private String SERIALIZED_KEY = "before_you_start";
     private MarkdownView markdownView;
     private List<BeforeYouStartResponse.Detail> beforeDetails;
     private List<String> listExpendData;
-    private int lastExpandedPosition = -1;
 
+    private static final String TAG = "BeforeSleepCoachingFrag";
     // Inflate the layout for this fragment
     View view;
 
@@ -90,23 +90,71 @@ public class BeforeSleepCoachingFrag extends Fragment {
 
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
-            public boolean onGroupClick(ExpandableListView parent, View view, int i, long l) {
-                iv = view.findViewById(R.id.indicator_view);
-
-                if (parent.isGroupExpanded(i)) {
-                    iv.setSelected(false);
-                } else {
-                    iv.setSelected(true);
-                }
-
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                // setListViewHeight(expandableListView, i);
                 return false;
             }
-
-
         });
+
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int i) {
+                int height = 0;
+                for (int i1 = 0; i1 < expListView.getChildCount(); i1++) {
+                    height += expListView.getChildAt(i1).getMeasuredHeight();
+                    height += expListView.getDividerHeight();
+                }
+                expListView.getLayoutParams().height = height  * 8;
+            }
+        });
+
+        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int i) {
+                int height = expListView.getHeight();
+                expListView.getLayoutParams().height = height;
+            }
+        });
+
         return view;
     }
 
+
+    private void setListViewHeight(ExpandableListView listView,
+                                   int group) {
+        ExpandableListAdapter listAdapter = listView.getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+                View.MeasureSpec.EXACTLY);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((listView.isGroupExpanded(i)) && (i != group))
+                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.AT_MOST);
+
+                    totalHeight += listItem.getMeasuredHeight();
+
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+    }
 
     private void setupExpendableList() {
 
@@ -114,80 +162,16 @@ public class BeforeSleepCoachingFrag extends Fragment {
 
         listDataChild = new HashMap<String, List<String>>();
 
-        // listAdapter = new ExpandableListAdapt(getContext(), listDataHeader, listDataChild);
 
-//        prepareListData();
-//
-//        beforeDetails = beforeYouStart.getDetails();
-//
-//
-//        for (BeforeYouStartResponse.Detail detailList : beforeDetails) {
-//
-//            listExpendData = new ArrayList<>();
-//            listDataHeader.add(detailList.getQuestion());
-//            listExpendData.add(detailList.getAnswers());
-//            listDataChild.put(detailList.getQuestion(), listExpendData);
-//        }
+        beforeDetails = beforeYouStart.getDetails();
 
-        // Adding child data
-        listDataHeader.add("Which method?");
-        listDataHeader.add("What age can you start?");
-        listDataHeader.add("When not to start?");
-        listDataHeader.add("When do I start?");
-        listDataHeader.add("Do I have to stay in forever for naps?");
-        // Adding child data
-        List<String> Which_method = new ArrayList<>();
-        Which_method.add("group1");
-        List<String> When_not = new ArrayList<>();
-        When_not.add("Group2");
-        List<String> What_age = new ArrayList<>();
-        What_age.add("Group3");
-        List<String> When_do = new ArrayList<>();
-        When_do.add("Group4");
-        List<String> Do_I_have = new ArrayList<>();
-        Do_I_have.add("Group5");
-        listDataChild.put(listDataHeader.get(0), Which_method); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), When_not);
-        listDataChild.put(listDataHeader.get(2), What_age);
-        listDataChild.put(listDataHeader.get(3), When_do);
-        listDataChild.put(listDataHeader.get(4), Do_I_have);
+        for (BeforeYouStartResponse.Detail details : beforeDetails) {
+            listExpendData = new ArrayList<>();
+            listDataHeader.add(details.getQuestion());
+            listExpendData.add(details.getAnswers());
+            listDataChild.put(details.getQuestion(), listExpendData);
+        }
         listAdapter = new ExpandableListAdapt(getContext(), listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
-
     }
-
-    public class ExpandableListDataPump {
-        public HashMap<String, List<String>> getData() {
-            HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
-
-
-            List<String> cricket = new ArrayList<String>();
-            cricket.add("India");
-            cricket.add("Pakistan");
-            cricket.add("Australia");
-            cricket.add("England");
-            cricket.add("South Africa");
-
-            List<String> football = new ArrayList<String>();
-            football.add("Brazil");
-            football.add("Spain");
-            football.add("Germany");
-            football.add("Netherlands");
-            football.add("Italy");
-
-            List<String> basketball = new ArrayList<String>();
-            basketball.add("United States");
-            basketball.add("Spain");
-            basketball.add("Argentina");
-            basketball.add("France");
-            basketball.add("Russia");
-
-            expandableListDetail.put("CRICKET TEAMS", cricket);
-            expandableListDetail.put("FOOTBALL TEAMS", football);
-            expandableListDetail.put("BASKETBALL TEAMS", basketball);
-            return expandableListDetail;
-        }
-    }
-
-
 }

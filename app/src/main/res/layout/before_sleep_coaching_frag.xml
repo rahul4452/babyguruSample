@@ -7,7 +7,7 @@
     tools:context=".before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag"
     >
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -16,23 +16,36 @@
             android:id="@+id/markDownView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:escapeHtml="false" />
 
-        <com.example.poplify.baby_guru_sample.custom_expendable.NonScrollExpandableListView
+            android:paddingBottom="@dimen/_minus10sdp"
+            app:escapeHtml="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/lvexpand"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ExpandableListView
             android:id="@+id/lvexpand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/_65sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+
             android:childDivider="@color/white"
             android:choiceMode="singleChoice"
-            android:nestedScrollingEnabled="true"
             android:divider="@color/white"
-            android:groupIndicator="@null"
+            android:nestedScrollingEnabled="false"
             android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/markDownView"
             tools:targetApi="lollipop" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v4.widget.NestedScrollView>
 
