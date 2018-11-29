@@ -10,24 +10,20 @@ import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseExpandableListAdapter;
-
 import android.widget.TextView;
-
 import com.example.poplify.baby_guru_sample.R;
-
-
 import java.util.HashMap;
 import java.util.List;
 
-import br.tiagohm.markdownview.MarkdownView;
 
 public class ExpandableListAdapt extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> header;
     private HashMap<String, List<String>> expendedData;
-    private MarkdownView markdownView;
+    private WebView markdownView;
     private TextView txtlistHeader;
     private String childtext;
 
@@ -134,7 +130,7 @@ public class ExpandableListAdapt extends BaseExpandableListAdapter {
 //            markdownView.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//yellow
 //        }
 
-        markdownView.loadMarkdown(childtext);
+        markdownView.loadData(childtext,"text/html", "UTF-8");
         //Setting Resource
 
 

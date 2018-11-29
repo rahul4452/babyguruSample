@@ -1,52 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag"
-    >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".before_u_start.beforeViewPagerFrag.BeforeSleepCoachingFrag">
 
-    <android.support.constraint.ConstraintLayout
+    <ExpandableListView
+        android:id="@+id/lvexpand"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center_horizontal"
 
-        <br.tiagohm.markdownview.MarkdownView
-            android:id="@+id/markDownView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        android:childDivider="@color/white"
+        android:divider="@color/white"
+        android:groupIndicator="@null"
+        android:nestedScrollingEnabled="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
 
-            android:paddingBottom="@dimen/_minus10sdp"
-            app:escapeHtml="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintBottom_toTopOf="@id/lvexpand"
-            app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>
 
 
-        <ExpandableListView
-            android:id="@+id/lvexpand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/_65sdp"
-            android:layout_marginTop="@dimen/_18sdp"
-
-            android:childDivider="@color/white"
-            android:choiceMode="singleChoice"
-            android:divider="@color/white"
-            android:nestedScrollingEnabled="false"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/markDownView"
-            tools:targetApi="lollipop" />
-
-    </android.support.constraint.ConstraintLayout>
-
-</android.support.v4.widget.NestedScrollView>
 
 

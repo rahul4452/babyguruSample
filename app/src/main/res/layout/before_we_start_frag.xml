@@ -57,7 +57,7 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:background="@color/white"
                 app:layout_anchor="@id/app_bar_layout"
@@ -70,7 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_28sdp"
-                    android:layout_marginTop="@dimen/_72sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:layout_marginEnd="@dimen/_28sdp"
                     android:background="@drawable/child_btn_bg"
                     android:theme="@style/Base.Widget.Design.TabLayout"
@@ -84,8 +84,7 @@
                 <android.support.v4.view.ViewPager
                     android:id="@+id/pagerForBefore"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
+                    android:layout_height="0dp"
                     android:layout_marginTop="@dimen/_10sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

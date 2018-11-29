@@ -9,12 +9,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.text.Editable;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -51,9 +53,10 @@ public class BeforeSleepCoachingFrag extends Fragment {
     BeforeYouStartResponse.BeforeYouStart beforeYouStart;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    NestedScrollView scrollBody;
     private Bundle bundle;
     private String SERIALIZED_KEY = "before_you_start";
-    private MarkdownView markdownView;
+    private WebView markdownView;
     private List<BeforeYouStartResponse.Detail> beforeDetails;
     private List<String> listExpendData;
 
@@ -78,41 +81,53 @@ public class BeforeSleepCoachingFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         view = inflater.inflate(R.layout.before_sleep_coaching_frag, container, false);
 
-        markdownView = view.findViewById(R.id.markDownView);
+
         expListView = view.findViewById(R.id.lvexpand);
 
-        markdownView.addStyleSheet(new Github());
-        markdownView.loadMarkdown(beforeYouStart.getDescription());
+        container = (ViewGroup) getLayoutInflater().inflate(R.layout.expandheader,expListView,false);
+
+        expListView.addHeaderView(container);
+//        scrollBody = view.findViewById(R.id.nest);
+        markdownView = view.findViewById(R.id.markDownView);
+        markdownView.loadData(beforeYouStart.getDescription(), "text/html", "UTF-8");
+
 
         setupExpendableList();
 
+        expListView.measure(View.MeasureSpec.EXACTLY, View.MeasureSpec.UNSPECIFIED);
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                // setListViewHeight(expandableListView, i);
+               // setListViewHeight(expandableListView, i);
+
                 return false;
             }
         });
 
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            int previousGroup = -1;
+
             @Override
-            public void onGroupExpand(int i) {
-                int height = 0;
-                for (int i1 = 0; i1 < expListView.getChildCount(); i1++) {
-                    height += expListView.getChildAt(i1).getMeasuredHeight();
-                    height += expListView.getDividerHeight();
-                }
-                expListView.getLayoutParams().height = height  * 8;
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+                expListView.collapseGroup(previousGroup);
+                return false;
             }
         });
 
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+
             @Override
-            public void onGroupCollapse(int i) {
-                int height = expListView.getHeight();
-                expListView.getLayoutParams().height = height;
+            public void onGroupExpand(int groupPosition) {
+
+                if (groupPosition != previousGroup)
+                    expListView.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
             }
         });
 
@@ -120,24 +135,48 @@ public class BeforeSleepCoachingFrag extends Fragment {
     }
 
 
+    private void setExpandableListViewHeight(ExpandableListView listView) {
+        try {
+            ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+            int totalHeight = 0;
+            for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+                View listItem = listAdapter.getGroupView(i, false, null, listView);
+
+                listItem.measure(0, 0);
+                totalHeight += listItem.getMeasuredHeight();
+            }
+
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            int height = totalHeight + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+            if (height < 10) height = 200;
+            params.height = height;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+//            scrollBody.post(new Runnable() {
+//                public void run() {
+//                    scrollBody.fullScroll(NestedScrollView.FOCUS_UP);
+//                }
+//            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void setListViewHeight(ExpandableListView listView,
                                    int group) {
         ExpandableListAdapter listAdapter = listView.getExpandableListAdapter();
         int totalHeight = 0;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
-                View.MeasureSpec.EXACTLY);
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.EXACTLY);
         for (int i = 0; i < listAdapter.getGroupCount(); i++) {
-            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            View groupItem = listAdapter.getGroupView(i, false, view, listView);
+
             groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
 
             totalHeight += groupItem.getMeasuredHeight();
 
-            if (((listView.isGroupExpanded(i)) && (i != group))
-                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+            if (((listView.isGroupExpanded(i)) && (i != group)) || ((!listView.isGroupExpanded(i)) && (i == group))) {
                 for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
-                    View listItem = listAdapter.getChildView(i, j, false, null,
-                            listView);
-                    listItem.measure(desiredWidth, View.MeasureSpec.AT_MOST);
+                    View listItem = listAdapter.getChildView(i, j, false, null, listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
 
                     totalHeight += listItem.getMeasuredHeight();
 
@@ -148,8 +187,8 @@ public class BeforeSleepCoachingFrag extends Fragment {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         int height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
-        if (height < 10)
-            height = 200;
+//        if (height < 10)
+//            height = 200;
         params.height = height;
         listView.setLayoutParams(params);
         listView.requestLayout();
@@ -162,7 +201,6 @@ public class BeforeSleepCoachingFrag extends Fragment {
 
         listDataChild = new HashMap<String, List<String>>();
 
-
         beforeDetails = beforeYouStart.getDetails();
 
         for (BeforeYouStartResponse.Detail details : beforeDetails) {
@@ -173,5 +211,8 @@ public class BeforeSleepCoachingFrag extends Fragment {
         }
         listAdapter = new ExpandableListAdapt(getContext(), listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
+        listAdapter.notifyDataSetChanged();
+        setExpandableListViewHeight(expListView);
+        //setListViewHeight(expListView, i);
     }
 }
