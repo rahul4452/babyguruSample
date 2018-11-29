@@ -21,7 +21,7 @@ import com.example.poplify.baby_guru_sample.R;
  */
 public class Choose_method_frag extends Fragment {
 
-    TextView txt_cud_head,txt_resp_head,txt_cud_body,txt_resp_body,txt_rec,txt_oth,tb_title_choose;
+    TextView tb_title_choose;
     Typeface regular,regularMon;
     Toolbar toolbar;
     FragmentManager fragmentManager;
@@ -41,8 +41,6 @@ public class Choose_method_frag extends Fragment {
         regular = Typeface.createFromAsset(getResources().getAssets(),"Comfortaa_Regular.ttf");
         regularMon = Typeface.createFromAsset(getResources().getAssets(),"Montserrat-Regular.otf");
 
-        txt_rec = view.findViewById(R.id.tvrecom);
-        txt_rec.setTypeface(regularMon);
 
 
         //Setting up the Toolbar title
@@ -53,32 +51,6 @@ public class Choose_method_frag extends Fragment {
 
 
 
-        txt_oth = view.findViewById(R.id.tvother);
-        txt_oth.setTypeface(regularMon);
-
-        txt_cud_head = view.findViewById(R.id.cuddle_head);
-        txt_cud_head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               replacementFragment(new Choose_mthd_recomm_frag());
-            }
-        });
-        txt_cud_head.setTypeface(regular);
-
-        txt_cud_body = view.findViewById(R.id.cuddle_txt);
-        txt_cud_body.setTypeface(regularMon);
-
-        txt_resp_head = view.findViewById(R.id.respond_head);
-        txt_resp_head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replacementFragment(new Choose_mthd_other_frag());
-            }
-        });
-        txt_resp_head.setTypeface(regular);
-
-        txt_resp_body = view.findViewById(R.id.respond_txt);
-        txt_resp_body.setTypeface(regularMon);
 
         return view;
     }

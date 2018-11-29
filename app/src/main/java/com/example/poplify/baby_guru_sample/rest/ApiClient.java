@@ -30,9 +30,8 @@ public class ApiClient {
     public static Urls BASE_URL = Urls.STAGEING;
 
    static OkHttpClient okHttpClient = new OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
+            .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
             .build();
 
 

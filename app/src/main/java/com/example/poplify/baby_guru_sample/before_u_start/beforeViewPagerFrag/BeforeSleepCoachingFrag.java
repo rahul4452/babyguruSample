@@ -137,7 +137,7 @@ public class BeforeSleepCoachingFrag extends Fragment {
 
     private void setExpandableListViewHeight(ExpandableListView listView) {
         try {
-            ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+            ExpandableListAdapter listAdapter =  listView.getExpandableListAdapter();
             int totalHeight = 0;
             for (int i = 0; i < listAdapter.getGroupCount(); i++) {
                 View listItem = listAdapter.getGroupView(i, false, null, listView);
@@ -212,7 +212,7 @@ public class BeforeSleepCoachingFrag extends Fragment {
         listAdapter = new ExpandableListAdapt(getContext(), listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
-        setExpandableListViewHeight(expListView);
+       // setExpandableListViewHeight(expListView);
         //setListViewHeight(expListView, i);
     }
 }

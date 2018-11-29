@@ -31,7 +31,9 @@ public class BeforePagerAdapter extends FragmentStatePagerAdapter {
                 tab1.setArguments(bundle);
                 return tab1;
             case 1:
+                bundle.putSerializable("gurusTips", responseSendToViewpager.getGuruTips());
                 BeforeGuruTipFrag tab2 = new BeforeGuruTipFrag();
+                tab2.setArguments(bundle);
                 return tab2;
             default:
                 return null;

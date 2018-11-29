@@ -68,8 +68,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     AppBarLayout appBarLayout;
 
 
-    public
-    Before_we_start_frag() {
+    public Before_we_start_frag() {
         // Required empty public constructor
     }
 
@@ -88,7 +87,6 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         initBefore(view);
         setupBefore(view);
         callBeforeApi(view);
-
 
 
         // preparing list data
@@ -164,11 +162,11 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
 
         //setting Toolbar Title
         tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());
-
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getSleepCoaching()));
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getGuruTips()));
 
         setCustomFont();
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         beforePagerAdapter = new BeforePagerAdapter(fragmentManager, tabLayout.getTabCount(), serverExistUser);
@@ -228,7 +226,6 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         collapsingToolbarLayout = view.findViewById(R.id.collapsingToolbar);
         appBarLayout = view.findViewById(R.id.app_bar_layout);
 
-
         //********************************************************
         //=========  Appbar layout hiding bottom shadow ==========
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -253,8 +250,8 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
         viewPager = view.findViewById(R.id.pagerForBefore);
         start_btn = view.findViewById(R.id.let_start_btn);
         start_btn.setTypeface(regular);
-        //button click to go to select child
-        //start_btn.setOnClickListener(this);
+       //button click to go to select child
+       // start_btn.setOnClickListener(this);
     }
 
     //Checking which group is expanded and change the right indicator

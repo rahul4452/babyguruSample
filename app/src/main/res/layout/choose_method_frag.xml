@@ -11,189 +11,31 @@
         android:id="@+id/toolbarchoose"
         layout="@layout/toolbar" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:layout_width="0dp"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tableLayoutChooseMethod"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_38sdp"
+        android:layout_marginEnd="@dimen/_38sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/child_btn_bg"
+        android:theme="@style/Base.Widget.Design.TabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarchoose"
+        app:layout_constraintBottom_toTopOf="@id/pagerChooseMethod"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pagerChooseMethod"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fitsSystemWindows="true"
+        android:layout_marginTop="@dimen/_3sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarchoose">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_14sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tvrecom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:text="recommeded"
-                    android:textSize="@dimen/_12sdp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_1sdp"
-                    android:layout_toLeftOf="@id/tvrecom"
-                    android:background="@color/grey" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_1sdp"
-                    android:layout_toRightOf="@id/tvrecom"
-                    android:background="@color/grey" />
-
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/cuddle_head"
-                android:layout_width="@dimen/_255sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_17sdp"
-                android:background="@drawable/choose_method_rec"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/cuddle_heading"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline43"
-                app:layout_constraintStart_toStartOf="@+id/guideline42"
-                app:layout_constraintTop_toBottomOf="@+id/relativeLayout5" />
-
-
-            <TextView
-                android:id="@+id/cuddle_txt"
-                android:layout_width="@dimen/_255sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:background="@drawable/choose_method_rec3"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="@dimen/_3sdp"
-                android:padding="@dimen/_3sdp"
-                android:text="@string/cuddle"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline43"
-                app:layout_constraintStart_toStartOf="@+id/guideline42"
-                app:layout_constraintTop_toBottomOf="@+id/cuddle_head" />
-
-
-            <RelativeLayout
-                android:id="@+id/relative"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_12sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cuddle_txt">
-
-                <TextView
-                    android:id="@+id/tvother"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:text="other"
-                    android:textSize="@dimen/_12sdp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_1sdp"
-                    android:layout_toLeftOf="@id/tvother"
-                    android:background="@color/grey" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_1sdp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_1sdp"
-                    android:layout_toRightOf="@id/tvother"
-                    android:background="@color/grey" />
-
-            </RelativeLayout>
-
-
-
-            <TextView
-                android:id="@+id/respond_head"
-                android:layout_width="@dimen/_255sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_17sdp"
-                android:background="@drawable/choose_method_rec2"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/respond_heading"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline43"
-                app:layout_constraintStart_toStartOf="@+id/guideline42"
-                app:layout_constraintTop_toBottomOf="@+id/relative" />
-
-            <TextView
-                android:id="@+id/respond_txt"
-                android:layout_width="@dimen/_255sdp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:background="@drawable/choose_method_rec4"
-                android:gravity="center_horizontal"
-                android:lineSpacingExtra="@dimen/_3sdp"
-                android:padding="@dimen/_7sdp"
-                android:text="@string/respond"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline43"
-                app:layout_constraintStart_toStartOf="@+id/guideline42"
-                app:layout_constraintTop_toBottomOf="@+id/respond_head" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline42"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_begin="16dp" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline43"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_end="16dp" />
-
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.v4.widget.NestedScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/tableLayoutChooseMethod" />
 </android.support.constraint.ConstraintLayout>
 
 
