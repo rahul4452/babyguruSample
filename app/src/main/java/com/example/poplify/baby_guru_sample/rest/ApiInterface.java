@@ -5,6 +5,7 @@ import com.example.poplify.baby_guru_sample.pojo.request.userRequest.OtpUserVali
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.ResetPassword;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.SignUpDetails;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
+import com.example.poplify.baby_guru_sample.pojo.response.cryingScalePackage.CryingScaleResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.GetUserDetails;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.LoginResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.SignUpDetailsRes;
@@ -56,6 +57,8 @@ public interface ApiInterface {
     Call<ResponseBody> validateOtp(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Body OtpUserValid otpUserValid);
 
 
+
+
     @Headers({"Content-Type: application/json", "Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
     @POST("/password_reset")
     Call<ResponseBody> passwordReset(@Body ResetPassword resetPassword);
@@ -70,17 +73,29 @@ public interface ApiInterface {
                                                   @Part("user[language_id]") RequestBody language_id,
                                                   @Part MultipartBody.Part image);
 
+
+
     @Headers({"Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
     @GET()
     Call<GetUserDetails> getUserDetail(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email,@Url String url);
+
+
 
 
     @Headers({"Content-Type: application/json", "Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
     @POST("/update_password_details")
     Call<JsonObject> chnagePassword(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Body JsonObject chngepwd);
 
+
+
     @Headers({"Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
     @GET()
     Call<BeforeYouStartResponse> getBeforeDetail(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Url String url);
+
+
+
+    @Headers({"Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
+    @GET()
+    Call<CryingScaleResponse> getCryingScale(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Url String url);
 
 }

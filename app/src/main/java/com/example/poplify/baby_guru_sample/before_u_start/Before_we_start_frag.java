@@ -96,11 +96,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
-    }
 
     private void callBeforeApi(final View view) {
 
@@ -158,7 +154,6 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
     }
 
     private void setServerResponse(BeforeYouStartResponse serverExistUser) {
-
 
         //setting Toolbar Title
         tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());

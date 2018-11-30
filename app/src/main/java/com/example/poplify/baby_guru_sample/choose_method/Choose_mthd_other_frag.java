@@ -35,16 +35,20 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCompletionListener,MediaPlayer.OnPreparedListener {
+public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCompletionListener, MediaPlayer.OnPreparedListener {
 
 
     private Unbinder unbinder;
     private MediaPlayer mediaPlayer;
-    @BindView(R.id.music_bar_other)   SeekBar seekbar;
-    @BindView(R.id.start_time_other) TextView start_txt;
-    @BindView(R.id.end_time_other)  TextView end_txt;
+    private @BindView(R.id.music_bar_other)
+    SeekBar seekbar;
+    private @BindView(R.id.start_time_other)
+    TextView start_txt;
+    private @BindView(R.id.end_time_other)
+    TextView end_txt;
 
-    private Handler myHandler = new Handler();;
+    private Handler myHandler = new Handler();
+    ;
     private int forwardTime = 5000;
     private int backwardTime = 5000;
     private double startTime = 0;
@@ -52,10 +56,12 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
     public static int oneTimeOnly = 0;
 
 
-    @BindView(R.id.recycler_other)  RecyclerView recyclerView;
+    private @BindView(R.id.recycler_other)
+    RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private Recycler_adapt recyclerAdapt;
-    @BindView(R.id.play_btn_other)  ImageButton btn_4_music;
+    private @BindView(R.id.play_btn_other)
+    ImageButton btn_4_music;
     private int image = R.drawable.choose_method_bullet;
     private List<String> list;
     Button timer_btn;
@@ -73,20 +79,20 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.choose_mthd_other_frag, container, false);
 
-         fragmentManager = getFragmentManager();
+        fragmentManager = getFragmentManager();
 
         //ButterKnife Library
         unbinder = ButterKnife.bind(this, view);
 
         //setting up the recycler
-        layoutManager = new GridLayoutManager(getContext(),1);
+        layoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setHasFixedSize(true);
         //put list in recycler
         list = Arrays.asList(getResources().getStringArray(R.array.b));
         recyclerView.setLayoutManager(layoutManager);
         //call the recycler adapter
-        recyclerAdapt = new Recycler_adapt(image,list,this);
-        recyclerView.setAdapter(recyclerAdapt);
+//        recyclerAdapt = new Recycler_adapt(image, list, this);
+//        recyclerView.setAdapter(recyclerAdapt);
 
 
         //Timer Fragment Button
@@ -99,16 +105,13 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
         });
 
 
-
         try {
 
-            mediaPlayer = MediaPlayer.create(getContext(),R.raw.maroon);
+            mediaPlayer = MediaPlayer.create(getContext(), R.raw.maroon);
             mediaPlayer.setOnCompletionListener(this);
             seekbar.setClickable(false);
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //playMusic = new Intent(getActivity(), Service_class_music.class);
@@ -116,8 +119,7 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
         return view;
     }
 
-    private void replacementFragment(Fragment fragment)
-    {
+    private void replacementFragment(Fragment fragment) {
         String backstack = null;
         String fragmentTag = null;
 
@@ -126,29 +128,25 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
 
         backstack = fragment.getClass().getName();
         fragmentTag = backstack;
-        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backstack,0);
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backstack, 0);
 
-        Log.d("", "replacementFragment: fragmentPopped"+fragmentPopped);
+        Log.d("", "replacementFragment: fragmentPopped" + fragmentPopped);
         try {
-            if (fragmentPopped!=true) {
+            if (fragmentPopped != true) {
                 ft.replace(R.id.fragment_container_navbar, fragment, fragmentTag);
             }
             ft.addToBackStack(backstack).commit();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    @OnClick(R.id.play_btn_other)
-    void play_music_on_click()
-    {
-        Toast.makeText(getContext(), "Playing  sound",Toast.LENGTH_SHORT).show();
 
-        if(!mediaPlayer.isPlaying())
-        {
-            try
-            {
+    @OnClick(R.id.play_btn_other)
+    void play_music_on_click() {
+        Toast.makeText(getContext(), "Playing  sound", Toast.LENGTH_SHORT).show();
+
+        if (!mediaPlayer.isPlaying()) {
+            try {
                 mediaPlayer.start();
 
                 //mediaPlayer.setOnPreparedListener(this);
@@ -175,12 +173,10 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
                                         startTime)))
                 );
 
-                seekbar.setProgress((int)startTime);
-                myHandler.postDelayed(UpdateSongTime,100);
+                seekbar.setProgress((int) startTime);
+                myHandler.postDelayed(UpdateSongTime, 100);
 
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -188,10 +184,8 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
 
     }
 
-    private Runnable UpdateSongTime = new Runnable()
-    {
-        public void run()
-        {
+    private Runnable UpdateSongTime = new Runnable() {
+        public void run() {
             startTime = mediaPlayer.getCurrentPosition();
             start_txt.setText(String.format("%d min, %d sec",
                     TimeUnit.MILLISECONDS.toMinutes((long) startTime),
@@ -199,10 +193,11 @@ public class Choose_mthd_other_frag extends Fragment implements MediaPlayer.OnCo
                             TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.
                                     toMinutes((long) startTime)))
             );
-            seekbar.setProgress((int)startTime);
+            seekbar.setProgress((int) startTime);
             myHandler.postDelayed(this, 100);
         }
     };
+
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
         mediaPlayer.release();

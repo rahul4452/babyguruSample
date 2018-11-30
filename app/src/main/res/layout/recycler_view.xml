@@ -3,60 +3,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     >
 
-    <ImageView
-        android:id="@+id/recycler_img"
-        android:layout_width="@dimen/_10sdp"
-        android:layout_height="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_11sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/recycler_txt"
-        app:layout_constraintHorizontal_bias="0.789"
+    <LinearLayout
+        android:id="@+id/levelHeadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/choose_method_bullet" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/recycler_img"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/_8sdp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/cry_scale_logo_1" />
+
+        <TextView
+            android:id="@+id/Levels"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="level 1"
+            android:padding="@dimen/_8sdp"
+            android:textSize="@dimen/_18sdp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/recycler_txt"
-        android:layout_width="@dimen/_255sdp"
+        android:id="@+id/visibleSuggestion"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-
-        android:layout_marginTop="@dimen/_8sdp"
         android:lineSpacingExtra="@dimen/_3sdp"
-        android:paddingLeft="@dimen/_9sdp"
         android:text="@string/cuddle_heading"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="@dimen/_15sdp"
+        android:padding="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_11sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/levelHeadingLayout"
         app:srcCompat="@drawable/choose_method_bullet">
 
 
     </TextView>
 
+    <ExpandableListView
+        android:id="@+id/suggestionExpendable"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:groupIndicator="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visibleSuggestion">
+
+    </ExpandableListView>
+
     <View
-        android:layout_width="@dimen/_200sdp"
+        android:id="@+id/dividerLine"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="8dp"
         android:background="@color/light_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.625"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_txt"
-        app:layout_constraintVertical_bias="0.334" />
+        app:layout_constraintTop_toBottomOf="@+id/suggestionExpendable"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
