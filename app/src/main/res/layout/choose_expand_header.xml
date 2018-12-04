@@ -81,10 +81,9 @@
             android:layout_marginBottom="@dimen/_8sdp"
             android:gravity="center_horizontal"
             android:padding="@dimen/_8sdp"
-            android:scaleX="1.1"
-            android:scaleY="1.1"
-            android:text="Listen to Sam describing this method"
-            android:textSize="@dimen/_15sdp" />
+
+
+            android:textSize="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/blueHeader"
@@ -93,10 +92,12 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/selet_child_inner"
             android:gravity="center_horizontal|center_vertical"
-            android:padding="@dimen/_14sdp"
-            android:scaleX="1.1"
-            android:text="crying scale levels and suggestions"
+            android:paddingEnd="@dimen/_8sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:paddingStart="@dimen/_8sdp"
+            android:text="Listen to Sam describing this method"
             android:textColor="@color/white"
-            android:textSize="@dimen/_15sdp" />
+            android:textSize="@dimen/_14sdp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

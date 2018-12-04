@@ -22,7 +22,9 @@ import com.example.poplify.baby_guru_sample.Bottom_Tabs.Paytab_frag;
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.example.poplify.baby_guru_sample.add_New_Baby_tab.Add_child_tab_frag;
+import com.example.poplify.baby_guru_sample.before_u_start.Before_we_start_frag;
 import com.example.poplify.baby_guru_sample.child_profile.Full_child_profile;
+import com.example.poplify.baby_guru_sample.choose_method.Choose_method_frag;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.UserDetailAddResponse;
 import com.example.poplify.baby_guru_sample.sleep_Timer.Timer_frag;
 import com.example.poplify.baby_guru_sample.user_Profile.Basic_detail_frag;
@@ -149,7 +151,7 @@ public class Bottom_tabs extends AppCompatActivity {
 
                     case R.id.tab1:
                         //viewFragment(new Paytab_frag(),"Frag_pay");
-                        selectFrag = new Paytab_frag();
+                        selectFrag = new Before_we_start_frag();
                         break;
 
                     case R.id.tab2:
@@ -160,7 +162,7 @@ public class Bottom_tabs extends AppCompatActivity {
 
                     case R.id.tab3:
                         // viewFragment(new Paytab_frag(),"Frag_other");
-                        selectFrag = new Basic_detail_frag();
+                        selectFrag = new Choose_method_frag();
                         break;
 
                     case R.id.tab4:

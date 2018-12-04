@@ -130,7 +130,7 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
 
                     saveData.save("changePwd",serverExistUser.getUserLabels().getButtons().getChangePassword());
                     setServerResponse(serverExistUser);
-                    Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -257,7 +257,7 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
                 if (relation.getSelected().equals(true) && tvParentRelation.getText() == "") {
                     tvParentRelation.setText(relation.getName());
                 } else {
-                   Toast.makeText(getContext(),relation.getName(),Toast.LENGTH_SHORT);
+                  // Toast.makeText(getContext(),relation.getName(),Toast.LENGTH_SHORT);
                 }
         }
 

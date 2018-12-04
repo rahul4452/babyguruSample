@@ -4,6 +4,7 @@ package com.example.poplify.baby_guru_sample.choose_method;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -61,18 +62,26 @@ public class Choose_method_frag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.choose_method_frag, container, false);
 
+        saveData = new SaveData(getContext());
+
 
         init(view);
 
-        setup();
         getResponseForCryingScale(view);
+        setup(serverExistUser);
 
-        sendDatatoAdapter(serverExistUser);
-        saveData = new SaveData(getContext());
+
+
+
         return view;
     }
 
     private void sendDatatoAdapter(CryingScaleResponse serverExistUser) {
+
+        //Setting Header Of Activity
+        tb_title_choose.setText(serverExistUser.getCryingScaleLabel().getHeader().getCryingScale());
+
+
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getCryingScaleLabel().getHeader().getMethod1()));
         tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getCryingScaleLabel().getHeader().getMethod2()));
 
@@ -101,9 +110,10 @@ public class Choose_method_frag extends Fragment {
         });
     }
 
-    private void setup() {
-        tb_title_choose.setText(serverExistUser.getCryingScaleLabel().getHeader().getCryingScale());
+    private void setup(CryingScaleResponse serverExistUser) {
         tb_title_choose.setTypeface(regular);
+
+
     }
 
     private void init(View view) {
@@ -129,10 +139,10 @@ public class Choose_method_frag extends Fragment {
         String token_header = saveData.get("login_token");
         String email_header = saveData.get("login_email");
 
-        String getUserUrl = "/user_details";
+        String getUserUrl = "/get_crying_scale";
 
 
-        Call<CryingScaleResponse> responseCall = service.getCryingScale(token_header, email_header, getUserUrl);
+        Call<CryingScaleResponse> responseCall = service.getCryingScale(token_header, email_header,getUserUrl);
         responseCall.enqueue(new Callback<CryingScaleResponse>() {
             @Override
             public void onResponse(Call<CryingScaleResponse> call, Response<CryingScaleResponse> response) {
@@ -163,9 +173,9 @@ public class Choose_method_frag extends Fragment {
                     }
                 } else {
 
-
+                    sendDatatoAdapter(serverExistUser);
                     //setServerResponse(serverExistUser);
-                    Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
                 }
             }
 

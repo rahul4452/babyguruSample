@@ -139,7 +139,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
                     // saveData.save("changePwd",serverExistUser.getUserLabels().getButtons().getChangePassword());
                     setServerResponse(serverExistUser1);
 
-                    Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -155,35 +155,41 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
 
     private void setServerResponse(BeforeYouStartResponse serverExistUser) {
 
-        //setting Toolbar Title
-        tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());
-        tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getSleepCoaching()));
-        tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getGuruTips()));
+        try{
+            //setting Toolbar Title
+            tb_title_before.setText(serverExistUser.getBeforeYouStart().getTitle());
+            tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getSleepCoaching()));
+            tabLayout.addTab(tabLayout.newTab().setText(serverExistUser.getSleepCoachingLabels().getHeader().getGuruTips()));
 
-        setCustomFont();
+            setCustomFont();
 
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+            tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        beforePagerAdapter = new BeforePagerAdapter(fragmentManager, tabLayout.getTabCount(), serverExistUser);
+            beforePagerAdapter = new BeforePagerAdapter(fragmentManager, tabLayout.getTabCount(), serverExistUser);
 
-        viewPager.setAdapter(beforePagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            viewPager.setAdapter(beforePagerAdapter);
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                }
+            });
 
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         // setupTablayout();
 
@@ -193,23 +199,29 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
 
     public void setCustomFont() {
 
-        ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
-        int tabsCount = vg.getChildCount();
+        try {
+            ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
+            int tabsCount = vg.getChildCount();
 
-        for (int j = 0; j < tabsCount; j++) {
-            ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
+            for (int j = 0; j < tabsCount; j++) {
+                ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
 
-            int tabChildsCount = vgTab.getChildCount();
+                int tabChildsCount = vgTab.getChildCount();
 
-            for (int i = 0; i < tabChildsCount; i++) {
-                View tabViewChild = vgTab.getChildAt(i);
-                if (tabViewChild instanceof TextView) {
-                    //Put your font in assests folder
-                    //assign name of the font here (Must be case sensitive)
-                    ((TextView) tabViewChild).setTypeface(regularMon);
+                for (int i = 0; i < tabChildsCount; i++) {
+                    View tabViewChild = vgTab.getChildAt(i);
+                    if (tabViewChild instanceof TextView) {
+                        //Put your font in assests folder
+                        //assign name of the font here (Must be case sensitive)
+                        ((TextView) tabViewChild).setTypeface(regularMon);
+                    }
                 }
             }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
+
     }
 
     private void initBefore(View view) {

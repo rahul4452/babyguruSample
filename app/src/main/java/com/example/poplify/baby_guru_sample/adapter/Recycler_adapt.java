@@ -51,7 +51,7 @@ public class Recycler_adapt extends RecyclerView.Adapter<Recycler_adapt.Holder> 
 
             super(itemView);
             levelTV = itemView.findViewById(R.id.Levels);
-            suggestionTextview = itemView.findViewById(R.id.visibleSuggestion);
+//            suggestionTextview = itemView.findViewById(R.id.visibleSuggestion);
             imageView = itemView.findViewById(R.id.recycler_img);
             expendableSuggestion = itemView.findViewById(R.id.suggestionExpendable);
 

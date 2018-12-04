@@ -7,152 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".choose_method.Choose_mthd_other_frag">
 
-    <include
-        android:id="@+id/toolbar_other"
-        layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/main_heading_other"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginTop="12dp"
-        android:background="@color/light_purple"
-        android:gravity="center_vertical|center_horizontal"
-
-        android:text="@string/respond_heading"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_other" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/main_heading_other"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/main_heading_other"
-        app:layout_constraintVertical_bias="0.79"
-        app:srcCompat="@drawable/star" />
-
-    <TextView
-        android:id="@+id/start_time_other"
-        android:layout_width="@dimen/_39sdp"
-        android:layout_height="@dimen/_19sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_17sdp"
-        android:layout_marginTop="@dimen/_9sdp"
-        android:textSize="@dimen/_11sdp"
-
-        app:layout_constraintBottom_toTopOf="@+id/recycler_other"
-        app:layout_constraintStart_toEndOf="@+id/play_btn_other"
-        app:layout_constraintTop_toBottomOf="@+id/main_heading_other"
-        app:layout_constraintVertical_bias="0.61" />
-
-    <SeekBar
-        android:id="@+id/music_bar_other"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_19sdp"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_other"
-        app:layout_constraintStart_toEndOf="@+id/start_time_other"
-        app:layout_constraintTop_toBottomOf="@+id/main_heading_other"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/end_time_other"
-        android:layout_width="@dimen/_39sdp"
-        android:layout_height="@dimen/_19sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:textSize="@dimen/_11sdp"
-
-        app:layout_constraintBaseline_toBaselineOf="@+id/start_time_other"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/music_bar_other" />
-
-    <ImageButton
-        android:id="@+id/play_btn_other"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_19sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/recycler_other"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_heading_other"
-        app:layout_constraintVertical_bias="0.083"
-        app:srcCompat="@drawable/music_player" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_other"
+    <ExpandableListView
+        android:id="@+id/suggestionExpendableMethod2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_11sdp"
-        android:layout_marginEnd="@dimen/_2sdp"
-        android:layout_marginStart="@dimen/_2sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        android:groupIndicator="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/other_guideline"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_57sdp"
-        android:layout_marginBottom="@dimen/_6sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/proceed_other"
-            android:layout_width="@dimen/_215sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_marginBottom="@dimen/_2sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginTop="@dimen/_4sdp"
-            android:background="@drawable/let_start"
-            android:text="@string/let_start_btn"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_15sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+    </ExpandableListView>
 
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/other_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="159dp" />
 
 </android.support.constraint.ConstraintLayout>

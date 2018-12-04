@@ -1,23 +1,16 @@
 package com.example.poplify.baby_guru_sample.choose_method;
 
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,39 +18,24 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.androidadvance.topsnackbar.TSnackbar;
 import com.example.poplify.baby_guru_sample.R;
-import com.example.poplify.baby_guru_sample.adapter.Recycler_adapt;
-import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.example.poplify.baby_guru_sample.pojo.response.cryingScalePackage.CryingScaleResponse;
-import com.example.poplify.baby_guru_sample.rest.ApiClient;
-import com.example.poplify.baby_guru_sample.rest.ApiInterface;
 import com.example.poplify.baby_guru_sample.sleep_Timer.Timer_frag;
 //import com.example.poplify.baby_guru_sample.adapter.Service_class_music;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.TimeUnit;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,34 +45,21 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
 
     private Unbinder unbinder;
     private MediaPlayer mediaPlayer;
-    private @BindView(R.id.music_bar)
+    @BindView(R.id.music_bar)
     SeekBar seekbar;
-    private @BindView(R.id.start_time)
-    TextView start_txt;
-    private @BindView(R.id.end_time)
-    TextView end_txt;
-    private @BindView(R.id.toolbar_title)
-    TextView tb_title_recomm;
 
-    private @BindView(R.id.listenSam)
-    TextView listenSamTv;
+    TextView start_txt, end_txt, listenSamTv, levelAndSuggestion;
 
-    private @BindView(R.id.blueHeader)
-    TextView levelAndSuggestion;
 
-    private @BindView(R.id.suggestionExpendable)
     ExpandableListView expandableListView;
-
     private Handler myHandler = new Handler();
-
     private int forwardTime = 5000;
     private int backwardTime = 5000;
     private int startTime = 0;
     private int finalTime = 0;
     public static int oneTimeOnly = 0;
     Typeface regular, regularMon;
-
-    private @BindView(R.id.play_btn)
+    @BindView(R.id.play_btn)
     ImageButton btn_4_music;
     private int image = R.drawable.choose_method_bullet;
     private String SERIALIZED_KEY = "method1";
@@ -105,12 +70,16 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
     private CryingScaleResponse serverExistUser;
     private Bundle bundle;
     private List<CryingScaleResponse.CryingScaleDatum> cryingScaleData;
-    //private int[] images = {R.drawable.cry_scale_logo_1, R.drawable.cry_scale_logo_2, R.drawable.cry_scale_logo_3, R.drawable.cry_scale_logo_4, R.drawable.cry_scale_logo_5};
+    private int[] images = {R.drawable.cry_scale_logo_1, R.drawable.cry_scale_logo_2, R.drawable.cry_scale_logo_3, R.drawable.cry_scale_logo_4, R.drawable.cry_scale_logo_5};
     private List<CryingScaleResponse.CryingScaleDatum> method_List;
-    private List<List<String>> suggestionList;
     private List<String> levelList, titleList;
-    private String suggestion;
     private ExpandableListAdapter adapter;
+    HashMap<String, List<List<String>>> childdata;
+    TextView levelTv, tvbelowlevel, tvSuggest;
+    ImageView levelImage;
+    private ArrayList<String> childtext;
+    private TextView expandChildText;
+    List<CryingScaleResponse.MethodOne> methodOne;
 
     public Choose_mthd_recomm_frag() {
         // Required empty public constructor
@@ -130,6 +99,7 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.choose_mthd_recomm_frag, container, false);
 
+        expandableListView = view.findViewById(R.id.suggestionExpendable);
 
         container = (ViewGroup) getLayoutInflater().inflate(R.layout.choose_expand_header, expandableListView, false);
 
@@ -137,18 +107,31 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
 
         initCryingScale(view);
         setupCryingScale(view);
-
+        setupExpandableHeader(method1);
         setupExpandableView(method1);
 
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+
+                if (groupPosition != previousGroup)
+                    expandableListView.collapseGroup(previousGroup);
+                previousGroup = groupPosition;
+
+                expandableListView.setSelectedGroup(groupPosition);
+            }
+        });
 
         //Button to proceed the Timer Fragment
 
-        proceed_timer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                replacementFragment(new Timer_frag());
-            }
-        });
+//        proceed_timer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                replacementFragment(new Timer_frag());
+//            }
+//        });
 
 
         try {
@@ -165,91 +148,142 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
         return view;
     }
 
+    private void setupExpandableHeader(CryingScaleResponse method1) {
+        listenSamTv.setText(method1.getCryingScaleLabel().getLabels().getListenToSam());
+        listenSamTv.setTypeface(regular);
+        levelAndSuggestion.setText(method1.getCryingScaleLabel().getHeader().getSubHeader());
+        levelAndSuggestion.setTypeface(regular);
+    }
 
-    List<CryingScaleResponse.MethodOne> methodOne;
 
     private void setupExpandableView(CryingScaleResponse method1) {
 
+        List<List<String>> suggestionList;
+        methodOne = new ArrayList<>();
+        Mylist m = new Mylist();
         levelList = new ArrayList<>();
         titleList = new ArrayList<>();
 
+        childdata = new HashMap<>();
+
         method_List = method1.getCryingScaleData();
-        for (CryingScaleResponse.CryingScaleDatum methods : method_List) {
-            methodOne = methods.getMethodOne();
+        for (int i = 0; i < method_List.size(); i++) {
+            if (method_List.get(i).getMethodOne() != null) {
+                methodOne = method_List.get(i).getMethodOne();
+                break;
+            }
         }
 
         for (CryingScaleResponse.MethodOne dataMethodOne : methodOne) {
+            suggestionList = new ArrayList<>();
             levelList.add(dataMethodOne.getLevel());
-            titleList.add(dataMethodOne.getTitle());
 
+            titleList.add(dataMethodOne.getTitle());
             suggestionList.add(dataMethodOne.getSuggestion());
+            childdata.put(dataMethodOne.getLevel(), suggestionList);
+
         }
 
-        suggestion = method1.getCryingScaleLabel().getLabels().getSuggestion();
 
-        adapter = new ExpandableListAdapter(getContext(), levelList, titleList, suggestionList, suggestion);
+        m.setLevelList(levelList);
+        m.setTitleList(titleList);
+        m.setImagesList(images);
+        m.setSuggest(method1.getCryingScaleLabel().getLabels().getSuggestion());
 
-//        expListView.setAdapter(listAdapter);
-//        listAdapter.notifyDataSetChanged();
-//        //setting up the recycler
-//        layoutManager = new GridLayoutManager(getContext(), 1);
-//        recyclerView.setHasFixedSize(true);
-
-//        //put list in recycler
-//        recyclerView.setLayoutManager(layoutManager);
-
-//        //call the recycler adapter
-//        recyclerAdapt = new Recycler_adapt(image, levelList, titleList, suggestionList, suggestion, this);
-//        recyclerView.setAdapter(recyclerAdapt);
-
-
+        adapter = new ExpandableListAdapter(getContext(), m, childdata);
+        expandableListView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
+    public class Mylist {
+        private List<String> levelList, titleList = new ArrayList<>();
+        private int[] imagesList;
+        private String suggest;
+
+        public int[] getImagesList() {
+            return imagesList;
+        }
+
+        public void setImagesList(int[] imagesList) {
+            this.imagesList = imagesList;
+        }
+
+        public String getSuggest() {
+            return suggest;
+        }
+
+        public void setSuggest(String suggest) {
+            this.suggest = suggest;
+        }
+
+        public List<String> getLevelList() {
+            return levelList;
+        }
+
+        public void setLevelList(List<String> levelList) {
+            this.levelList = levelList;
+        }
+
+        public List<String> getTitleList() {
+            return titleList;
+        }
+
+        public void setTitleList(List<String> titleList) {
+            this.titleList = titleList;
+        }
+    }
 
     class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         Context context;
-        private List<String> levelList;
-        private List<String> titleList;
-        private List<List<String>> suggestionList;
-        private String suggestion;
+        private HashMap<String, List<List<String>>> childSuggestion;
 
-        public ExpandableListAdapter(Context context, List<String> levelList, List<String> titleList, List<List<String>> suggestionList, String suggestion) {
+        Mylist mt;
+
+
+        public ExpandableListAdapter(Context context, Mylist m, HashMap<String, List<List<String>>> childdata) {
             this.context = context;
-            this.levelList = levelList;
-            this.titleList = titleList;
-            this.suggestionList = suggestionList;
-            this.suggestion = suggestion;
+            this.mt = m;
+
+            this.childSuggestion = childdata;
+
         }
 
         @Override
         public int getGroupCount() {
-            return levelList.size();
+            return mt.getLevelList().size();
         }
 
         @Override
         public int getChildrenCount(int i) {
-            return 0;
+            return childSuggestion.get(this.mt.getLevelList().get(i)).size();
         }
 
         @Override
         public Object getGroup(int i) {
-            return null;
+            Mylist group = new Mylist();
+
+            group.setLevelList(mt.getLevelList());
+            group.setTitleList(mt.titleList);
+            group.setImagesList(mt.getImagesList());
+            group.setSuggest(mt.getSuggest());
+
+            return group;
         }
 
         @Override
-        public Object getChild(int i, int i1) {
-            return null;
+        public Object getChild(int groupPosition, int childPosition) {
+            return this.childSuggestion.get(this.mt.getLevelList().get(groupPosition)).get(childPosition);
         }
 
         @Override
         public long getGroupId(int i) {
-            return 0;
+            return i;
         }
 
         @Override
         public long getChildId(int i, int i1) {
-            return 0;
+            return i1;
         }
 
         @Override
@@ -258,13 +292,56 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
         }
 
         @Override
-        public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-            return null;
+        public View getGroupView(int i, boolean b, View convertView, ViewGroup viewGroup) {
+            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.choose_expand_lis_header, null);
+
+            regularMon = Typeface.createFromAsset(convertView.getResources().getAssets(), "Montserrat-Regular.otf");
+            regular = Typeface.createFromAsset(convertView.getResources().getAssets(), "Comfortaa_Regular.ttf");
+
+            Mylist headTitle = (Mylist) getGroup(i);
+
+            levelTv = convertView.findViewById(R.id.Levels);
+            levelTv.setTypeface(regular);
+            tvbelowlevel = convertView.findViewById(R.id.titleBelowLevel);
+            tvbelowlevel.setTypeface(regularMon);
+            tvSuggest = convertView.findViewById(R.id.suggest);
+            levelImage = convertView.findViewById(R.id.recycler_img);
+
+
+            levelTv.setText(headTitle.getLevelList().get(i));
+            tvbelowlevel.setText(headTitle.getTitleList().get(i));
+
+            levelImage.setImageResource(images[i]);
+            tvSuggest.setText(headTitle.getSuggest());
+            tvSuggest.setTypeface(regularMon);
+
+            return convertView;
         }
 
         @Override
         public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-            return null;
+            LayoutInflater inflate = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = inflate.inflate(R.layout.choose_expand_list_child, viewGroup, false);
+
+            childtext = (ArrayList<String>) getChild(i, i1);
+            expandChildText = view.findViewById(R.id.childtext);
+
+            expandChildText.setText(childtext.get(i1));
+
+//        if (groupPosition % 2 == 0) {
+//
+//            markdownView.setBackground(context.getDrawable(R.drawable.bef_list_1_text));//pink
+//        } else if (groupPosition % 3 == 0) {
+//            markdownView.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//green
+//        } else if (groupPosition % 5 == 0) {
+//
+//            markdownView.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//purple
+//        } else {
+//            markdownView.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//yellow
+//        }
+
+            return view;
         }
 
         @Override
@@ -275,19 +352,26 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
 
 
     private void setupCryingScale(View view) {
-        proceed_timer = view.findViewById(R.id.proceed);
-        tb_title_recomm.setText(method1.getCryingScaleLabel().getHeader().getCryingScale());
-        tb_title_recomm.setTypeface(regular);
+        //proceed_timer = view.findViewById(R.id.proceed);
+
 
     }
 
     private void initCryingScale(View view) {
         fragmentManager = getFragmentManager();
+
         //Setting fonts
         regular = Typeface.createFromAsset(getActivity().getAssets(), "Comfortaa_Regular.ttf");
         regularMon = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Regular.otf");
-        //ButterKnife Library
-        unbinder = ButterKnife.bind(this, view);
+
+        //setting up the header
+        start_txt = view.findViewById(R.id.start_time);
+        end_txt = view.findViewById(R.id.end_time);
+
+        listenSamTv = view.findViewById(R.id.listenSam);
+        levelAndSuggestion = view.findViewById(R.id.blueHeader);
+
+
     }
 
     private void replacementFragment(Fragment fragment) {
@@ -431,7 +515,7 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
 
     @Override
     public void onDestroyView() {
-        unbinder.unbind();
+
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
         }

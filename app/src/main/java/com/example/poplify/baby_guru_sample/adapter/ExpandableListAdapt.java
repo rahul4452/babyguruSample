@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
 import com.example.poplify.baby_guru_sample.R;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,16 +33,6 @@ public class ExpandableListAdapt extends BaseExpandableListAdapter {
         this.context = context;
         this.header = header;
         this.expendedData = expendedData;
-    }
-
-    @Override
-    public void registerDataSetObserver(DataSetObserver dataSetObserver) {
-
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
-
     }
 
     @Override
@@ -88,7 +80,7 @@ public class ExpandableListAdapt extends BaseExpandableListAdapter {
 
         String headTitle = (String) getGroup(groupPosition);
         txtlistHeader = convertView.findViewById(R.id.lblListheader);
-       // Typeface regularMon = Typeface.createFromAsset(convertView.getResources().getAssets(), "Montserrat-Regular.otf");
+        // Typeface regularMon = Typeface.createFromAsset(convertView.getResources().getAssets(), "Montserrat-Regular.otf");
 
 
 //        if (groupPosition % 2 == 0) {
@@ -100,7 +92,7 @@ public class ExpandableListAdapt extends BaseExpandableListAdapter {
 //        } else {
 //            txtlistHeader.setBackground(context.getDrawable(R.drawable.bef_list_4_head));//yellow
 //        }
-       // txtlistHeader.setTypeface(regularMon);
+        // txtlistHeader.setTypeface(regularMon);
         txtlistHeader.setText(headTitle);
 
 
@@ -112,7 +104,7 @@ public class ExpandableListAdapt extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
 
         LayoutInflater inflate = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflate.inflate(R.layout.list_item_child, parent,false);
+        view = inflate.inflate(R.layout.list_item_child, parent, false);
 
         childtext = (String) getChild(groupPosition, childPosition);
         markdownView = view.findViewById(R.id.lblListitem);
@@ -130,7 +122,7 @@ public class ExpandableListAdapt extends BaseExpandableListAdapter {
 //            markdownView.setBackground(context.getDrawable(R.drawable.bef_list_2_text));//yellow
 //        }
 
-        markdownView.loadData(childtext,"text/html", "UTF-8");
+        markdownView.loadData(childtext, "text/html", "UTF-8");
         //Setting Resource
 
 
