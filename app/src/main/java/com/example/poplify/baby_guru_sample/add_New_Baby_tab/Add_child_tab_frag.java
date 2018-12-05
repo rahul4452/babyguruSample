@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import com.example.poplify.baby_guru_sample.MainActivity;
 import com.example.poplify.baby_guru_sample.R;
+import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.io.File;
@@ -66,7 +67,7 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Add_child_tab_frag extends Fragment {
+public class Add_child_tab_frag extends Fragment implements View.OnClickListener{
 
     private Spinner spinner;
     private Unbinder unbinder;
@@ -78,6 +79,7 @@ public class Add_child_tab_frag extends Fragment {
     ImageView profile_btn;
     CircleImageView profile_show;
     EditText ent_name, ent_bday;
+    SaveData saveData;
     public static final int RC_PHOTO_PICKER_PERM = 123;
     private ArrayList<String> photoPaths = new ArrayList<>();
 
@@ -120,6 +122,7 @@ public class Add_child_tab_frag extends Fragment {
         regular = Typeface.createFromAsset(getActivity().getAssets(), "Comfortaa_Regular.ttf");
         regularMon = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Regular.otf");
 
+        saveData = new SaveData(getContext());
 
         //butterknife
         unbinder = ButterKnife.bind(this, view);
@@ -127,14 +130,12 @@ public class Add_child_tab_frag extends Fragment {
         //Setting Up the toolbar  title
         toolbar = view.findViewById(R.id.toolbar_add);
         tb_title_add = view.findViewById(R.id.toolbar_title);
-        tb_title_add.setText(getResources().getString(R.string.tb_name));
+        tb_title_add.setText(saveData.get("addChild"));
         tb_title_add.setTypeface(regular);
-
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
             }
         });
@@ -158,17 +159,28 @@ public class Add_child_tab_frag extends Fragment {
         ent_bday = view.findViewById(R.id.ed_ch_bday); //EditTxt bday
         ent_bday.setTypeface(regularMon);
 
-
         //Button
-
         add_4_child_btn = view.findViewById(R.id.add_child_btn_id);
         add_4_child_btn.setTypeface(regular);
+
+        add_4_child_btn.setOnClickListener(this);
 
 
         //--------------------********************setting up the Profile Pic**********--------------------------//
 
         profile_show = view.findViewById(R.id.profile_pic);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.add_child_btn_id:
+
+                default:
+                    Toast.makeText(getContext(),"another Buttuon",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void spinnerAdapter(View view) {
@@ -417,165 +429,6 @@ public class Add_child_tab_frag extends Fragment {
 
 
 
-
-
-    /*
-    private void change_profile_pic() {
-        final CharSequence[] options = {"Camera", "Gallery", "Cancel"};
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-        builder.setTitle("Add Photo!");
-
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-
-            @Override
-
-            public void onClick(DialogInterface dialog, int item) {
-
-                if (options[item].equals("Camera"))
-                {
-
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-
-                    startActivityForResult(intent, 1);
-
-                } else if (options[item].equals("Gallery"))
-
-                {
-                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                    startActivityForResult(intent, 2);
-
-                } else if (options[item].equals("Cancel")) {
-
-                    dialog.dismiss();
-
-                }
-            }
-
-        });
-        builder.show();
-    }
-
-
-    @SuppressLint("LongLogTag")
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-
-            if (requestCode == 1) {
-
-                File f = new File(Environment.getExternalStorageDirectory().toString());
-
-                for (File temp : f.listFiles()) {
-
-                    if (temp.getName().equals("temp.jpg")) {
-
-                        f = temp;
-
-                        break;
-
-                    }
-
-                }
-
-                try {
-
-                    Bitmap bitmap;
-
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
-
-                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
-
-                            bitmapOptions);
-
-
-                    profile_show.setImageBitmap(bitmap);
-
-
-                    String path = android.os.Environment
-
-                            .getExternalStorageDirectory()
-
-                            + File.separator
-
-                            + "Phoenix" + File.separator + "default";
-
-                    f.delete();
-
-                    OutputStream outFile = null;
-
-                    File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-
-                    try {
-
-                        outFile = new FileOutputStream(file);
-
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-
-                        outFile.flush();
-
-                        outFile.close();
-
-                    } catch (FileNotFoundException e) {
-
-                        e.printStackTrace();
-
-                    } catch (IOException e) {
-
-                        e.printStackTrace();
-
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-
-                    }
-
-                } catch (Exception e) {
-
-                    e.printStackTrace();
-
-                }
-
-            } else if (requestCode == 2) {
-
-
-                Uri selectedImage = data.getData();
-
-                String[] filePath = {MediaStore.Images.Media.DATA};
-
-                Cursor c = getContext().getContentResolver().query(selectedImage, filePath, null, null, null);
-
-                c.moveToFirst();
-
-                int columnIndex = c.getColumnIndex(filePath[0]);
-
-                String picturePath = c.getString(columnIndex);
-
-                c.close();
-
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-
-                Log.w("dsfaafdsasdfasdfasfasdfadsfa", picturePath + "");
-
-                profile_show.setImageBitmap(thumbnail);
-
-            }
-
-        }
-
-
-}
-*/
     @OnClick(R.id.add_child_layout)
     public void closeKeyboard() {
 

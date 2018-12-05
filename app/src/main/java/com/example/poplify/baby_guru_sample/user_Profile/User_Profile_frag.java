@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.example.poplify.baby_guru_sample.add_New_Baby_tab.Add_child_tab_frag;
+import com.example.poplify.baby_guru_sample.child_profile.Full_child_profile;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.GetUserDetails;
 import com.example.poplify.baby_guru_sample.rest.ApiClient;
 import com.example.poplify.baby_guru_sample.rest.ApiInterface;
@@ -57,18 +59,22 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
 
     private Typeface regular, regularMon;
     private TextView detailTextView, tvParentName, tvParentRelation, tvParentEmail, tvMyChildren, tvChngePwd,
-            tvContactUs, tvLegalArgu, tvLogoutUser, tvFirstChildName, tvSecondChildName, tvInvite;
-    private Button editDetailbtn, chngePwdBtn;
+            tvContactUs, tvLegalArgu, tvLogoutUser, tvFirstChildName, tvSecondChildName, tvInvite, tvFaq, tvNewsLetter, tvAppDemo, toolbarUser;
+    private TextView editDetailbtn, chngePwdBtn, newsLetterBtn;
     private SaveData saveData;
     FragmentManager fragmentManager;
     ProgressBar progressBar;
-    ImageView addFirstChildIV, addSecondChildIV, inviteIconIV;
-
-    ImageButton btnContactUs, btnLegalAgree, btnLogout;
+    CircleImageView addFirstChildIV, addSecondChildIV;
+    LinearLayout firstLayout, secondLayout;
+    ImageButton btnContactUs, btnLegalAgree, btnLogout, btnappDemo, btnFaq;
     CircleImageView parentImage, firstChildImage, secondChildImage;
     private GetUserDetails serverExistUser;
-
+    Bundle bun = new Bundle();
     private GetUserDetails.UserLabels labels;
+    private String childfirstName;
+    private String childSecondImage;
+    private Integer childId;
+    private Integer secondChildId;
 
 
     public User_Profile_frag() {
@@ -87,11 +93,6 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
         String token_header = saveData.get("login_token");
         String email_header = saveData.get("login_email");
-        if (token_header == null && email_header == null) {
-            token_header = saveData.get("signToken");
-            email_header = saveData.get("email");
-        }
-
         String getUserUrl = "/user_details";
 
         progressBar.setVisibility(View.VISIBLE);
@@ -101,13 +102,12 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
             @Override
             public void onResponse(Call<GetUserDetails> call, Response<GetUserDetails> response) {
 
-                progressBar.setVisibility(View.GONE);
 
                 boolean success = response.isSuccessful();
                 serverExistUser = response.body();
 
                 if (!success) {
-                    switch (response.code()){
+                    switch (response.code()) {
                         case 400:
                             try {
                                 JSONObject jObjError = new JSONObject(response.errorBody().string());
@@ -127,8 +127,8 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
                             }
                     }
                 } else {
-
-                    saveData.save("changePwd",serverExistUser.getUserLabels().getButtons().getChangePassword());
+                    progressBar.setVisibility(View.GONE);
+                    saveData.save("changePwd", serverExistUser.getUserLabels().getButtons().getChangePassword());
                     setServerResponse(serverExistUser);
 //                    Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
                 }
@@ -137,7 +137,8 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
             @Override
             public void onFailure(Call<GetUserDetails> call, Throwable t) {
 
-                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -162,6 +163,10 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
 
         detailTextView = view.findViewById(R.id.userDetailTv);
         detailTextView.setTypeface(regular);
+
+
+        toolbarUser = view.findViewById(R.id.toolbar_title);
+        toolbarUser.setTypeface(regular);
 
         tvParentName = view.findViewById(R.id.parentNameTv);
         tvParentName.setTypeface(regularMon);
@@ -190,17 +195,24 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         tvFirstChildName = view.findViewById(R.id.addFirstChildTv);
         tvFirstChildName.setTypeface(regularMon);
 
+        tvAppDemo = view.findViewById(R.id.appDemo);
+        tvAppDemo.setTypeface(regularMon);
+
+        tvNewsLetter = view.findViewById(R.id.newslettertv);
+        tvNewsLetter.setTypeface(regularMon);
+
+        tvFaq = view.findViewById(R.id.faqtv);
+        tvFaq.setTypeface(regularMon);
 
         tvSecondChildName = view.findViewById(R.id.secondChildName);
         tvSecondChildName.setTypeface(regularMon);
 
 
         tvInvite = view.findViewById(R.id.txtInvite);
+        tvInvite.setTypeface(regular);
 
 
         //Image View
-        inviteIconIV = view.findViewById(R.id.inviteIcon);
-
         addFirstChildIV = view.findViewById(R.id.addChildFromUser);
 
         addSecondChildIV = view.findViewById(R.id.addSecondChildFromUser);
@@ -213,13 +225,17 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         chngePwdBtn = view.findViewById(R.id.chngPwdBtn);
         chngePwdBtn.setTypeface(regular);
 
+        newsLetterBtn = view.findViewById(R.id.newsletterBtn);
+        newsLetterBtn.setTypeface(regular);
 
         //Image Button
         btnContactUs = view.findViewById(R.id.contactUsBtn);
 
+        btnFaq = view.findViewById(R.id.faqBtn);
+
+        btnappDemo = view.findViewById(R.id.appDemoBtn);
 
         btnLegalAgree = view.findViewById(R.id.legalAgreeBtn);
-
 
         btnLogout = view.findViewById(R.id.logoutBtn);
         btnLogout.setOnClickListener(this);
@@ -227,38 +243,42 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         //Image For parent
         parentImage = view.findViewById(R.id.parent_profile_pic);
 
-        firstChildImage = view.findViewById(R.id.childPicInUser);
-        firstChildImage.setVisibility(View.GONE);
-
-        secondChildImage = view.findViewById(R.id.secondChildPicInUser);
-
 
         //Progressbar
         progressBar = view.findViewById(R.id.getUserProcessingPb);
+
+        //Linear Layout
+        firstLayout = view.findViewById(R.id.firstchildImageLayout);
+        secondLayout = view.findViewById(R.id.secondChildLayout);
 
 
     }
 
 
-    private void setServerResponse(GetUserDetails serverExistUser) {
+    private void setServerResponse(final GetUserDetails serverExistUser) {
 
         labels = serverExistUser.getUserLabels();
+
+        //toolbar
+        toolbarUser.setText(serverExistUser.getUserLabels().getHeader().getUserProfile());
+
         //detail label
         detailTextView.setText(labels.getLabels().getDetails());
         editDetailbtn.setText(labels.getButtons().getEdit());
         editDetailbtn.setOnClickListener(this);
-        //Parent Information
 
+
+        //Parent Information
         tvParentName.setText(serverExistUser.getUser().getName());
 
         List<GetUserDetails.Relation> realtionList = serverExistUser.getRelations();
 
         for (GetUserDetails.Relation relation : realtionList) {
-                if (relation.getSelected().equals(true) && tvParentRelation.getText() == "") {
-                    tvParentRelation.setText(relation.getName());
-                } else {
-                  // Toast.makeText(getContext(),relation.getName(),Toast.LENGTH_SHORT);
-                }
+            if (relation.getSelected().equals(true) && tvParentRelation.getText() == "") {
+                tvParentRelation.setText(relation.getName());
+            } else {
+                // Toast.makeText(getContext(),relation.getName(),Toast.LENGTH_SHORT);
+            }
         }
 
         //Parent Image
@@ -277,31 +297,67 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         tvParentEmail.setText(saveData.get("login_email"));
 
 
+        saveData.save("addChild", labels.getLabels().getAddChild());
+
         //My children Layout
         tvMyChildren.setText(labels.getLabels().getMyChildren());
 
+
+        //setting up children pic in User Details
+
         List<GetUserDetails.Child> childrenList = serverExistUser.getChildren();
         if (childrenList.size() == 0) {
-            addFirstChildIV.setVisibility(View.VISIBLE);
+            tvFirstChildName.setVisibility(View.VISIBLE);
             addFirstChildIV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     replacementFragment(new Add_child_tab_frag());
                 }
             });
-            tvFirstChildName.setVisibility(View.VISIBLE);
+            secondLayout.setVisibility(View.GONE);
             tvFirstChildName.setText(labels.getLabels().getAddChild());
 
         } else if (childrenList.size() == 1) {
 
-            if (addFirstChildIV.getVisibility() == View.VISIBLE) {
-                addFirstChildIV.setVisibility(View.GONE);
+            firstLayout.setVisibility(View.VISIBLE);
+            secondLayout.setVisibility(View.VISIBLE);
+
+            for (int i = 0; i < childrenList.size(); i++) {
+                childfirstName = childrenList.get(i).getImageUrl();
+                childId = childrenList.get(i).getId();
+                if (childfirstName != null) {
+                    try {
+                        Glide.with(this)
+                                .load(childfirstName)
+                                .into(addFirstChildIV);
+                        String childname = childrenList.get(0).getName();
+                        tvFirstChildName.setText(childname);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    addFirstChildIV.setBackgroundResource(R.drawable.childbg);
+
+
+                }
             }
 
-            firstChildImage.setVisibility(View.VISIBLE);
-            for (GetUserDetails.Child child : childrenList) {
 
-            }
+            //passing Child Id to CHild Profile from User Profile
+            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (childfirstName != null) {
+                        bun.putInt("firstChildId", childId);
+                        Full_child_profile full_child_profile = new Full_child_profile();
+                        full_child_profile.setArguments(bun);
+                        replacementFragment(full_child_profile);
+                    }
+                }
+            });
+
+
             addSecondChildIV.setVisibility(View.VISIBLE);
             addSecondChildIV.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -311,16 +367,85 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
             });
             tvSecondChildName.setVisibility(View.VISIBLE);
             tvSecondChildName.setText(labels.getLabels().getAddChild());
+
+
         } else if (childrenList.size() == 2) {
-            if (addFirstChildIV.getVisibility() == View.VISIBLE && addSecondChildIV.getVisibility() == View.VISIBLE) {
-                addFirstChildIV.setVisibility(View.GONE);
-                addSecondChildIV.setVisibility(View.GONE);
+            firstLayout.setVisibility(View.VISIBLE);
+            secondLayout.setVisibility(View.VISIBLE);
+            for (int i = 0; i < childrenList.size(); i++) {
+                if (i == 0) {
+                    childId = childrenList.get(0).getId();
+                    childfirstName = childrenList.get(0).getImageUrl();
+                    if (childfirstName != null) {
+                        try {
+                            Glide.with(this)
+                                    .load(childfirstName)
+                                    .into(addFirstChildIV);
+
+                            String childname = childrenList.get(0).getName();
+                            tvSecondChildName.setText(childname);
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        addFirstChildIV.setBackgroundResource(R.drawable.childbg);
+
+                        String childname = childrenList.get(0).getName();
+                        tvFirstChildName.setText(childname);
+                    }
+                } else {
+                    childSecondImage = childrenList.get(1).getImageUrl();
+                    secondChildId = childrenList.get(1).getId();
+                    if (childSecondImage != null) {
+                        try {
+                            Glide.with(this)
+                                    .load(childSecondImage)
+                                    .into(addSecondChildIV);
+
+                            String childname = childrenList.get(1).getName();
+                            tvSecondChildName.setText(childname);
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        addSecondChildIV.setBackgroundResource(R.drawable.childbg);
+                        String childname = childrenList.get(1).getName();
+                        tvSecondChildName.setText(childname);
+                    }
+                }
             }
 
-            firstChildImage.setVisibility(View.VISIBLE);
-            secondChildImage.setVisibility(View.VISIBLE);
+            //passing Child Id to CHild Profile from User Profile
+            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (childId != null) {
+                        bun.putInt("firstChildId", childId);
+                        Full_child_profile full_child_profile = new Full_child_profile();
+                        full_child_profile.setArguments(bun);
+                        replacementFragment(full_child_profile);
+                    }
+                }
+            });
+
+            addSecondChildIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (secondChildId != null) {
+                        bun.putInt("secondChildId", secondChildId);
+                        Full_child_profile full_child_profile = new Full_child_profile();
+                        full_child_profile.setArguments(bun);
+                        replacementFragment(full_child_profile);
+                    }
+                }
+            });
 
         }
+
 
         tvInvite.setText(labels.getButtons().getSendInvite());
 

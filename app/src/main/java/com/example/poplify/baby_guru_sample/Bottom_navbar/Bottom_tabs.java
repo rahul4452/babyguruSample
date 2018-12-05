@@ -52,7 +52,7 @@ public class Bottom_tabs extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
-        fragmentManager.beginTransaction().add(R.id.fragment_container_navbar,new Paytab_frag()).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_container_navbar,new Before_we_start_frag()).commit();
 
 
         //Setting fonts
@@ -130,6 +130,7 @@ public class Bottom_tabs extends AppCompatActivity {
             //additional code
         } else {
             getSupportFragmentManager().popBackStackImmediate();
+
         }
 
     }
@@ -193,18 +194,15 @@ public class Bottom_tabs extends AppCompatActivity {
 
         int count = getSupportFragmentManager().getBackStackEntryCount();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        Log.d("", "replacementFragment: count"+count);
 
         backstack = fragment.getClass().getName();
         fragmentTag = backstack;
         boolean fragmentPopped = fragmentManager.popBackStackImmediate(backstack,0);
-
-        Log.d("", "replacementFragment: fragmentPopped"+fragmentPopped);
         try {
             if (fragmentPopped!=true) {
-                ft.replace(R.id.fragment_container_navbar, fragment, fragmentTag);
+                ft.add(R.id.fragment_container_navbar, fragment, fragmentTag).commit();
             }
-            ft.addToBackStack(backstack).commit();
+            //ft.addToBackStack(backstack)
         }
         catch (Exception e)
         {

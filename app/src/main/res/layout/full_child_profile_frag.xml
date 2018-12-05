@@ -4,53 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".child_profile.Full_child_profile">
-
-
 
     <include
         android:id="@+id/include"
         layout="@layout/toolbar" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/details_Linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_8sdp"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:padding="@dimen/_2sdp"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@id/profile_linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <TextView
                     android:id="@+id/detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
                     android:text="@string/details"
-                    android:textAllCaps="false"
-                    android:textColor="@color/light_blue"
-                    android:textSize="@dimen/_19sdp" />
+                    android:layout_weight="1"
+                    android:textColor="@color/selet_child_inner"
+                    android:textSize="@dimen/_16sdp" />
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-                <Button
+                <TextView
                     android:id="@+id/edit_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_150sdp"
-                    android:layout_marginEnd="@dimen/_30sdp"
-                    android:layout_gravity="right|end"
-                    android:background="@drawable/child_btn_bg"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="0.6"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/_11sdp"
                     android:text="@string/edit"
-                    android:textAllCaps="false"
-                    android:textColor="#000"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textColor="@color/black"
+                    android:background="@drawable/child_btn_bg"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -58,16 +74,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/details_Linear"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:orientation="horizontal"
-
-                android:layout_marginTop="@dimen/_10sdp">
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@id/graph_linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/details_Linear">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/childProfilePicDetails"
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
-                    android:background="@color/tab2_color"
                     android:layout_marginLeft="@dimen/_20sdp"
+                    android:background="@color/tab2_color"
                     android:scaleType="fitStart"
                     android:src="@mipmap/large_logo"
                     app:riv_corner_radius="@dimen/_30sdp"
@@ -81,17 +104,18 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/parent_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/_21sdp"
+                        android:text="@string/adele"
                         android:textColor="@color/black"
-                        android:text="@string/adele" />
+                        android:textSize="@dimen/_18sdp" />
 
                     <LinearLayout
                         android:id="@+id/baby_birth"
-                        android:layout_width="@dimen/_215sdp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -100,8 +124,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:textColor="@color/black"
                             android:text="@string/born"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/_15sdp" />
 
                         <TextView
@@ -109,15 +133,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
-                            android:textColor="@color/light_purple"
                             android:paddingLeft="@dimen/_6sdp"
-                            android:textSize="@dimen/_15sdp"
-                            android:text="@string/born_date" />
+                            android:text="@string/born_date"
+                            android:textColor="@color/light_purple"
+                            android:textSize="@dimen/_15sdp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/baby_born"
-                        android:layout_width="210dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
@@ -126,9 +150,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
+                            android:text="@string/baby"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp"
-                            android:text="@string/baby" />
+                            android:textSize="@dimen/_15sdp" />
 
                         <TextView
                             android:id="@+id/gender_txt"
@@ -147,35 +171,48 @@
 
             <LinearLayout
                 android:id="@+id/graph_linearLayout"
-                android:layout_below="@id/profile_linearLayout"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="match_parent"
-                android:padding="@dimen/_8sdp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_linearLayout"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:padding="@dimen/_2sdp"
+                android:orientation="horizontal"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@+id/child_recyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_linearLayout">
+
                 <TextView
                     android:id="@+id/sleep_history"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:text="@string/sleeping_his"
-                    android:textAllCaps="false"
+                    android:layout_weight="0.6"
                     android:textColor="@color/light_blue"
-                    android:textSize="@dimen/_17sdp"
-                     />
+                    android:textSize="@dimen/_16sdp" />
 
-                <Button
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3" />
+                <TextView
                     android:id="@+id/see_graph_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@drawable/child_btn_bg"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="@dimen/_30sdp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="2"
+                    android:gravity="center_horizontal"
+                    android:layout_marginEnd="@dimen/_11sdp"
                     android:text="@string/see_graph"
-                    android:textAllCaps="false"
-                    android:textColor="#000"
-                    android:textSize="@dimen/_11sdp"
-                    />
+
+                    android:background="@drawable/child_btn_bg"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_11sdp" />
 
             </LinearLayout>
 
@@ -183,20 +220,19 @@
                 android:id="@+id/child_recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/graph_linearLayout"
-                android:layout_marginStart="@dimen/_10sdp"
-              android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_8sdp"
-                />
+                android:layout_marginTop="@dimen/_8sdp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/graph_linearLayout"
+                tools:targetApi="lollipop" />
 
 
-
-        </RelativeLayout>
-
-
-    </ScrollView>
+        </android.support.constraint.ConstraintLayout>
 
 
+    </android.support.v4.widget.NestedScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

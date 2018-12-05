@@ -25,6 +25,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Url;
 
@@ -64,14 +65,14 @@ public interface ApiInterface {
     Call<ResponseBody> passwordReset(@Body ResetPassword resetPassword);
 
 
-        @Multipart
-        @Headers({"Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
-        @POST("/update_user_details")
-        Call<UserDetailAddResponse> uploadMulFile(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email,
-                                                  @Part("user[name]") RequestBody name,
-                                                  @Part("user[relation_id]") RequestBody relation_id,
-                                                  @Part("user[language_id]") RequestBody language_id,
-                                                  @Part MultipartBody.Part image);
+    @Multipart
+    @Headers({"Accept: application/json", "X-OS:android", "X-Api-Version:1", "X-FIREBASE-TOKEN:token"})
+    @POST("/update_user_details")
+    Call<UserDetailAddResponse> uploadMulFile(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email,
+                                              @Part("user[name]") RequestBody name,
+                                              @Part("user[relation_id]") RequestBody relation_id,
+                                              @Part("user[language_id]") RequestBody language_id,
+                                              @Part MultipartBody.Part image);
 
 
 
@@ -98,4 +99,23 @@ public interface ApiInterface {
     @GET()
     Call<CryingScaleResponse> getCryingScale(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Url String url);
 
+
+
+    @Multipart
+    @Headers({"Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
+    @POST("/children")
+    Call<UserDetailAddResponse> addChildFile(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email,
+                                             @Part("child[name]") RequestBody name,
+                                             @Part("child[dob]") RequestBody relation_id,
+                                             @Part("child[gender_id]") RequestBody language_id,
+                                             @Part MultipartBody.Part image);
+
+    @Multipart
+    @Headers({"Accept: application/json","X-OS:android","X-Api-Version:1","X-FIREBASE-TOKEN:token"})
+    @PUT("/children")
+    Call<UserDetailAddResponse> editChildFile(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email,
+                                             @Part("child[name]") RequestBody name,
+                                             @Part("child[dob]") RequestBody relation_id,
+                                             @Part("child[gender_id]") RequestBody language_id,
+                                             @Part MultipartBody.Part image);
 }

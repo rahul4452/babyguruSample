@@ -22,6 +22,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -82,7 +83,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.before_we_start_frag, container, false);
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = getChildFragmentManager();
         saveData = new SaveData(getContext());
         initBefore(view);
         setupBefore(view);
@@ -153,6 +154,7 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
 
     }
 
+
     private void setServerResponse(BeforeYouStartResponse serverExistUser) {
 
         try{
@@ -169,6 +171,9 @@ public class Before_we_start_frag extends Fragment implements View.OnClickListen
 
             viewPager.setAdapter(beforePagerAdapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override

@@ -1837,3 +1837,263 @@ asda
                      public long getCombinedGroupId(long l) {
                          return 0;
                      }
+
+
+
+
+
+
+
+
+
+
+
+
+                       <LinearLayout
+                                         android:layout_width="match_parent"
+                                         android:layout_height="wrap_content"
+                                         android:layout_marginTop="@dimen/_8sdp"
+                                         android:orientation="horizontal"
+                                         android:padding="@dimen/_2sdp">
+
+                                         <TextView
+                                             android:id="@+id/chngPwdTV"
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:textColor="@color/selet_child_inner"
+                                             android:textSize="@dimen/_15sdp" />
+
+                                         <Space
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:layout_weight="1" />
+
+                                         <Button
+                                                 android:id="@+id/chngPwdBtn"
+                                             android:layout_width="@dimen/_95sdp"
+                                             android:layout_height="@dimen/_40sdp"
+                                             android:layout_marginTop="@dimen/_2sdp"
+                                             android:layout_marginEnd="@dimen/_10sdp"
+                                             android:layout_marginBottom="@dimen/_2sdp"
+                                             android:textColor="@color/black"
+                                             android:background="@drawable/child_btn_bg"
+                                             android:textAllCaps="false" />
+                                     </LinearLayout>
+
+                                     <LinearLayout
+                                         android:layout_width="match_parent"
+                                         android:layout_height="wrap_content"
+                                         android:layout_marginTop="@dimen/_8sdp"
+                                         android:orientation="horizontal"
+                                         android:padding="@dimen/_1sdp">
+
+                                         <TextView
+                                             android:id="@+id/contactUsTV"
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:layout_gravity="center_vertical"
+                                             android:textColor="@color/selet_child_inner"
+                                             android:textSize="@dimen/_15sdp" />
+
+                                         <Space
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:layout_weight="1" />
+
+                                         <ImageButton
+                                             android:id="@+id/contactUsBtn"
+                                             android:layout_width="@dimen/_95sdp"
+                                             android:layout_height="@dimen/_40sdp"
+                                             android:layout_marginTop="@dimen/_2sdp"
+                                             android:layout_marginEnd="@dimen/_10sdp"
+                                             android:layout_marginBottom="@dimen/_2sdp"
+                                             android:background="@drawable/child_btn_bg"
+                                             android:src="@mipmap/mail_user"
+                                             android:text="Button" />
+                                     </LinearLayout>
+
+                                     <LinearLayout
+                                         android:layout_width="match_parent"
+                                         android:layout_height="wrap_content"
+                                         android:layout_marginTop="@dimen/_8sdp"
+                                         android:orientation="horizontal"
+                                         android:padding="@dimen/_1sdp">
+
+                                         <TextView
+                                             android:id="@+id/legalAgreeTV"
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:layout_gravity="center_vertical"
+                                             android:textColor="@color/selet_child_inner"
+                                             android:textSize="@dimen/_15sdp" />
+
+                                         <Space
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:layout_weight="1" />
+
+                                         <ImageButton
+                                             android:id="@+id/legalAgreeBtn"
+                                             android:layout_width="@dimen/_95sdp"
+                                             android:layout_height="@dimen/_40sdp"
+                                             android:layout_marginTop="@dimen/_2sdp"
+                                             android:layout_marginEnd="@dimen/_10sdp"
+                                             android:layout_marginBottom="@dimen/_2sdp"
+                                             android:background="@drawable/child_btn_bg"
+                                             android:src="@mipmap/copy_user"
+                                             android:text="Button" />
+                                     </LinearLayout>
+
+                                     <LinearLayout
+                                         android:layout_width="match_parent"
+                                         android:layout_height="wrap_content"
+                                         android:layout_marginTop="@dimen/_8sdp"
+                                         android:orientation="horizontal"
+                                         android:padding="@dimen/_1sdp">
+
+                                         <TextView
+                                             android:id="@+id/logoutTv"
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:layout_gravity="center_vertical"
+                                             android:textColor="@color/selet_child_inner"
+                                             android:textSize="@dimen/_15sdp" />
+
+                                         <Space
+                                             android:layout_width="wrap_content"
+                                             android:layout_height="wrap_content"
+                                             android:layout_weight="1" />
+
+                                         <ImageButton
+                                             android:id="@+id/logoutBtn"
+                                             android:layout_width="@dimen/_95sdp"
+                                             android:layout_height="@dimen/_40sdp"
+                                             android:layout_marginTop="@dimen/_2sdp"
+                                             android:layout_marginEnd="@dimen/_10sdp"
+                                             android:layout_marginBottom="@dimen/_2sdp"
+                                             android:background="@drawable/child_btn_bg"
+                                             android:src="@mipmap/logout_user"
+                                             android:text="Button" />
+                                     </LinearLayout>
+
+
+
+                                     <LinearLayout
+                                                       android:orientation="vertical"
+                                                       android:gravity="start"
+                                                       android:layout_weight="3"
+                                                       android:visibility="gone"
+                                                       android:padding="@dimen/_8sdp"
+                                                       android:layout_width="wrap_content"
+                                                       android:layout_height="wrap_content">
+
+                                                       <TextView
+                                                           android:id="@+id/faqtv"
+                                                           android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:text="faq"
+                                                           android:padding="@dimen/_6sdp"
+                                                           android:textColor="@color/selet_child_inner"
+                                                           android:textSize="@dimen/_15sdp" />
+
+                                                       <TextView
+                                                           android:id="@+id/contactUsTV"
+                                                           android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:layout_gravity="center_vertical"
+                                                           android:textColor="@color/selet_child_inner"
+                                                           android:text="contact us"
+                                                           android:textSize="@dimen/_15sdp" />
+
+                                                       <TextView
+                                                           android:id="@+id/appDemo"
+                                                           android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:text="app demo"
+                                                           android:textColor="@color/selet_child_inner"
+                                                           android:textSize="@dimen/_15sdp" />
+
+                                                       <TextView
+                                                           android:id="@+id/newslettertv"
+                                                           android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:text="newsletter"
+                                                           android:textColor="@color/selet_child_inner"
+                                                           android:textSize="@dimen/_15sdp" />
+
+                                                       <TextView
+                                                           android:id="@+id/chngPwdTV"
+                                                           android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:text="Change password"
+                                                           android:textColor="@color/selet_child_inner"
+                                                           android:textSize="@dimen/_15sdp" />
+
+
+
+                                                       <TextView
+                                                           android:id="@+id/legalAgreeTV"
+                                                           android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:layout_gravity="center_vertical"
+                                                           android:textColor="@color/selet_child_inner"
+                                                           android:text="legal agreement"
+                                                           android:textSize="@dimen/_15sdp" />
+
+                                                       <TextView
+                                                           android:id="@+id/logoutTv"
+                                                           android:layout_width="wrap_content"
+                                                           android:layout_height="wrap_content"
+                                                           android:layout_gravity="center_vertical"
+                                                           android:textColor="@color/selet_child_inner"
+                                                           android:text="logout"
+                                                           android:textSize="@dimen/_15sdp" />
+                                                   </LinearLayout>
+
+
+                                                     <LinearLayout
+                                                         android:orientation="vertical"
+                                                         android:layout_gravity="end"
+                                                         android:layout_weight="1"
+                                                         android:visibility="gone"
+                                                         android:layout_width="wrap_content"
+                                                         android:layout_height="wrap_content">
+
+                                                         <Button
+                                                             android:id="@+id/chngPwdBtn"
+                                                             android:layout_width="wrap_content"
+                                                             android:layout_height="wrap_content"
+                                                             android:layout_gravity="center_horizontal"
+                                                             android:background="@drawable/child_btn_bg"
+                                                             android:text="edit"
+                                                             android:textAllCaps="false"
+                                                             android:textColor="@color/black" />
+
+                                                         <ImageButton
+                                                             android:id="@+id/contactUsBtn"
+                                                             android:layout_width="wrap_content"
+                                                             android:layout_height="38dp"
+                                                             android:layout_gravity="center_horizontal"
+                                                             android:background="@drawable/child_btn_bg"
+                                                             android:paddingStart="@dimen/_18sdp"
+                                                             android:paddingEnd="@dimen/_18sdp"
+                                                             android:src="@mipmap/mail_user"
+                                                             android:text="Button" />
+
+                                                         <ImageButton
+                                                             android:id="@+id/legalAgreeBtn"
+                                                             android:layout_width="wrap_content"
+                                                             android:layout_height="wrap_content"
+                                                             android:background="@drawable/child_btn_bg"
+                                                             android:src="@mipmap/copy_user"
+                                                             android:text="Button" />
+
+                                                         <ImageButton
+                                                             android:id="@+id/logoutBtn"
+                                                             android:layout_width="wrap_content"
+                                                             android:layout_height="wrap_content"
+                                                             android:background="@drawable/child_btn_bg"
+                                                             android:src="@mipmap/logout_user"
+                                                             android:text="Button" />
+
+                                                     </LinearLayout>

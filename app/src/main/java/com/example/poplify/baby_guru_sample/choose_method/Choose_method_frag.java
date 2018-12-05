@@ -117,7 +117,7 @@ public class Choose_method_frag extends Fragment {
     }
 
     private void init(View view) {
-        fragmentManager = getFragmentManager();
+        fragmentManager = getChildFragmentManager();
 
         //Setting fonts
         regular = Typeface.createFromAsset(getResources().getAssets(), "Comfortaa_Regular.ttf");

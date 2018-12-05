@@ -3,154 +3,172 @@ package com.example.poplify.baby_guru_sample.pojo.response.userResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GetUserDetails {
+public class GetUserDetails implements Serializable {
 
-@SerializedName("user")
-@Expose
-private User user;
-@SerializedName("relations")
-@Expose
-private List<Relation> relations = null;
-@SerializedName("children")
-@Expose
-private List<Child> children = null;
-@SerializedName("show_invite_button")
-@Expose
-private Boolean showInviteButton;
-@SerializedName("invite_detail")
-@Expose
-private Object inviteDetail;
-@SerializedName("invite_label")
-@Expose
-private String inviteLabel;
-@SerializedName("user_labels")
-@Expose
-private UserLabels userLabels;
+    @SerializedName("user")
+    @Expose
+    private User user;
+    @SerializedName("relations")
+    @Expose
+    private List<Relation> relations = null;
+    @SerializedName("children")
+    @Expose
+    private List<Child> children = null;
+    @SerializedName("show_invite_button")
+    @Expose
+    private Boolean showInviteButton;
+    @SerializedName("invite_detail")
+    @Expose
+    private Object inviteDetail;
+    @SerializedName("invite_label")
+    @Expose
+    private String inviteLabel;
+    @SerializedName("user_labels")
+    @Expose
+    private UserLabels userLabels;
+    @SerializedName("sub_parent_login_app")
+    @Expose
+    private Boolean subParentLoginApp;
 
-/**
-* No args constructor for use in serialization
-* 
-*/
-public GetUserDetails() {
-}
+    /**
+     * No args constructor for use in serialization
+     */
+    public GetUserDetails() {
+    }
 
-/**
-* 
-* @param userLabels
-* @param inviteLabel
-* @param relations
-* @param showInviteButton
-* @param children
-* @param user
-* @param inviteDetail
-*/
-public GetUserDetails(User user, List<Relation> relations, List<Child> children, Boolean showInviteButton, Object inviteDetail, String inviteLabel, UserLabels userLabels) {
-super();
-this.user = user;
-this.relations = relations;
-this.children = children;
-this.showInviteButton = showInviteButton;
-this.inviteDetail = inviteDetail;
-this.inviteLabel = inviteLabel;
-this.userLabels = userLabels;
-}
+    /**
+     * @param userLabels
+     * @param inviteLabel
+     * @param relations
+     * @param showInviteButton
+     * @param children
+     * @param subParentLoginApp
+     * @param user
+     * @param inviteDetail
+     */
+    public GetUserDetails(User user, List<Relation> relations, List<Child> children, Boolean showInviteButton, Object inviteDetail, String inviteLabel, UserLabels userLabels, Boolean subParentLoginApp) {
+        super();
+        this.user = user;
+        this.relations = relations;
+        this.children = children;
+        this.showInviteButton = showInviteButton;
+        this.inviteDetail = inviteDetail;
+        this.inviteLabel = inviteLabel;
+        this.userLabels = userLabels;
+        this.subParentLoginApp = subParentLoginApp;
+    }
 
-public User getUser() {
-return user;
-}
+    public User getUser() {
+        return user;
+    }
 
-public void setUser(User user) {
-this.user = user;
-}
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-public GetUserDetails withUser(User user) {
-this.user = user;
-return this;
-}
+    public GetUserDetails withUser(User user) {
+        this.user = user;
+        return this;
+    }
 
-public List<Relation> getRelations() {
-return relations;
-}
+    public List<Relation> getRelations() {
+        return relations;
+    }
 
-public void setRelations(List<Relation> relations) {
-this.relations = relations;
-}
+    public void setRelations(List<Relation> relations) {
+        this.relations = relations;
+    }
 
-public GetUserDetails withRelations(List<Relation> relations) {
-this.relations = relations;
-return this;
-}
+    public GetUserDetails withRelations(List<Relation> relations) {
+        this.relations = relations;
+        return this;
+    }
 
-public List<Child> getChildren() {
-return children;
-}
+    public List<Child> getChildren() {
+        return children;
+    }
 
-public void setChildren(List<Child> children) {
-this.children = children;
-}
+    public void setChildren(List<Child> children) {
+        this.children = children;
+    }
 
-public GetUserDetails withChildren(List<Child> children) {
-this.children = children;
-return this;
-}
+    public GetUserDetails withChildren(List<Child> children) {
+        this.children = children;
+        return this;
+    }
 
-public Boolean getShowInviteButton() {
-return showInviteButton;
-}
+    public Boolean getShowInviteButton() {
+        return showInviteButton;
+    }
 
-public void setShowInviteButton(Boolean showInviteButton) {
-this.showInviteButton = showInviteButton;
-}
+    public void setShowInviteButton(Boolean showInviteButton) {
+        this.showInviteButton = showInviteButton;
+    }
 
-public GetUserDetails withShowInviteButton(Boolean showInviteButton) {
-this.showInviteButton = showInviteButton;
-return this;
-}
+    public GetUserDetails withShowInviteButton(Boolean showInviteButton) {
+        this.showInviteButton = showInviteButton;
+        return this;
+    }
 
-public Object getInviteDetail() {
-return inviteDetail;
-}
+    public Object getInviteDetail() {
+        return inviteDetail;
+    }
 
-public void setInviteDetail(Object inviteDetail) {
-this.inviteDetail = inviteDetail;
-}
+    public void setInviteDetail(Object inviteDetail) {
+        this.inviteDetail = inviteDetail;
+    }
 
-public GetUserDetails withInviteDetail(Object inviteDetail) {
-this.inviteDetail = inviteDetail;
-return this;
-}
+    public GetUserDetails withInviteDetail(Object inviteDetail) {
+        this.inviteDetail = inviteDetail;
+        return this;
+    }
 
-public String getInviteLabel() {
-return inviteLabel;
-}
+    public String getInviteLabel() {
+        return inviteLabel;
+    }
 
-public void setInviteLabel(String inviteLabel) {
-this.inviteLabel = inviteLabel;
-}
+    public void setInviteLabel(String inviteLabel) {
+        this.inviteLabel = inviteLabel;
+    }
 
-public GetUserDetails withInviteLabel(String inviteLabel) {
-this.inviteLabel = inviteLabel;
-return this;
-}
+    public GetUserDetails withInviteLabel(String inviteLabel) {
+        this.inviteLabel = inviteLabel;
+        return this;
+    }
 
-public UserLabels getUserLabels() {
-return userLabels;
-}
+    public UserLabels getUserLabels() {
+        return userLabels;
+    }
 
-public void setUserLabels(UserLabels userLabels) {
-this.userLabels = userLabels;
-}
+    public void setUserLabels(UserLabels userLabels) {
+        this.userLabels = userLabels;
+    }
 
-public GetUserDetails withUserLabels(UserLabels userLabels) {
-this.userLabels = userLabels;
-return this;
-}
+    public GetUserDetails withUserLabels(UserLabels userLabels) {
+        this.userLabels = userLabels;
+        return this;
+    }
+
+    public Boolean getSubParentLoginApp() {
+        return subParentLoginApp;
+    }
+
+    public void setSubParentLoginApp(Boolean subParentLoginApp) {
+        this.subParentLoginApp = subParentLoginApp;
+    }
+
+    public GetUserDetails withSubParentLoginApp(Boolean subParentLoginApp) {
+        this.subParentLoginApp = subParentLoginApp;
+        return this;
+    }
+
 
 //-----------------------------------com.example..Buttons.java-----------------------------------
 
-    public class Buttons {
+    public class Buttons implements Serializable {
 
         @SerializedName("edit")
         @Expose
@@ -366,8 +384,9 @@ return this;
         }
 
     }
+
     // -----------------------------------com.example..Child.java-----------------------------------
-    public class Child {
+    public class Child implements Serializable {
 
         @SerializedName("id")
         @Expose
@@ -375,21 +394,33 @@ return this;
         @SerializedName("name")
         @Expose
         private String name;
+        @SerializedName("method_id")
+        @Expose
+        private Object methodId;
+        @SerializedName("image_updated_at")
+        @Expose
+        private String imageUpdatedAt;
+        @SerializedName("image_file_size")
+        @Expose
+        private Integer imageFileSize;
+        @SerializedName("image_content_type")
+        @Expose
+        private String imageContentType;
+        @SerializedName("image_file_name")
+        @Expose
+        private String imageFileName;
         @SerializedName("dob")
         @Expose
         private String dob;
-        @SerializedName("gender_id")
-        @Expose
-        private Integer genderId;
-        @SerializedName("user_id")
-        @Expose
-        private Integer userId;
-        @SerializedName("deleted_at")
-        @Expose
-        private Object deletedAt;
         @SerializedName("gender")
         @Expose
         private List<Gender> gender = null;
+        @SerializedName("image_url")
+        @Expose
+        private String imageUrl;
+        @SerializedName("saved_method")
+        @Expose
+        private Boolean savedMethod;
 
         /**
          * No args constructor for use in serialization
@@ -401,22 +432,30 @@ return this;
         /**
          *
          * @param id
-         * @param userId
+         * @param imageFileName
+         * @param imageFileSize
+         * @param imageUrl
          * @param dob
          * @param name
-         * @param deletedAt
          * @param gender
-         * @param genderId
+         * @param imageUpdatedAt
+         * @param savedMethod
+         * @param imageContentType
+         * @param methodId
          */
-        public Child(Integer id, String name, String dob, Integer genderId, Integer userId, Object deletedAt, List<Gender> gender) {
+        public Child(Integer id, String name, Object methodId, String imageUpdatedAt, Integer imageFileSize, String imageContentType, String imageFileName, String dob, List<Gender> gender, String imageUrl, Boolean savedMethod) {
             super();
             this.id = id;
             this.name = name;
+            this.methodId = methodId;
+            this.imageUpdatedAt = imageUpdatedAt;
+            this.imageFileSize = imageFileSize;
+            this.imageContentType = imageContentType;
+            this.imageFileName = imageFileName;
             this.dob = dob;
-            this.genderId = genderId;
-            this.userId = userId;
-            this.deletedAt = deletedAt;
             this.gender = gender;
+            this.imageUrl = imageUrl;
+            this.savedMethod = savedMethod;
         }
 
         public Integer getId() {
@@ -445,6 +484,71 @@ return this;
             return this;
         }
 
+        public Object getMethodId() {
+            return methodId;
+        }
+
+        public void setMethodId(Object methodId) {
+            this.methodId = methodId;
+        }
+
+        public Child withMethodId(Object methodId) {
+            this.methodId = methodId;
+            return this;
+        }
+
+        public String getImageUpdatedAt() {
+            return imageUpdatedAt;
+        }
+
+        public void setImageUpdatedAt(String imageUpdatedAt) {
+            this.imageUpdatedAt = imageUpdatedAt;
+        }
+
+        public Child withImageUpdatedAt(String imageUpdatedAt) {
+            this.imageUpdatedAt = imageUpdatedAt;
+            return this;
+        }
+
+        public Integer getImageFileSize() {
+            return imageFileSize;
+        }
+
+        public void setImageFileSize(Integer imageFileSize) {
+            this.imageFileSize = imageFileSize;
+        }
+
+        public Child withImageFileSize(Integer imageFileSize) {
+            this.imageFileSize = imageFileSize;
+            return this;
+        }
+
+        public String getImageContentType() {
+            return imageContentType;
+        }
+
+        public void setImageContentType(String imageContentType) {
+            this.imageContentType = imageContentType;
+        }
+
+        public Child withImageContentType(String imageContentType) {
+            this.imageContentType = imageContentType;
+            return this;
+        }
+
+        public String getImageFileName() {
+            return imageFileName;
+        }
+
+        public void setImageFileName(String imageFileName) {
+            this.imageFileName = imageFileName;
+        }
+
+        public Child withImageFileName(String imageFileName) {
+            this.imageFileName = imageFileName;
+            return this;
+        }
+
         public String getDob() {
             return dob;
         }
@@ -455,45 +559,6 @@ return this;
 
         public Child withDob(String dob) {
             this.dob = dob;
-            return this;
-        }
-
-        public Integer getGenderId() {
-            return genderId;
-        }
-
-        public void setGenderId(Integer genderId) {
-            this.genderId = genderId;
-        }
-
-        public Child withGenderId(Integer genderId) {
-            this.genderId = genderId;
-            return this;
-        }
-
-        public Integer getUserId() {
-            return userId;
-        }
-
-        public void setUserId(Integer userId) {
-            this.userId = userId;
-        }
-
-        public Child withUserId(Integer userId) {
-            this.userId = userId;
-            return this;
-        }
-
-        public Object getDeletedAt() {
-            return deletedAt;
-        }
-
-        public void setDeletedAt(Object deletedAt) {
-            this.deletedAt = deletedAt;
-        }
-
-        public Child withDeletedAt(Object deletedAt) {
-            this.deletedAt = deletedAt;
             return this;
         }
 
@@ -510,24 +575,50 @@ return this;
             return this;
         }
 
+        public String getImageUrl() {
+            return imageUrl;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+
+        public Child withImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+            return this;
+        }
+
+        public Boolean getSavedMethod() {
+            return savedMethod;
+        }
+
+        public void setSavedMethod(Boolean savedMethod) {
+            this.savedMethod = savedMethod;
+        }
+
+        public Child withSavedMethod(Boolean savedMethod) {
+            this.savedMethod = savedMethod;
+            return this;
+        }
+
     }
 
-  //-----------------------------------com.example..Gender.java-----------------------------------
+    //-----------------------------------com.example..Gender.java-----------------------------------
 
-    public class Gender {
+    public class Gender implements Serializable {
 
         @SerializedName("id")
         @Expose
         private Integer id;
+        @SerializedName("default_name")
+        @Expose
+        private String defaultName;
         @SerializedName("name")
         @Expose
         private String name;
         @SerializedName("selected")
         @Expose
         private Boolean selected;
-        @SerializedName("default_name")
-        @Expose
-        private String defaultName;
 
         /**
          * No args constructor for use in serialization
@@ -543,12 +634,12 @@ return this;
          * @param selected
          * @param name
          */
-        public Gender(Integer id, String name, Boolean selected, String defaultName) {
+        public Gender(Integer id, String defaultName, String name, Boolean selected) {
             super();
             this.id = id;
+            this.defaultName = defaultName;
             this.name = name;
             this.selected = selected;
-            this.defaultName = defaultName;
         }
 
         public Integer getId() {
@@ -561,6 +652,19 @@ return this;
 
         public Gender withId(Integer id) {
             this.id = id;
+            return this;
+        }
+
+        public String getDefaultName() {
+            return defaultName;
+        }
+
+        public void setDefaultName(String defaultName) {
+            this.defaultName = defaultName;
+        }
+
+        public Gender withDefaultName(String defaultName) {
+            this.defaultName = defaultName;
             return this;
         }
 
@@ -590,23 +694,10 @@ return this;
             return this;
         }
 
-        public String getDefaultName() {
-            return defaultName;
-        }
-
-        public void setDefaultName(String defaultName) {
-            this.defaultName = defaultName;
-        }
-
-        public Gender withDefaultName(String defaultName) {
-            this.defaultName = defaultName;
-            return this;
-        }
-
     }
-   // -----------------------------------com.example..Header.java-----------------------------------
+    // -----------------------------------com.example..Header.java-----------------------------------
 
-    public class Header {
+    public class Header implements Serializable {
 
         @SerializedName("user_profile")
         @Expose
@@ -643,9 +734,9 @@ return this;
 
     }
 
-   // -----------------------------------com.example..Labels.java-----------------------------------
+    // -----------------------------------com.example..Labels.java-----------------------------------
 
-    public class Labels {
+    public class Labels implements Serializable {
 
         @SerializedName("mother")
         @Expose
@@ -828,7 +919,7 @@ return this;
 
     //-----------------------------------com.example..Relation.java-----------------------------------
 
-    public class Relation {
+    public class Relation implements Serializable {
 
         @SerializedName("id")
         @Expose
@@ -921,17 +1012,17 @@ return this;
 
     //-----------------------------------com.example..User.java-----------------------------------
 
-    public class User {
+    public class User implements Serializable {
 
         @SerializedName("id")
         @Expose
         private Integer id;
-        @SerializedName("email")
-        @Expose
-        private String email;
         @SerializedName("name")
         @Expose
         private String name;
+        @SerializedName("email")
+        @Expose
+        private String email;
         @SerializedName("image_url")
         @Expose
         private String imageUrl;
@@ -954,11 +1045,11 @@ return this;
          * @param name
          * @param newsletterSubscribed
          */
-        public User(Integer id, String email, String name, String imageUrl, Boolean newsletterSubscribed) {
+        public User(Integer id, String name, String email, String imageUrl, Boolean newsletterSubscribed) {
             super();
             this.id = id;
-            this.email = email;
             this.name = name;
+            this.email = email;
             this.imageUrl = imageUrl;
             this.newsletterSubscribed = newsletterSubscribed;
         }
@@ -976,19 +1067,6 @@ return this;
             return this;
         }
 
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public User withEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
         public String getName() {
             return name;
         }
@@ -999,6 +1077,19 @@ return this;
 
         public User withName(String name) {
             this.name = name;
+            return this;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public User withEmail(String email) {
+            this.email = email;
             return this;
         }
 
@@ -1030,77 +1121,77 @@ return this;
 
     }
 
-   // -----------------------------------com.example..UserLabels.java-----------------------------------
-   public class UserLabels {
+    // -----------------------------------com.example..UserLabels.java-----------------------------------
+    public class UserLabels implements Serializable {
 
-       @SerializedName("header")
-       @Expose
-       private Header header;
-       @SerializedName("labels")
-       @Expose
-       private Labels labels;
-       @SerializedName("buttons")
-       @Expose
-       private Buttons buttons;
+        @SerializedName("header")
+        @Expose
+        private Header header;
+        @SerializedName("labels")
+        @Expose
+        private Labels labels;
+        @SerializedName("buttons")
+        @Expose
+        private Buttons buttons;
 
-       /**
-        * No args constructor for use in serialization
-        *
-        */
-       public UserLabels() {
-       }
+        /**
+         * No args constructor for use in serialization
+         *
+         */
+        public UserLabels() {
+        }
 
-       /**
-        *
-        * @param labels
-        * @param buttons
-        * @param header
-        */
-       public UserLabels(Header header, Labels labels, Buttons buttons) {
-           super();
-           this.header = header;
-           this.labels = labels;
-           this.buttons = buttons;
-       }
+        /**
+         *
+         * @param labels
+         * @param buttons
+         * @param header
+         */
+        public UserLabels(Header header, Labels labels, Buttons buttons) {
+            super();
+            this.header = header;
+            this.labels = labels;
+            this.buttons = buttons;
+        }
 
-       public Header getHeader() {
-           return header;
-       }
+        public Header getHeader() {
+            return header;
+        }
 
-       public void setHeader(Header header) {
-           this.header = header;
-       }
+        public void setHeader(Header header) {
+            this.header = header;
+        }
 
-       public UserLabels withHeader(Header header) {
-           this.header = header;
-           return this;
-       }
+        public UserLabels withHeader(Header header) {
+            this.header = header;
+            return this;
+        }
 
-       public Labels getLabels() {
-           return labels;
-       }
+        public Labels getLabels() {
+            return labels;
+        }
 
-       public void setLabels(Labels labels) {
-           this.labels = labels;
-       }
+        public void setLabels(Labels labels) {
+            this.labels = labels;
+        }
 
-       public UserLabels withLabels(Labels labels) {
-           this.labels = labels;
-           return this;
-       }
+        public UserLabels withLabels(Labels labels) {
+            this.labels = labels;
+            return this;
+        }
 
-       public Buttons getButtons() {
-           return buttons;
-       }
+        public Buttons getButtons() {
+            return buttons;
+        }
 
-       public void setButtons(Buttons buttons) {
-           this.buttons = buttons;
-       }
+        public void setButtons(Buttons buttons) {
+            this.buttons = buttons;
+        }
 
-       public UserLabels withButtons(Buttons buttons) {
-           this.buttons = buttons;
-           return this;
-       }
+        public UserLabels withButtons(Buttons buttons) {
+            this.buttons = buttons;
+            return this;
+        }
 
-   }
+    }
 }

@@ -138,7 +138,7 @@ public class Choose_mthd_recomm_frag extends Fragment implements MediaPlayer.OnC
 
             mediaPlayer = MediaPlayer.create(getContext(), R.raw.maroon);
             mediaPlayer.setOnCompletionListener(this);
-            seekbar.setClickable(false);
+            //seekbar.setClickable(false);
 
         } catch (Exception e) {
             e.printStackTrace();
