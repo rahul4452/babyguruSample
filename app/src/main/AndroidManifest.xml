@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.poplify.baby_guru_sample">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
-        android:theme="@style/Customtheme">
+        android:theme="@style/Customtheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
@@ -59,7 +61,7 @@
             android:name=".Bottom_navbar.Bottom_tabs"
             android:exported="true"
             android:theme="@style/Customtheme1"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
 
 
         <activity android:name=".joyride_screen.JoyRide_scr1">

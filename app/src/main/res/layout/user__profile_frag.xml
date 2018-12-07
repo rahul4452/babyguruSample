@@ -229,40 +229,15 @@
                         android:gravity="center"
                         android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/secondChildLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_9sdp"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/addSecondChildFromUser"
-                        android:layout_width="@dimen/_72sdp"
-                        android:layout_height="@dimen/_72sdp"
-                        android:layout_marginStart="@dimen/_1sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-                        android:background="@drawable/select_child_bg1"
-                        android:visibility="visible"
-                         />
 
-                    <TextView
-                        android:id="@+id/secondChildName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:padding="@dimen/_3sdp"
-                        android:textSize="@dimen/_11sdp"
-                        android:gravity="center"
-                        android:layout_gravity="center_horizontal"/>
-                </LinearLayout>
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/my_recycler_view_child"
+                    android:scrollbars="none"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:padding="@dimen/_2sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
 
             </LinearLayout>

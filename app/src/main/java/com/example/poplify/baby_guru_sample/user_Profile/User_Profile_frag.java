@@ -1,6 +1,7 @@
 package com.example.poplify.baby_guru_sample.user_Profile;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,9 +9,13 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +34,7 @@ import com.androidadvance.topsnackbar.TSnackbar;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.poplify.baby_guru_sample.R;
+import com.example.poplify.baby_guru_sample.adapter.ChildList;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.example.poplify.baby_guru_sample.add_New_Baby_tab.Add_child_tab_frag;
 import com.example.poplify.baby_guru_sample.child_profile.Full_child_profile;
@@ -40,8 +47,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -64,17 +74,17 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
     private SaveData saveData;
     FragmentManager fragmentManager;
     ProgressBar progressBar;
-    CircleImageView addFirstChildIV, addSecondChildIV;
-    LinearLayout firstLayout, secondLayout;
+    CircleImageView addFirstChildIV;
+    RecyclerView.Adapter UserChildAdapter;
     ImageButton btnContactUs, btnLegalAgree, btnLogout, btnappDemo, btnFaq;
-    CircleImageView parentImage, firstChildImage, secondChildImage;
+    CircleImageView parentImage;
     private GetUserDetails serverExistUser;
     Bundle bun = new Bundle();
     private GetUserDetails.UserLabels labels;
-    private String childfirstName;
-    private String childSecondImage;
-    private Integer childId;
-    private Integer secondChildId;
+    private RecyclerView recycleviewChild;
+    private LinearLayoutManager mLayoutManager;
+    private ArrayList<ChildList> childLists = new ArrayList<>();
+    private LinearLayout firstLayout;
 
 
     public User_Profile_frag() {
@@ -101,7 +111,6 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         responseCall.enqueue(new Callback<GetUserDetails>() {
             @Override
             public void onResponse(Call<GetUserDetails> call, Response<GetUserDetails> response) {
-
 
                 boolean success = response.isSuccessful();
                 serverExistUser = response.body();
@@ -204,18 +213,23 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         tvFaq = view.findViewById(R.id.faqtv);
         tvFaq.setTypeface(regularMon);
 
-        tvSecondChildName = view.findViewById(R.id.secondChildName);
-        tvSecondChildName.setTypeface(regularMon);
+//        tvSecondChildName = view.findViewById(R.id.secondChildName);
+//        tvSecondChildName.setTypeface(regularMon);
 
 
         tvInvite = view.findViewById(R.id.txtInvite);
         tvInvite.setTypeface(regular);
 
 
+        recycleviewChild = view.findViewById(R.id.my_recycler_view_child);
+        recycleviewChild.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        recycleviewChild.setLayoutManager(mLayoutManager);
+
         //Image View
         addFirstChildIV = view.findViewById(R.id.addChildFromUser);
 
-        addSecondChildIV = view.findViewById(R.id.addSecondChildFromUser);
+        //addSecondChildIV = view.findViewById(R.id.addSecondChildFromUser);
 
 
         //Simple button
@@ -249,7 +263,7 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
 
         //Linear Layout
         firstLayout = view.findViewById(R.id.firstchildImageLayout);
-        secondLayout = view.findViewById(R.id.secondChildLayout);
+//        secondLayout = view.findViewById(R.id.secondChildLayout);
 
 
     }
@@ -303,152 +317,35 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         tvMyChildren.setText(labels.getLabels().getMyChildren());
 
 
-        //setting up children pic in User Details
+        final List<GetUserDetails.Child> childrenList = serverExistUser.getChildren();
 
-        List<GetUserDetails.Child> childrenList = serverExistUser.getChildren();
-        if (childrenList.size() == 0) {
-            tvFirstChildName.setVisibility(View.VISIBLE);
-            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    replacementFragment(new Add_child_tab_frag());
-                }
-            });
-            secondLayout.setVisibility(View.GONE);
-            tvFirstChildName.setText(labels.getLabels().getAddChild());
+        for (int i = 0; i < childrenList.size(); i++) {
+            ChildList list_of_child = new ChildList();
+            list_of_child.setChildImageUrl(childrenList.get(i).getImageUrl());
+            list_of_child.setChildName(childrenList.get(i).getName());
+            list_of_child.setChildId(childrenList.get(i).getId());
 
-        } else if (childrenList.size() == 1) {
-
-            firstLayout.setVisibility(View.VISIBLE);
-            secondLayout.setVisibility(View.VISIBLE);
-
-            for (int i = 0; i < childrenList.size(); i++) {
-                childfirstName = childrenList.get(i).getImageUrl();
-                childId = childrenList.get(i).getId();
-                if (childfirstName != null) {
-                    try {
-                        Glide.with(this)
-                                .load(childfirstName)
-                                .into(addFirstChildIV);
-                        String childname = childrenList.get(0).getName();
-                        tvFirstChildName.setText(childname);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    addFirstChildIV.setBackgroundResource(R.drawable.childbg);
-
-
-                }
+            if(childLists.size()!=2) {
+                childLists.add(list_of_child);
             }
+        }
 
 
-            //passing Child Id to CHild Profile from User Profile
-            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (childfirstName != null) {
-                        bun.putInt("firstChildId", childId);
-                        Full_child_profile full_child_profile = new Full_child_profile();
-                        full_child_profile.setArguments(bun);
-                        replacementFragment(full_child_profile);
-                    }
-                }
-            });
+            UserChildAdapter = new UserChildAdapter(getContext(), childLists);
 
 
-            addSecondChildIV.setVisibility(View.VISIBLE);
-            addSecondChildIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    replacementFragment(new Add_child_tab_frag());
-                }
-            });
-            tvSecondChildName.setVisibility(View.VISIBLE);
-            tvSecondChildName.setText(labels.getLabels().getAddChild());
-
-
-        } else if (childrenList.size() == 2) {
+        if (childrenList.size() != 2) {
             firstLayout.setVisibility(View.VISIBLE);
-            secondLayout.setVisibility(View.VISIBLE);
-            for (int i = 0; i < childrenList.size(); i++) {
-                if (i == 0) {
-                    childId = childrenList.get(0).getId();
-                    childfirstName = childrenList.get(0).getImageUrl();
-                    if (childfirstName != null) {
-                        try {
-                            Glide.with(this)
-                                    .load(childfirstName)
-                                    .into(addFirstChildIV);
+            recycleviewChild.setAdapter(UserChildAdapter);
 
-                            String childname = childrenList.get(0).getName();
-                            tvSecondChildName.setText(childname);
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        addFirstChildIV.setBackgroundResource(R.drawable.childbg);
-
-                        String childname = childrenList.get(0).getName();
-                        tvFirstChildName.setText(childname);
-                    }
-                } else {
-                    childSecondImage = childrenList.get(1).getImageUrl();
-                    secondChildId = childrenList.get(1).getId();
-                    if (childSecondImage != null) {
-                        try {
-                            Glide.with(this)
-                                    .load(childSecondImage)
-                                    .into(addSecondChildIV);
-
-                            String childname = childrenList.get(1).getName();
-                            tvSecondChildName.setText(childname);
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        addSecondChildIV.setBackgroundResource(R.drawable.childbg);
-                        String childname = childrenList.get(1).getName();
-                        tvSecondChildName.setText(childname);
-                    }
-                }
-            }
-
-            //passing Child Id to CHild Profile from User Profile
-            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (childId != null) {
-                        bun.putInt("firstChildId", childId);
-                        Full_child_profile full_child_profile = new Full_child_profile();
-                        full_child_profile.setArguments(bun);
-                        replacementFragment(full_child_profile);
-                    }
-                }
-            });
-
-            addSecondChildIV.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (secondChildId != null) {
-                        bun.putInt("secondChildId", secondChildId);
-                        Full_child_profile full_child_profile = new Full_child_profile();
-                        full_child_profile.setArguments(bun);
-                        replacementFragment(full_child_profile);
-                    }
-                }
-            });
+        } else {
+            firstLayout.setVisibility(View.GONE);
+            recycleviewChild.setAdapter(UserChildAdapter);
 
         }
 
 
         tvInvite.setText(labels.getButtons().getSendInvite());
-
 
         //Last Layout
         chngePwdBtn.setText(labels.getButtons().getEdit());
@@ -498,6 +395,116 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
             ft.addToBackStack(backstack).commit();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public class UserChildAdapter extends RecyclerView.Adapter<UserChildAdapter.ViewHolder> {
+
+
+        // List<Data> list = Collections.emptyList();
+
+        Context contxt;
+        ArrayList<ChildList> childNameList;
+        ChildList childList;
+        private static final String TAG = "UserChildAdapter";
+
+        // Provide a suitable constructor (depends on the kind of dataset).
+
+
+        public UserChildAdapter(Context contxt, ArrayList<ChildList> childId) {
+            this.contxt = contxt;
+            this.childNameList = childId;
+        }
+
+        // Provide a reference to the views for each data item.
+        // Complex data items may need more than one view per item, and
+        // you provide access to all the views for a data item in a view holder.
+        public class ViewHolder extends RecyclerView.ViewHolder {
+            public CircleImageView imageUrls;
+            public TextView childName, childId;
+
+            public ViewHolder(View v) {
+                super(v);
+                imageUrls = v.findViewById(R.id.showChild);
+                childName = v.findViewById(R.id.childname);
+                childId = v.findViewById(R.id.getChildId);
+            }
+        }
+
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.show_child_user_profile, parent, false);
+
+            // Set the view's size, margins, paddings and layout parameters.
+
+            regular = Typeface.createFromAsset(contxt.getAssets(), "Comfortaa_Regular.ttf");
+            regularMon = Typeface.createFromAsset(contxt.getAssets(), "Montserrat-Regular.otf");
+
+            return new ViewHolder(v);
+        }
+
+        @Override
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
+
+            childList = childNameList.get(position);
+            try {
+                if (childList.getChildImageUrl() != null) {
+                    Glide.with(getContext())
+                            .load(childList.getChildImageUrl())
+                            .into(holder.imageUrls);
+                } else {
+                    holder.imageUrls.setImageResource(R.drawable.childbg);
+                }
+                holder.childName.setText(childList.getChildName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            holder.imageUrls.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    switch (position) {
+                        case 0:
+                            bun.putInt("childId", childNameList.get(position).getChildId());
+                            Full_child_profile full_child_profile = new Full_child_profile();
+                            full_child_profile.setArguments(bun);
+                            replacementFragment(full_child_profile);
+                            break;
+
+                        case 1:
+                            bun.putInt("childId", childNameList.get(position).getChildId());
+                            Full_child_profile full_child_profile2 = new Full_child_profile();
+                            full_child_profile2.setArguments(bun);
+                            replacementFragment(full_child_profile2);
+                            break;
+                    }
+
+
+                }
+
+            });
+
+        }
+
+        @Override
+        public int getItemCount() {
+            // Hackish: This is set to INT_MAX so that user has a lot of free space to move around to
+            // make the view appear as infinite. This should be improved.
+            return childLists.size();
+//        return mDataset.length;
+        }
+
+        @Override
+        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+            super.onAttachedToRecyclerView(recyclerView);
+
+            // Hackish: Set to the middle position so that user can scroll in either direction for a
+            // long time. This eventually needs to be improved to wrap better.
+            recyclerView.scrollToPosition(Integer.MAX_VALUE / 2);
         }
     }
 }

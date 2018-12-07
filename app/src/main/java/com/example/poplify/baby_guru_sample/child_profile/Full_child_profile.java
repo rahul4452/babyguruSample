@@ -1,43 +1,76 @@
 package com.example.poplify.baby_guru_sample.child_profile;
 
 
+import android.app.FragmentManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.androidadvance.topsnackbar.TSnackbar;
+import com.bumptech.glide.Glide;
 import com.example.poplify.baby_guru_sample.R;
+import com.example.poplify.baby_guru_sample.adapter.SaveData;
+import com.example.poplify.baby_guru_sample.add_New_Baby_tab.Add_child_tab_frag;
+import com.example.poplify.baby_guru_sample.pojo.request.userRequest.childRequest.ChildProfileResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.GetUserDetails;
+import com.example.poplify.baby_guru_sample.rest.ApiClient;
+import com.example.poplify.baby_guru_sample.rest.ApiInterface;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Full_child_profile extends Fragment implements View.OnClickListener {
 
-    TextView detail_txt, parent_name_txt, baby_born_txt, baby_born_date_txt, baby_txt, baby_gen_txt, baby_his_txt;
-    TextView edit_btn, see_graph;
+    TextView detail_txt, child_name_txt, baby_born_txt, baby_born_date_txt, baby_txt, baby_gen_txt, baby_history_txt, coachindMethodTv;
+    TextView edit_btn, see_graph, changeMethodBtn, selectMethodTv;
+    LinearLayout changeMthodLayout;
+    CircleImageView childPic;
+    TextView toolbarTitle;
     Typeface bold, regular, regularMon;
     List<String> session, session_date, session_time, session_time_dif;
     RecyclerView recyclerView;
     Child child_adapt;
-    private String SERIALIZED_KEY = "firstChildId";
+    private String SERIALIZED_KEY = "childId";
     RecyclerView.LayoutManager layoutManager;
-
+    SaveData saveData;
     Bundle bundle = new Bundle();
-    private Integer childFirstId, secondChildId;
+    Bundle bundle1 = new Bundle();
+    private Integer childId;
+    private ChildProfileResponse serverData;
+    private TextView bornTxt;
+    private Boolean genderSelected;
+    private Integer genderId;
+    private android.support.v4.app.FragmentManager fragmentManager;
 
 
     public Full_child_profile() {
@@ -48,8 +81,9 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bundle = getArguments();
-        childFirstId = bundle.getInt(SERIALIZED_KEY);
-        secondChildId = bundle.getInt("secondChildId");
+        assert bundle != null;
+        childId = bundle.getInt(SERIALIZED_KEY);
+
     }
 
     @Override
@@ -58,9 +92,13 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.full_child_profile_frag, container, false);
 
+
+        saveData = new SaveData(getContext());
+
+        initializer(view);//setting up textview,button and Font
         intilizeList();
 
-        // sendRequestToServer(childData);
+        requestToServer(childId, view);
 
 
         recyclerView = view.findViewById(R.id.child_recyclerView);
@@ -71,15 +109,123 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
         child_adapt = new Child(session, session_date, session_time, session_time_dif);
         recyclerView.setAdapter(child_adapt);
 
-        initializer(view);//setting up textview,button and Font
-
         return view;
     }
 
-    private void sendRequestToServer(GetUserDetails childData) {
+    private void requestToServer(Integer childFirstId, final View view) {
+        ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
+        String token_header = saveData.get("login_token");
+        String email_header = saveData.get("login_email");
+
+        Call<ChildProfileResponse> responseCall = service.showChildFile(token_header, email_header, childFirstId);
+        responseCall.enqueue(new Callback<ChildProfileResponse>() {
+            @Override
+            public void onResponse(Call<ChildProfileResponse> call, Response<ChildProfileResponse> response) {
+
+                boolean success = response.isSuccessful();
+                serverData = response.body();
+                if (!success) {
+                    switch (response.code()) {
+                        case 400:
+                            try {
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                TSnackbar snackbar = TSnackbar.make(view.findViewById(android.R.id.content), jObjError.getString("message"), TSnackbar.LENGTH_LONG);
+                                snackbar.setActionTextColor(Color.WHITE);
+                                View snackbarView = snackbar.getView();
+                                snackbarView.setBackgroundColor(getResources().getColor(R.color.light_pink));
+                                TextView textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                                textView.setTextColor(Color.WHITE);
+                                textView.setGravity(Gravity.CENTER_HORIZONTAL);
+                                Toast.makeText(getContext(), response.errorBody() + "" + response.message(), Toast.LENGTH_LONG).show();
+                                snackbar.show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                    }
+                } else {
+                    setDataToView(serverData);
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChildProfileResponse> call, Throwable t) {
+                call.cancel();
+
+            }
+        });
 
 
     }
+
+    private void setDataToView(ChildProfileResponse serverData) {
+
+        ChildProfileResponse.Header header = serverData.getChildLabels().getChildProfileLabels().getHeader();
+        ChildProfileResponse.Labels labels = serverData.getChildLabels().getChildProfileLabels().getLabels();
+        ChildProfileResponse.Buttons buttons = serverData.getChildLabels().getChildProfileLabels().getButtons();
+        ChildProfileResponse.Child childDetails = serverData.getChild();
+
+        //toolbar
+        toolbarTitle.setText(header.getChildProfile());
+
+        //First Layout
+        detail_txt.setText(labels.getDetails());
+
+        edit_btn.setText(buttons.getEdit());
+
+
+        //Change Method Layout
+        coachindMethodTv.setText(labels.getCoachingMethod());
+
+        changeMethodBtn.setText(buttons.getChange());
+
+
+        //SleepCoaching History Layout
+        baby_history_txt.setText(labels.getSleepCoachingHistory());
+        see_graph.setText(buttons.getGraph());
+
+
+        //Setting Up the Child Profile
+        if (childDetails.getName() != null) {
+            child_name_txt.setText(childDetails.getName());
+        }
+
+
+        bornTxt.setText(labels.getBornOn());
+
+        baby_born_date_txt.setText(childDetails.getDob());
+
+        baby_born_txt.setText(labels.getBaby());
+
+        List<ChildProfileResponse.Gender> genderChild = serverData.getChild().getGender();
+
+        for (ChildProfileResponse.Gender gender : genderChild) {
+            //genderId = gender.getId();
+            genderSelected = gender.getSelected();
+            if (genderSelected.equals(true) && gender.getName() != null) {
+                baby_gen_txt.setText(gender.getName());
+                bundle1.putInt("genderId",gender.getId());
+            } else {
+                baby_gen_txt.setText(gender.getDefaultName());
+            }
+        }
+
+        if (childDetails.getImageUrl() != null) {
+            String childImagePic = childDetails.getImageUrl();
+            try {
+                Glide.with(this)
+                        .load(childImagePic)
+                        .into(childPic);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
     private void intilizeList() {
         session = new ArrayList<String>();
@@ -117,12 +263,14 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
 
     private void initializer(View view) {
 
+        fragmentManager = getFragmentManager();
+
         //Setting fonts
         regular = Typeface.createFromAsset(getActivity().getAssets(), "Comfortaa_Regular.ttf");
         regularMon = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Regular.otf");
 
         //Button
-        edit_btn = view.findViewById(R.id.edit_btn);
+        edit_btn = view.findViewById(R.id.child_edit_btn);
         edit_btn.setTypeface(regular);
         edit_btn.setOnClickListener(this);
 
@@ -130,34 +278,51 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
         see_graph.setTypeface(regular);
         see_graph.setOnClickListener(this);
 
+        //Method Layout
+        coachindMethodTv = view.findViewById(R.id.coaching_method_tv);
+        coachindMethodTv.setTypeface(regularMon);
 
-        //all TextViews
+        changeMethodBtn = view.findViewById(R.id.chnge_method_btn);
+        changeMethodBtn.setTypeface(regularMon);
+        changeMethodBtn.setOnClickListener(this);
 
-        detail_txt = view.findViewById(R.id.detail);
-        detail_txt.setTypeface(regular);
+        selectMethodTv = view.findViewById(R.id.select_method_tv);
+        selectMethodTv.setTypeface(regularMon);
+
+        toolbarTitle = view.findViewById(R.id.toolbar_title);
+        toolbarTitle.setTypeface(regular);
+
+        //Change Method Layout
 
 
-        parent_name_txt = view.findViewById(R.id.parent_name);
-        parent_name_txt.setTypeface(regularMon);
+        //Child Layout
+        childPic = view.findViewById(R.id.childProfilePicDetails);
 
+        child_name_txt = view.findViewById(R.id.childran_name);
+        child_name_txt.setTypeface(regularMon);
 
-        baby_born_txt = view.findViewById(R.id.baby_txt);
+        baby_born_txt = view.findViewById(R.id.baby_with_gender);
         baby_born_txt.setTypeface(regularMon);
 
+        bornTxt = view.findViewById(R.id.born_txt);
+        bornTxt.setTypeface(regularMon);
 
         baby_born_date_txt = view.findViewById(R.id.born_date);
         baby_born_date_txt.setTypeface(regularMon);
-
-        baby_txt = view.findViewById(R.id.baby_txt);
-        baby_txt.setTypeface(regularMon);
 
 
         baby_gen_txt = view.findViewById(R.id.gender_txt);
         baby_gen_txt.setTypeface(regularMon);
 
 
-        baby_his_txt = view.findViewById(R.id.sleep_history);
-        baby_his_txt.setTypeface(regular);
+        baby_history_txt = view.findViewById(R.id.sleep_history);
+        baby_history_txt.setTypeface(regular);
+
+        //all TextViews
+
+        detail_txt = view.findViewById(R.id.detail_child);
+        detail_txt.setTypeface(regular);
+
 
     }
 
@@ -167,7 +332,18 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
         int btn = view.getId();
 
         switch (btn) {
-            case R.id.edit_btn:
+            case R.id.child_edit_btn:
+
+                bundle1.putInt("childIdforUpdate", childId);
+                bundle1.putString("childName",child_name_txt.getText().toString().trim());
+                bundle1.putString("childDob",baby_born_date_txt.getText().toString().trim());
+                bundle1.putSerializable("labels",serverData.getChildLabels().getChildProfileLabels());
+                if (serverData.getChild().getImageUrl() != null) {
+                   bundle1.putString("childimageUrl",serverData.getChild().getImageUrl());
+                }
+                Add_child_tab_frag updateChild = new Add_child_tab_frag();
+                updateChild.setArguments(bundle1);
+                replacementFragment(updateChild);
 
                 break;
 
@@ -178,6 +354,27 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
         }
     }
 
+    private void replacementFragment(Fragment fragment) {
+        String backstack = null;
+        String fragmentTag = null;
+
+
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+
+        backstack = fragment.getClass().getName();
+        fragmentTag = backstack;
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backstack, 0);
+
+        Log.d("", "replacementFragment: fragmentPopped" + fragmentPopped);
+        try {
+            if (fragmentPopped != true) {
+                ft.replace(R.id.fragment_container_navbar, fragment, fragmentTag);
+            }
+            ft.addToBackStack(backstack).commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private class Child extends RecyclerView.Adapter<Child.Child_Holder> {
 

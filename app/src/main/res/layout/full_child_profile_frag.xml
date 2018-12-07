@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/detail"
+                    android:id="@+id/detail_child"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -55,7 +55,7 @@
                     android:layout_weight="1" />
 
                 <TextView
-                    android:id="@+id/edit_btn"
+                    android:id="@+id/child_edit_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_8sdp"
@@ -77,26 +77,24 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:orientation="horizontal"
                 android:paddingTop="@dimen/_8sdp"
-                android:paddingBottom="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_8sdp"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:layout_constraintBottom_toTopOf="@id/graph_linearLayout"
+                android:paddingBottom="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/details_Linear">
+                app:layout_constraintTop_toBottomOf="@+id/details_Linear"
+                app:layout_constraintVertical_chainStyle="packed">
 
-                <com.makeramen.roundedimageview.RoundedImageView
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/childProfilePicDetails"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_70sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:background="@color/tab2_color"
-                    android:scaleType="fitStart"
+                    android:layout_width="@dimen/_72sdp"
+                    android:layout_height="@dimen/_72sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:background="@drawable/tab1"
                     android:src="@mipmap/large_logo"
-                    app:riv_corner_radius="@dimen/_30sdp"
-                    app:riv_mutate_background="true"
-                    app:riv_oval="true"
-                    app:riv_tile_mode="clamp" />
+                    android:visibility="visible"
+                    app:civ_circle_background_color="@color/tab1_color" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -106,12 +104,12 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/parent_name"
+                        android:id="@+id/childran_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/adele"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_18sdp" />
+                        android:textSize="@dimen/_14sdp" />
 
                     <LinearLayout
                         android:id="@+id/baby_birth"
@@ -123,20 +121,18 @@
                             android:id="@+id/born_txt"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="0"
                             android:text="@string/born"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp" />
+                            android:textSize="@dimen/_12sdp" />
 
                         <TextView
                             android:id="@+id/born_date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0"
                             android:paddingLeft="@dimen/_6sdp"
                             android:text="@string/born_date"
                             android:textColor="@color/light_purple"
-                            android:textSize="@dimen/_15sdp" />
+                            android:textSize="@dimen/_12sdp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -146,13 +142,13 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/baby_txt"
+                            android:id="@+id/baby_with_gender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0"
                             android:text="@string/baby"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp" />
+                            android:textSize="@dimen/_13sdp" />
 
                         <TextView
                             android:id="@+id/gender_txt"
@@ -162,12 +158,97 @@
                             android:paddingLeft="@dimen/_6sdp"
                             android:text="@string/baby_gen"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_15sdp"
+                            android:textSize="@dimen/_13sdp"
                             android:textStyle="bold"
                             android:typeface="normal" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/graph_linearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profile_linearLayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp"
+                    app:layout_constraintBottom_toTopOf="@id/profile_linearLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed">
+
+                    <TextView
+                        android:id="@+id/coaching_method_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:layout_weight="1"
+                        android:text="coaching method"
+                        android:textColor="@color/selet_child_inner"
+                        android:textSize="@dimen/_16sdp" />
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/chnge_method_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_marginEnd="@dimen/_11sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/child_btn_bg"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/_8sdp"
+                        android:text="change"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/lightgreen"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_14sdp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/select_method_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="cuddle,calm,continue"
+                        android:textColor="@color/black"
+                        android:gravity="center_horizontal"
+                        android:padding="@dimen/_11sdp"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/childmethod"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_46sdp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/graph_linearLayout"
@@ -204,7 +285,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_gravity="center_vertical|center_horizontal"
                     android:layout_weight="2"
                     android:gravity="center_horizontal"
                     android:layout_marginEnd="@dimen/_11sdp"

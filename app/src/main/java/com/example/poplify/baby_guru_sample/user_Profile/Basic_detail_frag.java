@@ -262,58 +262,6 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
         }
     }
 
-    private void changeProfilePic() {
-        if (EasyPermissions.hasPermissions(getContext(), FilePickerConst.PERMISSIONS_FILE_PICKER)) {
-            onPickPhoto();
-        } else {
-            // Ask for one permission
-            EasyPermissions.requestPermissions(
-                    this,
-                    "Asking for permission",
-                    RC_PHOTO_PICKER_PERM,
-                    FilePickerConst.PERMISSIONS_FILE_PICKER);
-        }
-    }
-
-    private void onPickPhoto() {
-        FilePickerBuilder.getInstance()
-                .setSelectedFiles(photoPaths)
-                .setActivityTheme(R.style.LibAppTheme)
-                .pickPhoto(this);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case FilePickerConst.REQUEST_CODE_PHOTO:
-                if (resultCode == Activity.RESULT_OK && data != null) {
-                    //photoPaths = data.getStringExtra(FilePickerConst.KEY_SELECTED_MEDIA);
-                    photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
-                }
-                break;
-            default:
-                Toast.makeText(getContext(), " adsf adsf adfb dflmnaf", Toast.LENGTH_LONG).show();
-        }
-
-        addThemToView(photoPaths);
-    }
-
-    private void addThemToView(ArrayList<String> imagePaths) {
-        ArrayList<String> filePaths = new ArrayList<>();
-        if (imagePaths != null) {
-            filePaths.addAll(imagePaths);
-        }
-
-        String path = filePaths.get(0);
-        String compressImage = compressImage(path);
-
-        Bitmap bitmap = (BitmapFactory.decodeFile(compressImage));
-        parentProfileShow.setImageBitmap(bitmap);
-
-
-    }
-
-
     private void callApi(final View view) {
 
         //UserDetailRequest userDetailRequest = new UserDetailRequest();
@@ -335,21 +283,10 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
         RequestBody requestRelation = RequestBody.create(MediaType.parse("multipart/form-data"), relation_id);
         RequestBody requestlanguage = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
 
-
         String path2 = photoPaths.get(0);
-
-
 
         File file = new File(path2);
 
-        /*for (File temp : file.listFiles()) {
-            if (temp.getName().equals("temp.jpg")) {
-                file = temp;
-                break;
-            }
-        }*/
-
-        //=======+++++++++++++++++++++++++===========
         //+++++++=========================+++++++++
         //set Image in Api
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("user[image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
@@ -410,29 +347,57 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
 
     }
 
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
 
+    private void changeProfilePic() {
+        if (EasyPermissions.hasPermissions(getContext(), FilePickerConst.PERMISSIONS_FILE_PICKER)) {
+            onPickPhoto();
+        } else {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(
+                    this,
+                    "Asking for permission",
+                    RC_PHOTO_PICKER_PERM,
+                    FilePickerConst.PERMISSIONS_FILE_PICKER);
         }
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(
-                    activity, new String[]{Manifest.permission.CAMERA},
-                    MY_REQUEST_CODE);
-        }
-
     }
 
+    private void onPickPhoto() {
+        FilePickerBuilder.getInstance()
+                .setSelectedFiles(photoPaths)
+                .setActivityTheme(R.style.LibAppTheme)
+                .pickPhoto(this);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case FilePickerConst.REQUEST_CODE_PHOTO:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    //photoPaths = data.getStringExtra(FilePickerConst.KEY_SELECTED_MEDIA);
+                    photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+                }
+                break;
+            default:
+
+        }
+
+        addThemToView(photoPaths);
+    }
+
+    private void addThemToView(ArrayList<String> imagePaths) {
+        ArrayList<String> filePaths = new ArrayList<>();
+        if (imagePaths != null) {
+            filePaths.addAll(imagePaths);
+        }
+
+        String path = filePaths.get(0);
+        String compressImage = compressImage(path);
+
+        Bitmap bitmap = (BitmapFactory.decodeFile(compressImage));
+        parentProfileShow.setImageBitmap(bitmap);
+
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -453,130 +418,6 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
             }
         }
     }
-
-
-    private void change_profile_pic() {
-        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-        builder.setTitle("Add Photo!");
-
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-
-            @Override
-
-            public void onClick(DialogInterface dialog, int item) {
-
-                if (options[item].equals("Take Photo"))
-
-                {
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-                    if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                        startActivityForResult(intent, 1);
-                    }
-
-                } else if (options[item].equals("Choose from Gallery")) {
-
-                    // Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    //startActivityForResult(intent, FilePickerConst.REQUEST_CODE_PHOTO);
-
-                    FilePickerBuilder.getInstance()
-                            //.setSelectedFiles(photoPaths)
-                            .setActivityTheme(R.style.LibAppTheme)
-                            .pickPhoto((Activity) getContext());
-                } else if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        builder.show();
-
-    }
-
-
-
-
-
-    /*
-
-    @SuppressLint("LongLogTag")
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        File f;
-        if (resultCode == RESULT_OK) {
-
-            if (requestCode == 1) {
-
-
-                f = new File(Environment.getExternalStorageDirectory().toString());
-
-                for (File temp : f.listFiles()) {
-
-                    if (temp.getName().equals("temp.jpg")) {
-
-                        f = temp;
-                        break;
-
-                    }
-
-                }
-
-                String clickedImage = f.getAbsolutePath();
-                String compressImage = compressImage(clickedImage);
-
-                Bitmap bitmap = (BitmapFactory.decodeFile(compressImage));
-                parentProfileShow.setImageBitmap(bitmap);
-
-
-
-            } else if (requestCode == FilePickerConst.REQUEST_CODE_DOC) {
-
-
-                if(data!=null)
-                {
-                    photoPaths = new ArrayList<>();
-                    photoPaths.add(data.getStringExtra(FilePickerConst.KEY_SELECTED_MEDIA));
-                    //photoPaths.addAll(data.getStringArrayListExtra());
-                }
-
-               /* Uri selectedImage = data.getData();
-                String stringUri = selectedImage.toString();
-
-
-                String filepath = compressImage(stringUri);
-
-                Bitmap thumbnail = (BitmapFactory.decodeFile(filepath));
-
-               // Log.w("dsfaafdsasdfasdfasfasdfadsfa", filepath + "");
-
-
-                //parentProfileShow.setImageBitmap(thumbnail);
-
-                String path = photoPaths.get(1);
-                Glide.with(getContext())
-                        .load(new File(path))
-                        .apply(RequestOptions.centerCropTransform()
-                                .dontAnimate()
-                                .placeholder(droidninja.filepicker.R.drawable.image_placeholder))
-                        .thumbnail(0.5f)
-                        .into(parentProfileShow);
-                // parentProfileShow.setBackgroundResource(android.R.color.transparent);
-
-            }
-
-        }
-
-
-    }
-*/
-
 
     public String compressImage(String imageUri) {
 
@@ -697,7 +538,6 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
 
     }
 
-
     public String getFilename() {
         File file = new File(Environment.getExternalStorageDirectory().getPath(), "MyFolder/Images");
         if (!file.exists()) {
@@ -707,7 +547,6 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
         return uriSting;
 
     }
-
 
     private String getRealPathFromURI(String contentURI) {
         Uri contentUri = Uri.parse(contentURI);
@@ -720,7 +559,6 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
             return cursor.getString(index);
         }
     }
-
 
     public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
@@ -740,10 +578,6 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
 
         return inSampleSize;
     }
-
-
-
-
 
     private void replacementFragment(Fragment fragment) {
         String backstack = null;
