@@ -3,15 +3,13 @@
 
     <item>
         <shape>
-            <stroke android:width="@dimen/_1sdp" android:color="@color/bef_list_1" />
+            <stroke android:width="@dimen/_1sdp" android:color="@color/selet_child_inner" />
 
-            <solid android:color="@android:color/transparent" />
+            <solid android:color="@android:color/white" />
 
             <corners
-                android:bottomLeftRadius="@dimen/_12sdp"
-                android:bottomRightRadius="@dimen/_12sdp"
-                android:topLeftRadius="@dimen/_12sdp"
-                android:topRightRadius="@dimen/_12sdp" />
+                android:bottomLeftRadius="@dimen/_9sdp"
+                android:bottomRightRadius="@dimen/_9sdp"/>
         </shape>
     </item>
 

@@ -351,6 +351,15 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
                 Intent graph = new Intent(getContext(), Graph_child.class);
                 startActivity(graph);
                 break;
+
+            case R.id.chnge_method_btn:
+                Bundle changeMethodDAta = new Bundle();
+                changeMethodDAta.putSerializable("changeMethodDetails",serverData.getSleepCoachingDetails());
+                changeMethodDAta.putString("headerTitle",serverData.getSleepCoachingLabels().getHeader().getChooseMethod());
+                changeMethodDAta.putString("selectMethod",serverData.getChildLabels().getChildProfileLabels().getButtons().getSelectMethod());
+                ChooseMethod cm = new ChooseMethod();
+                cm.setArguments(changeMethodDAta);
+                replacementFragment(cm);
         }
     }
 
