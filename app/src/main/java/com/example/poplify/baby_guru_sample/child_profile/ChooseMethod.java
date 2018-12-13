@@ -4,6 +4,7 @@ package com.example.poplify.baby_guru_sample.child_profile;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.ChildList;
+import com.example.poplify.baby_guru_sample.adapter.FullDesc;
+import com.example.poplify.baby_guru_sample.adapter.GlobalBus;
 import com.example.poplify.baby_guru_sample.choose_method.ChooseMethodAdapter;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.childRequest.ChildProfileResponse;
 
@@ -46,11 +49,12 @@ public class ChooseMethod extends Fragment {
     private String header, selectMethodButton;
     private List<ChildProfileResponse.ChooseMethod> chooseMethodData;
     private ArrayList<ChildList> childLists = new ArrayList<>();
+    private ArrayList<FullDesc> list = new ArrayList<>();
+
     private ChooseMethodRecycler chooseMethodRecycler;
     private LinearLayoutManager mLayoutManager;
     private Typeface regular, regularMon;
     private FragmentManager fragmentManager;
-    private ArrayList<String> temp;
 
     public ChooseMethod() {
         // Required empty public constructor
@@ -59,6 +63,8 @@ public class ChooseMethod extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+      GlobalBus.getBus().register(this);
 
         bundle = getArguments();
         if (bundle != null) {
@@ -94,19 +100,18 @@ public class ChooseMethod extends Fragment {
         chooseMethodData = recycleData.getChooseMethods();
         for (int i = 0; i < chooseMethodData.size(); i++) {
             ChildList methodList = new ChildList();
+            //FullDesc fullDesc = new FullDesc();
+           // fullDesc.setData((ArrayList<String>) chooseMethodData.get(i).getFullDescription());
+            methodList.setFullDescription((ArrayList<String>) chooseMethodData.get(i).getFullDescription());
             methodList.setListenToSam(chooseMethodData.get(i).getListenToSam());
             methodList.setMethodTypeLabe(chooseMethodData.get(i).getLabel());
             methodList.setChooseMethpdTitle(chooseMethodData.get(i).getTitle());
             methodList.setReadMore(chooseMethodData.get(i).getReadMore());
             methodList.setShortDescription(chooseMethodData.get(i).getShortDescription());
-            for (int j = 0;j<chooseMethodData.get(i).getFullDescription().size();j++)
-            {
 
-            }
-
-            methodList.setFullDescription((ArrayList<String>) chooseMethodData.get(i).getFullDescription());
             if (childLists.size() != chooseMethodData.size()) {
                 childLists.add(methodList);
+               // list.add(fullDesc);
             }
         }
 
@@ -133,13 +138,16 @@ public class ChooseMethod extends Fragment {
 
         Context context;
         ArrayList<ChildList> chooseMethodList;
+        //ArrayList<FullDesc> fullDescs;
         ChildList chooseList;
+        ArrayList<FullDesc> fullDesc =new ArrayList<>();
         int[] image;
 
         public ChooseMethodRecycler(Context context, ArrayList<ChildList> childLists, int[] methodImage) {
             this.context = context;
             this.chooseMethodList = childLists;
             this.image = methodImage;
+            //this.fullDescs = list;
         }
 
         public class ChooseMethodHolder extends RecyclerView.ViewHolder {
@@ -181,6 +189,7 @@ public class ChooseMethod extends Fragment {
 
             int imageID = image[i];
             chooseList = chooseMethodList.get(i);
+            //fullDesc = fullDescs.get(i);
             try {
                 holder.methodImage.setImageResource(imageID);
                 holder.methodName.setText(chooseList.getChooseMethpdTitle());
@@ -194,13 +203,11 @@ public class ChooseMethod extends Fragment {
                         switch (i)
                         {
                             case 0:
-
-
-                                selectMethod.putParcelableArrayList("fullDesc", chooseMethodList.get(i).getFullDescription());
+//                                selectMethod.putParcelableArrayList("parceList",fullDesc);
+                                //selectMethod.putParcelableArrayList("fullDesc", chooseMethodList.get(i).getFullDescription());
                                 selectMethod.putString("header",chooseMethodList.get(i).getMethodTypeLabe());
                                 selectMethod.putString("methodName",chooseMethodList.get(i).getChooseMethpdTitle());
                                 selectMethod.putString("listenToSam",chooseMethodList.get(i).getListenToSam());
-
 
                                 Show_Choose_Method show_choose_methodKt = new Show_Choose_Method();
                                 show_choose_methodKt.setArguments(selectMethod);

@@ -88,34 +88,14 @@ public class Timer_frag extends Fragment {
         public void run() {
             try {
 
-                /*viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                    }
-
-                    @Override
-                    public void onPageSelected(int position) {
-                        page = position;
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-
-                    }
-                });*/
                 if (viewPager.getAdapter().getCount() == page) {
                     page = 0;
                 }
                 else
                 {
                     page++;
-                    //Setting animation on viewpager pages
 
-                    //*****************--------------------------------------------*****************************
-                   /* viewPager.setPageTransformer(true, new DepthPageTransformer());*/
-
-                    /*After setting the adapter use the timer */
                     viewPager.setCurrentItem(page);
                 }
 

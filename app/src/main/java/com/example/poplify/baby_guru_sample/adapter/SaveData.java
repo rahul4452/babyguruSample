@@ -66,7 +66,7 @@ public class SaveData {
 
     // ============================================//
     public boolean getBoolean(String key) {
-        return shared.getBoolean(key, true);
+        return shared.getBoolean(key, false);
 
     }
 

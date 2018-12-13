@@ -7,6 +7,8 @@
     <color name="main_page_color">#f5cff1</color>
 
     <!--main_page_color-->
+    <color name="red">#cf3900</color>
+
     <color name="light_pink">#ffccff</color>
     <color name="light_purple">#b49de3</color>  <!--before we Start list3-->
     <color name="crying">#e4e4e4</color>

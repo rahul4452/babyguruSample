@@ -194,6 +194,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 loginEmail = response.body().getEmail();
                                 save.save("login_token", loginToken);
                                 save.save("login_email", loginEmail);
+                                save.save("isUserLogin",true);
+
                                 Intent login = new Intent(getApplicationContext(), Bottom_tabs.class);
                                 login.putExtra("finish", true); // if you are checking for this in your other Activities
                                 login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |

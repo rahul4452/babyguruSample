@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/firstchildImageLayout"
-
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible"
-    android:padding="@dimen/_7sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,7 +16,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/showChild"
+            android:id="@+id/existingChildImage"
             android:layout_width="@dimen/_79sdp"
             android:layout_height="@dimen/_79sdp"
             android:layout_gravity="center_horizontal"
@@ -30,18 +27,16 @@
 
 
         <TextView
-            android:id="@+id/childname"
+            android:id="@+id/existingChildName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6sdp"
             android:layout_gravity="center_horizontal"
-            android:text="sdfs"
+            android:layout_marginTop="@dimen/_6sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:gravity="center"
             android:padding="@dimen/_3sdp"
+            android:text="sdfs"
             android:textSize="@dimen/_11sdp"
             android:visibility="visible" />
-
     </LinearLayout>
-
-
+</android.support.constraint.ConstraintLayout>

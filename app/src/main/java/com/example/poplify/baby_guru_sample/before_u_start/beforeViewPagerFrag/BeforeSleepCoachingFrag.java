@@ -63,6 +63,7 @@ public class BeforeSleepCoachingFrag extends Fragment {
     private static final String TAG = "BeforeSleepCoachingFrag";
     // Inflate the layout for this fragment
     View view;
+    private ImageView imageView;
 
     public BeforeSleepCoachingFrag() {
         // Required empty public constructor
@@ -103,6 +104,18 @@ public class BeforeSleepCoachingFrag extends Fragment {
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
                // setListViewHeight(expandableListView, i);
 
+//                imageView = view.findViewById(R.id.ivGroupIndicator);
+//                if(expandableListView.isGroupExpanded(i))
+//                {
+//                    imageView.setSelected(true);
+//                }
+//                else{
+//                    imageView.setSelected(false);
+//                    // Expanded ,Do your Staff
+//
+//                }
+
+
                 return false;
             }
         });
@@ -118,7 +131,6 @@ public class BeforeSleepCoachingFrag extends Fragment {
         });
 
 
-
         expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
 
@@ -128,6 +140,8 @@ public class BeforeSleepCoachingFrag extends Fragment {
                 if (groupPosition != previousGroup)
                     expListView.collapseGroup(previousGroup);
                 previousGroup = groupPosition;
+
+
             }
         });
 

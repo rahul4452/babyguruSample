@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/light_purple" />
 
-    <item>
-        <shape>
-            <stroke android:width="@dimen/_1sdp" android:color="@color/sleep_time" />
+    <corners
+        android:bottomLeftRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:topLeftRadius="10dp"
+        android:topRightRadius="10dp" />
+    <padding
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp" />
+    <gradient
+        android:startColor="@android:color/transparent"
+        android:endColor="@android:color/transparent"/>
+    <stroke android:width="2dp"
+        android:color="@android:color/transparent"/>
 
-            <solid android:color="@android:color/transparent" />
-
-            <corners
-                android:bottomLeftRadius="@dimen/_12sdp"
-                android:bottomRightRadius="@dimen/_12sdp"
-                android:topLeftRadius="@dimen/_12sdp"
-                android:topRightRadius="@dimen/_12sdp" />
-        </shape>
-    </item>
-
-</selector>
+</shape>

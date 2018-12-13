@@ -262,7 +262,7 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
         progressBar = view.findViewById(R.id.getUserProcessingPb);
 
         //Linear Layout
-        firstLayout = view.findViewById(R.id.firstchildImageLayout);
+        firstLayout = view.findViewById(R.id.firstchildImageLayoutUser);
 //        secondLayout = view.findViewById(R.id.secondChildLayout);
 
 
@@ -427,7 +427,7 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
                 super(v);
                 imageUrls = v.findViewById(R.id.showChild);
                 childName = v.findViewById(R.id.childname);
-                childId = v.findViewById(R.id.getChildId);
+               // childId = v.findViewById(R.id.getChildId);
             }
         }
 

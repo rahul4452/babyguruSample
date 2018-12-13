@@ -202,7 +202,7 @@
                 app:layout_constraintVertical_chainStyle="packed">
 
                 <LinearLayout
-                    android:id="@+id/firstchildImageLayout"
+                    android:id="@+id/firstchildImageLayoutUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

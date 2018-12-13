@@ -7,6 +7,7 @@ import com.example.poplify.baby_guru_sample.pojo.request.userRequest.ResetPasswo
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.SignUpDetails;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.childRequest.ChildProfileResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
+import com.example.poplify.baby_guru_sample.pojo.response.childResponse.ChildrenResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.cryingScalePackage.CryingScaleResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.GetUserDetails;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.LoginResponse;
@@ -116,4 +117,10 @@ public interface ApiInterface {
                                             @Part("child[dob]") RequestBody dateBirth,
                                             @Part("child[gender_id]") RequestBody language_id,
                                             @Part MultipartBody.Part image);
+
+
+    @Headers({"Accept: application/json", "X-OS:android", "X-Api-Version:1", "X-FIREBASE-TOKEN:token"})
+    @GET("/children")
+    Call<ChildrenResponse> getSelectChild(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email);
+
 }

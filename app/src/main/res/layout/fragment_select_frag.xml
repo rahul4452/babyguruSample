@@ -5,103 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pay_bg"
+    app:layout_constraintVertical_chainStyle="packed"
     tools:context=".before_u_start.Select_frag">
 
     <include
         android:id="@+id/toolbar121"
         layout="@layout/toolbar" />
 
-
-    <TextView
+    <WebView
         android:id="@+id/selct_your"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_42sdp"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:layout_marginEnd="@dimen/_42sdp"
-        android:gravity="center_horizontal"
-        android:padding="@dimen/_5sdp"
-        android:text="@string/select_your"
-        android:textSize="@dimen/_13sdp"
-        app:layout_constraintBottom_toTopOf="@+id/add_child"
+        android:layout_marginTop="@dimen/_17sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar121"
-        app:layout_constraintVertical_bias="0.0"
         app:layout_constraintVertical_chainStyle="packed" />
 
+    <LinearLayout
+        android:id="@+id/imageLayoutSelectChild"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_12sdp"
 
-    <ImageView
-        android:id="@+id/add_child"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_21sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:src="@drawable/select_child_bg1"
-        app:layout_constraintBottom_toTopOf="@+id/child1_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selct_your"
-        />
+        app:layout_constraintVertical_chainStyle="packed">
 
-    <TextView
-        android:id="@+id/child1_name"
-        android:layout_width="wrap_content"
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/add_child"
+            android:layout_width="@dimen/_72sdp"
+            android:layout_height="@dimen/_72sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:background="@drawable/select_child_bg1"
+            android:visibility="visible"
+            app:civ_circle_background_color="@color/tab1_color" />
+
+        <TextView
+            android:id="@+id/child1_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:padding="@dimen/_4sdp"
+            android:text="@string/add_child"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_15sdp" />
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view_child_SelectFrag"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:padding="@dimen/_4sdp"
-        android:text="@string/add_child"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintBottom_toTopOf="@+id/add_child_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_child" />
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/add_child_2"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_21sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:scaleType="centerInside"
-        android:src="@drawable/select_child_bg1"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@+id/child1_name_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/child1_name"
-        app:riv_corner_radius="@dimen/_30sdp"
-        android:visibility="gone"
-        app:riv_mutate_background="true"
-        app:riv_oval="true"
-        app:riv_tile_mode="clamp" />
-
-    <TextView
-        android:id="@+id/child1_name_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:padding="@dimen/_4sdp"
-        android:text="@string/add_child"
-        android:textColor="@color/black"
-        android:visibility="gone"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintVertical_chainStyle="packed"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginTop="@dimen/_17sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_child_2" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/imageLayoutSelectChild"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:targetApi="lollipop" />
 </android.support.constraint.ConstraintLayout>

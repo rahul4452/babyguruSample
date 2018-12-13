@@ -2,7 +2,7 @@
     <string name="app_name">baby_guru_sample</string>
     <!--front page-->
     <string name="baby_guru">baby guru</string>
-    <string name="baby_guru_sub">Pathway to responsive sleep</string>
+    <string name="internetMsg">There seem to be an issue with your internet connection</string>
 
     <!--SignUP PAGE-->
     <string name="signup">sign up</string>

@@ -4,11 +4,11 @@
     package="com.example.poplify.baby_guru_sample">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -16,85 +16,87 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="true"
         android:theme="@style/Customtheme"
+        tools:replace="android:allowBackup"
         tools:ignore="GoogleAppIndexingWarning">
-
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
 
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Customtheme1" />
-
         <activity
             android:name=".Sign_up"
             android:parentActivityName=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/Customtheme1">
+            android:theme="@style/Customtheme1"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
 
         </activity>
-
         <activity
             android:name=".Login"
             android:parentActivityName=".MainActivity"
-
             android:theme="@style/Customtheme1"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
-
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".forgot_pwd.Forgot_pwd"
             android:theme="@style/Customtheme1"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name=".reset_PWD.Reset_password"
-            android:theme="@style/Customtheme1"/>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/Customtheme1" />
         <activity
             android:name=".Bottom_navbar.Bottom_tabs"
             android:exported="true"
             android:theme="@style/Customtheme1"
-            android:windowSoftInputMode="adjustPan"/>
-
-
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".joyride_screen.JoyRide_scr1">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
+        </activity>
         <activity
             android:name=".crying_scale.Crying_Scale"
             android:theme="@style/Customtheme1"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
-
-        <activity android:name=".Testing_acti"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/Customtheme1">
-
-
+        <activity
+            android:name=".Testing_acti"
+            android:theme="@style/Customtheme1"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
 
         </activity>
-
-        <activity android:name=".child_profile.Graph_child"
-            android:theme="@style/Customtheme1">
-
-        </activity>
-
-        <activity android:name=".user_Profile.ChangePassword"
+        <activity
+            android:name=".child_profile.Graph_child"
+            android:screenOrientation="portrait"
             android:theme="@style/Customtheme1">
 
         </activity>
+        <activity
+            android:name=".user_Profile.ChangePassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/Customtheme1">
 
+        </activity>
+        <activity android:name=".Splash_Screen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

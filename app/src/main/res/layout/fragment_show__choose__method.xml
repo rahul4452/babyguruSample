@@ -6,11 +6,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".child_profile.Show_Choose_Method">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar_for_select_method"/>
+
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_for_select_method"
+        app:layout_constraintBottom_toTopOf="@+id/scrollViewPut"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/blueHeaderChoose"
@@ -20,9 +27,9 @@
             android:background="@color/selet_child_inner"
             android:gravity="center_horizontal|center_vertical"
             android:paddingStart="@dimen/_8sdp"
-            android:paddingTop="@dimen/_10sdp"
+            android:paddingTop="@dimen/_7sdp"
             android:paddingEnd="@dimen/_8sdp"
-            android:paddingBottom="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_7sdp"
             android:text="Listen to Sam describing this method"
             android:textColor="@color/white"
             android:textSize="@dimen/_14sdp" />
@@ -35,12 +42,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
-            android:padding="@dimen/_8sdp"
-            app:layout_constraintBottom_toTopOf="@id/samWordingLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed">
+            android:padding="@dimen/_8sdp">
 
             <ImageButton
                 android:id="@+id/play_btn_Choose"
@@ -88,16 +90,20 @@
     </LinearLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollViewPut"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/listenSamChoose"
                 android:layout_width="match_parent"
@@ -106,7 +112,8 @@
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/_8sdp"
-                android:textSize="@dimen/_12sdp" />
+                android:text="Listen to sam describing this method"
+                android:textSize="@dimen/_14sdp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/open_choose_recycler"

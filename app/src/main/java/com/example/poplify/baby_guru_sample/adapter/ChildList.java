@@ -10,6 +10,21 @@ public class ChildList {
     private String shortDescription;
     private ArrayList<String> fullDescription;
     private String chooseMethpdTitle;
+    private int childId;
+    private String methodTypeLabe;
+    private String listenToSam;
+    private boolean savedMethod =false;
+
+    public boolean isSavedMethod() {
+        return savedMethod;
+    }
+
+    public void setSavedMethod(boolean savedMethod) {
+        this.savedMethod = savedMethod;
+    }
+
+
+
 
 
     public ArrayList<String> getFullDescription() {
@@ -28,7 +43,7 @@ public class ChildList {
         this.listenToSam = listenToSam;
     }
 
-    private String listenToSam;
+
 
     public String getMethodTypeLabe() {
         return methodTypeLabe;
@@ -38,8 +53,8 @@ public class ChildList {
         this.methodTypeLabe = methodTypeLabe;
     }
 
-    private String methodTypeLabe;
-    private int childId;
+
+
 
     public String getReadMore() {
         return readMore;

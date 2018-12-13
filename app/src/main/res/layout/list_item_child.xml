@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <WebView
-        android:id="@+id/lblListitem"
+
+    <LinearLayout
+        android:id="@+id/childBgLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_with_border"
+        android:padding="@dimen/_8sdp"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
-        />
+        android:layout_marginBottom="@dimen/_19sdp"
+        android:background="@drawable/bef_list_2_text"
+        android:orientation="vertical">
+
+        <br.tiagohm.markdownview.MarkdownView
+            android:id="@+id/lblListitem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
 
 </LinearLayout>
