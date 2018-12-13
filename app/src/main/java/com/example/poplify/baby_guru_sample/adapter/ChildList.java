@@ -24,9 +24,6 @@ public class ChildList {
     }
 
 
-
-
-
     public ArrayList<String> getFullDescription() {
         return fullDescription;
     }
