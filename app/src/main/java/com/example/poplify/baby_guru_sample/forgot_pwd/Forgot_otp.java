@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,8 +19,6 @@ import android.widget.Toast;
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.OtpUserValid;
-import com.example.poplify.baby_guru_sample.pojo.response.SignUpDetailsRes;
-import com.example.poplify.baby_guru_sample.reset_PWD.Reset_password;
 import com.example.poplify.baby_guru_sample.rest.ApiClient;
 import com.example.poplify.baby_guru_sample.rest.ApiInterface;
 

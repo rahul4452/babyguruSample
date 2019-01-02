@@ -1,8 +1,11 @@
-package com.example.poplify.baby_guru_sample.child_profile;
+package com.example.poplify.baby_guru_sample.child_profile.showGraph;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.poplify.baby_guru_sample.child_profile.showGraph.All_Graph_frag;
+import com.example.poplify.baby_guru_sample.child_profile.showGraph.Today_graph_frag;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;

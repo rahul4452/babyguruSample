@@ -1,4 +1,4 @@
-package com.example.poplify.baby_guru_sample.child_profile;
+package com.example.poplify.baby_guru_sample.child_profile.showGraph;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;

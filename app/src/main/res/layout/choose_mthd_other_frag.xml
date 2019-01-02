@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".choose_method.Choose_mthd_other_frag">
+    tools:context=".thirdTab.Choose_mthd_other_frag">
 
     <ExpandableListView
         android:id="@+id/suggestionExpendableMethod2"

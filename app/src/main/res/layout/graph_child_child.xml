@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".child_profile.Graph_child">
+    tools:context=".child_profile.showGraph.Graph_child">
 
     <include layout="@layout/toolbar"
         android:id="@+id/graph_toolbar"/>

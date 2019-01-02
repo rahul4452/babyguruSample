@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".choose_method.Choose_method_frag">
+    tools:context=".thirdTab.Choose_method_frag">
 
     <include
         android:id="@+id/toolbarchoose"

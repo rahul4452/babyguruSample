@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/pay_bg"
     app:layout_constraintVertical_chainStyle="packed"
-    tools:context=".before_u_start.Select_frag">
+    tools:context=".firstTab.Select_frag">
 
     <include
         android:id="@+id/toolbar121"

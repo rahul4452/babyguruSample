@@ -6,7 +6,7 @@
     android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user_Profile.Basic_detail_frag">
+    tools:context=".secondTab.Basic_detail_frag">
 
     <include
         android:id="@+id/toolbar_basic"

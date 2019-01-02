@@ -1,4 +1,4 @@
-package com.example.poplify.baby_guru_sample.reset_PWD;
+package com.example.poplify.baby_guru_sample.forgot_pwd;
 
 import android.content.Context;
 import android.content.Intent;

@@ -2,6 +2,7 @@ package com.example.poplify.baby_guru_sample.sleep_Timer;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.icu.text.DecimalFormat;
@@ -47,6 +48,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -80,8 +82,7 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
 
     Date pauseDate, resumeDate;
     RecyclerView viewPager;
-
-
+    RecyclerView.Adapter timerAdapter;
     private int progressStatus = 0;
     Handler handler2;
     final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
@@ -91,7 +92,7 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
     private TextView timerHeader;
     private int childId;
     private GetTimerResponse timerDetails;
-    private LinearLayout layout;
+    private LinearLayout layout,cryingLayout;
     private ImageView pauseTimer;
     private LinearLayoutManager mLayoutManager;
 
@@ -197,9 +198,15 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
     }
 
     boolean isactive = false;
+    Common common = new Common();
+    Common common1 = new Common();
+    Common common2 = new Common();
     Integer activeMethodid;
     List<GetTimerResponse.Card> cardList;
     List<GetTimerResponse.InfiniteCard> infiniteCards;
+    List<Common> commons = new ArrayList<>();
+
+
     private void setResponseFromServer(GetTimerResponse timerDetails) {
 
         GetTimerResponse.Header header = timerDetails.getSleepCoachingLabels().getHeader();
@@ -218,28 +225,33 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
 
 
         String intialCard = timerDetails.getSleepCoachingDetails().getInitialCard().getInitialCard();
+        common.setIntialCard(intialCard);
+        commons.add(common);
+        timerAdapter = new TimerRecycle(getContext(), commons);
+        viewPager.setAdapter(timerAdapter);
+
+
 
         List<GetTimerResponse.ChooseMethod> card = timerDetails.getSleepCoachingDetails().getChooseMethods();
 
-
-        for (GetTimerResponse.ChooseMethod hi : card)
-        {
+        for (GetTimerResponse.ChooseMethod hi : card) {
             isactive = hi.getActive();
-            if(isactive){
+            if (isactive) {
                 activeMethodid = hi.getId();
                 cardList = hi.getCards();
                 infiniteCards = hi.getInfiniteCards();
             }
         }
 
-        for (GetTimerResponse.Card card2 : cardList){
-            Common common = new Common();
-            common.setCard(card2.getDetails());
+        for (GetTimerResponse.Card card2 : cardList) {
+
+            common1.setIntialCard(card2.getDetails());
+
         }
 
-        for (GetTimerResponse.InfiniteCard infiniteCard : infiniteCards){
-            Common common = new Common();
-            common.setInfiniteCard(infiniteCard.getDetails());
+        for (GetTimerResponse.InfiniteCard infiniteCard : infiniteCards) {
+            // Common common = new Common();
+            common2.setInfiniteCard(infiniteCard.getDetails());
         }
 
 
@@ -308,12 +320,20 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
         showCryingScale = view.findViewById(R.id.buttonLayout);
 
         startTimer = view.findViewById(R.id.btnstart);
+        closeTimer = view.findViewById(R.id.btn_baby_sleep);
 
-        if (saveData.getBoolean("timerStart")) {
+        if(saveData.getBoolean("timerStart")){
             startTimer.setVisibility(View.GONE);
-        } else {
-            startTimer.setVisibility(View.VISIBLE);
+            closeTimer.setVisibility(View.VISIBLE);
         }
+
+
+
+//        if (startTimer.getVisibility()==View.GONE) {
+//            startTimer.setVisibility(View.GONE);
+//        } else {
+//            startTimer.setVisibility(View.VISIBLE);
+//        }
 
         //        if (startTimer.getVisibility()==View.VISIBLE) {
 //            startTimer.setVisibility(View.GONE);
@@ -327,13 +347,12 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
         pauseTimer = view.findViewById(R.id.pauseTimer);
         pauseTimer.setOnClickListener(this);
 
-        closeTimer = view.findViewById(R.id.btn_baby_sleep);
 
-        if (saveData.getBoolean("timerStart")) {
-            closeTimer.setVisibility(View.VISIBLE);
-        } else {
-            closeTimer.setVisibility(View.GONE);
-        }
+//        if (startTimer.getVisibility()==View.GONE) {
+//            closeTimer.setVisibility(View.VISIBLE);
+//        } else {
+//            closeTimer.setVisibility(View.GONE);
+//        }
 
 //        if(closeTimer.getVisibility()==View.VISIBLE){
 //            closeTimer.setVisibility(View.GONE);
@@ -341,6 +360,8 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
 //        else{
 //            closeTimer.setVisibility(View.VISIBLE);
 //        }
+
+
         closeTimer.setTypeface(regular);
         closeTimer.setOnClickListener(this);
 
@@ -356,6 +377,11 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
         timerPb.setVisibility(View.VISIBLE);
 
         layout = view.findViewById(R.id.linearLayout7);
+        cryingLayout = view.findViewById(R.id.twoButtonLayout);
+
+        if(startTimer.getVisibility()==View.GONE && closeTimer.getVisibility()==View.GONE){
+            cryingLayout.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -368,22 +394,31 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.btnstart:
-                // saveData.save("timerStart",true);
+
+                commons.clear();
+                commons.add(common1);
+                timerAdapter.notifyDataSetChanged();
+                saveData.save("timerStart",true);
                 //timerPb.setVisibility(View.VISIBLE);
-                if (startTimer.getVisibility() == View.VISIBLE) {
+                if(saveData.getBoolean("timerStart"))
+                {
                     startTimer.setVisibility(View.GONE);
-                }
-
-                if (closeTimer.getVisibility() == View.GONE) {
                     closeTimer.setVisibility(View.VISIBLE);
-                }
-
-                pauseTimer.setImageResource(R.mipmap.pause_timer);
-
-                if (layout.getVisibility() == View.GONE) {
                     layout.setVisibility(View.VISIBLE);
                 }
-
+//                if (startTimer.getVisibility() == View.VISIBLE) {
+//                    startTimer.setVisibility(View.GONE);
+//                }
+//
+//                if (closeTimer.getVisibility() == View.GONE) {
+//                    closeTimer.setVisibility(View.VISIBLE);
+//                }
+//
+//                pauseTimer.setImageResource(R.mipmap.pause_timer);
+//
+//                if (layout.getVisibility() == View.GONE) {
+//                    layout.setVisibility(View.VISIBLE);
+//                }
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -394,17 +429,21 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
                             e.printStackTrace();
                         }
                     }
-                }, 3000);
-
+                }, 2000);
 
                 break;
+
             case R.id.btn_baby_sleep:
-                saveData.remove("timerStart");
-                hourglass.stopTimer();
+
+                timerStop();
+
+
                 break;
 
             case R.id.pauseTimer:
-                hourglass.pauseTimer();
+                timerPause();
+
+
                 break;
 
             case R.id.btn_baby_sleep2:
@@ -412,6 +451,18 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
                 break;
 
         }
+
+    }
+
+    private void timerPause() {
+
+        hourglass.pauseTimer();
+
+    }
+
+    private void timerStop() {
+
+        hourglass.stopTimer();
 
     }
 
@@ -538,6 +589,16 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
     class TimerRecycle extends RecyclerView.Adapter<TimerRecycle.TimerHolder> {
 
 
+        List<Common> initial_card;
+        Context context;
+
+        public TimerRecycle(Context context, List<Common> cards) {
+
+            this.context = context;
+            this.initial_card = cards;
+
+        }
+
         class TimerHolder extends RecyclerView.ViewHolder {
 
             TextView cardText;
@@ -560,12 +621,18 @@ public class Timer_frag extends Fragment implements View.OnClickListener {
         @Override
         public void onBindViewHolder(@NonNull TimerHolder timerHolder, int i) {
 
+//            if(initial_card.get(i).getIntialCard() != null) {
+                timerHolder.cardText.setText(initial_card.get(i).getIntialCard());
+//            }else {
+//                timerHolder.cardText.setText();
+//            }
+
         }
 
 
         @Override
         public int getItemCount() {
-            return 0;
+            return initial_card.size();
         }
     }
 

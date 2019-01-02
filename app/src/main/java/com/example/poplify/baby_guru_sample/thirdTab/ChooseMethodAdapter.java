@@ -1,14 +1,13 @@
-package com.example.poplify.baby_guru_sample.choose_method;
+package com.example.poplify.baby_guru_sample.thirdTab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
+import com.example.poplify.baby_guru_sample.choose_method.Choose_mthd_recomm_frag;
 import com.example.poplify.baby_guru_sample.pojo.response.cryingScalePackage.CryingScaleResponse;
-
-import java.io.Serializable;
+import com.example.poplify.baby_guru_sample.thirdTab.Choose_mthd_other_frag;
 
 public class ChooseMethodAdapter extends FragmentStatePagerAdapter {
 

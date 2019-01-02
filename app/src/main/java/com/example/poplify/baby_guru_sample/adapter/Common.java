@@ -2,7 +2,18 @@ package com.example.poplify.baby_guru_sample.adapter;
 
 public class Common {
 
-    String card,infiniteCard;
+    String card;
+    String infiniteCard;
+
+    public String getIntialCard() {
+        return intialCard;
+    }
+
+    public void setIntialCard(String intialCard) {
+        this.intialCard = intialCard;
+    }
+
+    String intialCard;
 
     public Common() {
     }

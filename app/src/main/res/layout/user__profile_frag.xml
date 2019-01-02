@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/pay_bg"
-    tools:context=".user_Profile.User_Profile_frag">
+    tools:context=".secondTab.User_Profile_frag">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar_User"/>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".before_u_start.beforeViewPagerFrag.BeforeGuruTipFrag">
+    tools:context=".firstTab.beforeYouStart.BeforeGuruTipFrag">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

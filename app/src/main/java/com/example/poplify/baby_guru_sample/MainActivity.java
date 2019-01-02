@@ -12,9 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
-import com.example.poplify.baby_guru_sample.user_Profile.User_Profile_frag;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

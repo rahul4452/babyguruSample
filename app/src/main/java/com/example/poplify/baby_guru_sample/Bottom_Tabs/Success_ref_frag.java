@@ -2,7 +2,6 @@ package com.example.poplify.baby_guru_sample.Bottom_Tabs;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,16 +10,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.poplify.baby_guru_sample.Login;
 import com.example.poplify.baby_guru_sample.R;
 
-import com.example.poplify.baby_guru_sample.before_u_start.Before_we_start_frag;
+import com.example.poplify.baby_guru_sample.firstTab.beforeYouStart.Before_we_start_frag;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

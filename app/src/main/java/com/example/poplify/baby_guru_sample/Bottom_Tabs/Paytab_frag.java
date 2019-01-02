@@ -2,7 +2,6 @@ package com.example.poplify.baby_guru_sample.Bottom_Tabs;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -26,13 +24,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
-import com.example.poplify.baby_guru_sample.Login;
-import com.example.poplify.baby_guru_sample.MainActivity;
 import com.example.poplify.baby_guru_sample.R;
-import com.example.poplify.baby_guru_sample.before_u_start.Before_we_start_frag;
-
-import org.w3c.dom.Text;
+import com.example.poplify.baby_guru_sample.firstTab.beforeYouStart.Before_we_start_frag;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
