@@ -16,9 +16,10 @@
         android:id="@+id/selct_your"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_17sdp"
+        app:layout_constraintBottom_toTopOf="@+id/imageLayoutSelectChild"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar121"
         app:layout_constraintVertical_chainStyle="packed" />
@@ -30,7 +31,7 @@
         android:layout_gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/_12sdp"
-
+        app:layout_constraintBottom_toTopOf="@+id/my_recycler_view_child_SelectFrag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selct_your"
@@ -44,7 +45,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_1sdp"
             android:layout_marginEnd="@dimen/_6sdp"
-            android:background="@drawable/select_child_bg1"
             android:visibility="visible"
             app:civ_circle_background_color="@color/tab1_color" />
 
@@ -56,7 +56,6 @@
             android:layout_marginTop="@dimen/_18sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:padding="@dimen/_4sdp"
-            android:text="@string/add_child"
             android:textColor="@color/black"
             android:textSize="@dimen/_15sdp" />
     </LinearLayout>
@@ -76,4 +75,17 @@
         app:layout_constraintVertical_bias="0.0"
         app:layout_constraintVertical_chainStyle="packed"
         tools:targetApi="lollipop" />
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/selectChildProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

@@ -40,8 +40,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import br.tiagohm.markdownview.MarkdownView;
-import br.tiagohm.markdownview.css.styles.Github;
+//import br.tiagohm.markdownview.MarkdownView;
+//import br.tiagohm.markdownview.css.styles.Github;
 
 /**
  * A simple {@link Fragment} subclass.

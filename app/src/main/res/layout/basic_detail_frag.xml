@@ -3,6 +3,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".user_Profile.Basic_detail_frag">
@@ -11,37 +12,33 @@
         android:id="@+id/toolbar_basic"
         layout="@layout/toolbar" />
 
-    <ScrollView
-        android:id="@+id/scrollView2"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:overScrollMode="never"
+        android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_basic">
 
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/parentShowImage"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                android:orientation="horizontal">
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/parent_profile_pic"
                     android:layout_width="@dimen/_92sdp"
                     android:layout_height="@dimen/_92sdp"
-                    android:layout_marginLeft="@dimen/_110sdp"
+                    android:layout_gravity="center"
                     android:background="@drawable/tab1"
                     android:padding="@dimen/_4sdp"
                     android:src="@mipmap/large_logo"
@@ -52,18 +49,16 @@
                     android:id="@+id/user_select_profile"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/_minus24sdp"
-                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_marginStart="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
                     android:src="@mipmap/upload_image" />
-            </LinearLayout>
+            </FrameLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/parentShowImage"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_alignParentStart="true"
                 android:orientation="vertical">
 
                 <TextView
@@ -71,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_26sdp"
+                    android:layout_marginTop="@dimen/_11sdp"
 
                     android:text="@string/child_name"
                     android:textColor="@color/light_purple"
@@ -82,15 +77,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginEnd="@dimen/_30sdp"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/button_with_border"
                     android:ems="10"
                     android:gravity="center_horizontal|center_vertical"
                     android:hint="@string/name"
-                    android:inputType="textPersonName" />
+                    android:textColor="@color/black"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_15sdp" />
 
                 <TextView
                     android:id="@+id/relation_parent_txt"
@@ -106,8 +102,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_7sdp"
                     android:layout_marginBottom="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
                     android:background="@color/white">
 
                     <Spinner
@@ -144,36 +140,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginEnd="@dimen/_30sdp"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/button_with_border"
-                    android:enabled="false"
                     android:ems="10"
+                    android:textColor="@color/black"
+                    android:enabled="true"
                     android:gravity="center_horizontal|center_vertical"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/_15sdp" />
 
                 <Button
                     android:id="@+id/add_parent_btn_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_45sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_marginEnd="@dimen/_45sdp"
-                    android:padding="@dimen/_12sdp"
+                    android:layout_marginStart="@dimen/_45sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/button_backgrond"
                     android:gravity="center_vertical|center_horizontal"
                     android:lineSpacingExtra="@dimen/_12sdp"
+                    android:padding="@dimen/_8sdp"
                     android:text="@string/ok"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_23sdp" />
 
             </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
+        </LinearLayout>
 
+    </android.support.v4.widget.NestedScrollView>
 </android.support.constraint.ConstraintLayout>

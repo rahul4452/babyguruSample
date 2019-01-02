@@ -1,172 +1,32 @@
-<LinearLayout
-                    android:id="@+id/firstchildImageLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/addChildFromUser"
-                        android:layout_width="@dimen/_72sdp"
-                        android:layout_height="@dimen/_72sdp"
-                        android:visibility="visible"
-                        android:layout_marginStart="@dimen/_1sdp"
-                        android:layout_marginEnd="@dimen/_6sdp"
-
-                        android:background="@drawable/select_child_bg1"
-                        app:civ_circle_background_color="@color/tab1_color" />
-
-                    <TextView
-                        android:id="@+id/addFirstChildTv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:padding="@dimen/_3sdp"
-                        android:textSize="@dimen/_11sdp"
-                        android:gravity="center"
-                        android:layout_gravity="center_horizontal"/>
-                </LinearLayout>
-
-
-
-                 if (childrenList.size() == 0) {
-                            tvFirstChildName.setVisibility(View.VISIBLE);
-                            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    replacementFragment(new Add_child_tab_frag());
-                                }
-                            });
-                            secondLayout.setVisibility(View.GONE);
-                            tvFirstChildName.setText(labels.getLabels().getAddChild());
-
-                        } else if (childrenList.size() == 1) {
-
-                            firstLayout.setVisibility(View.VISIBLE);
-                            secondLayout.setVisibility(View.VISIBLE);
-
-                            for (int i = 0; i < childrenList.size(); i++) {
-                                childfirstName = childrenList.get(i).getImageUrl();
-                                childId = childrenList.get(i).getId();
-                                if (childfirstName != null) {
-                                    try {
-                                        Glide.with(this)
-                                                .load(childfirstName)
-                                                .into(addFirstChildIV);
-                                        String childname = childrenList.get(0).getName();
-                                        tvFirstChildName.setText(childname);
-
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    addFirstChildIV.setBackgroundResource(R.drawable.childbg);
-                                }
+boolean success = response.isSuccessful();
+                timerDetails = response.body();
+                if (!success) {
+                    switch (response.code()) {
+                        case 404:
+                            try {
+                                timerPb.setVisibility(View.VISIBLE);
+                                assert response.errorBody() != null;
+                                JSONObject jObjError = new JSONObject(response.errorBody().string());
+                                TSnackbar snackbar = TSnackbar.make(view.findViewById(android.R.id.content), jObjError.getString("message"), TSnackbar.LENGTH_LONG);
+                                snackbar.setActionTextColor(Color.WHITE);
+                                View snackbarView = snackbar.getView();
+                                snackbarView.setBackgroundColor(getResources().getColor(R.color.light_pink));
+                                TextView textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                                textView.setTextColor(Color.WHITE);
+                                textView.setGravity(Gravity.CENTER_HORIZONTAL);
+                                Toast.makeText(getContext(), response.errorBody() + "" + response.message(), Toast.LENGTH_LONG).show();
+                                snackbar.show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
+                    }
+                } else {
+                    timerPb.setVisibility(View.GONE);
+                    setResponseFromServer(timerDetails);
+                }
 
 
-                            //passing Child Id to CHild Profile from User Profile
-                            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    for(int j =0;j<childrenList.size();j++)
-                                    {
-                                        bun.putInt("firstChildId", childrenList.get(j).getId());
-                                        Full_child_profile full_child_profile = new Full_child_profile();
-                                        full_child_profile.setArguments(bun);
-                                        replacementFragment(full_child_profile);
-                                        break;
-
-                                    }
-
-                                }
-                            });
 
 
-                            addSecondChildIV.setVisibility(View.VISIBLE);
-                            addSecondChildIV.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    replacementFragment(new Add_child_tab_frag());
-                                }
-                            });
-                            tvSecondChildName.setVisibility(View.VISIBLE);
-                            tvSecondChildName.setText(labels.getLabels().getAddChild());
-
-
-                        } else if (childrenList.size() == 2) {
-                            firstLayout.setVisibility(View.VISIBLE);
-                            secondLayout.setVisibility(View.VISIBLE);
-                            for (int i = 0; i < childrenList.size(); i++) {
-                                if (i == 0) {
-                                    childId = childrenList.get(0).getId();
-                                    childfirstName = childrenList.get(0).getImageUrl();
-                                    if (childfirstName != null) {
-                                        try {
-                                            Glide.with(this)
-                                                    .load(childfirstName)
-                                                    .into(addFirstChildIV);
-
-                                            String childname = childrenList.get(0).getName();
-                                            tvSecondChildName.setText(childname);
-
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    } else {
-                                        addFirstChildIV.setBackgroundResource(R.drawable.childbg);
-
-                                        String childname = childrenList.get(0).getName();
-                                        tvFirstChildName.setText(childname);
-                                    }
-                                } else {
-                                    childSecondImage = childrenList.get(1).getImageUrl();
-                                    secondChildId = childrenList.get(1).getId();
-                                    if (childSecondImage != null) {
-                                        try {
-                                            Glide.with(this)
-                                                    .load(childSecondImage)
-                                                    .into(addSecondChildIV);
-
-                                            String childname = childrenList.get(1).getName();
-                                            tvSecondChildName.setText(childname);
-
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    } else {
-                                        addSecondChildIV.setBackgroundResource(R.drawable.childbg);
-                                        String childname = childrenList.get(1).getName();
-                                        tvSecondChildName.setText(childname);
-                                    }
-                                }
-                            }
-
-                            //passing Child Id to CHild Profile from User Profile
-                            addFirstChildIV.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (childId != null) {
-                                        bun.putInt("firstChildId", childId);
-                                        Full_child_profile full_child_profile = new Full_child_profile();
-                                        full_child_profile.setArguments(bun);
-                                        replacementFragment(full_child_profile);
-                                    }
-                                }
-                            });
-
-                            addSecondChildIV.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if (secondChildId != null) {
-                                        bun.putInt("secondChildId", secondChildId);
-                                        Full_child_profile full_child_profile = new Full_child_profile();
-                                        full_child_profile.setArguments(bun);
-                                        replacementFragment(full_child_profile);
-                                    }
-                                }
-                            });
-
-                        }

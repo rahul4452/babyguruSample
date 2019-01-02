@@ -23,7 +23,7 @@ import com.example.poplify.baby_guru_sample.R;
 import java.util.HashMap;
 import java.util.List;
 
-import br.tiagohm.markdownview.MarkdownView;
+//import br.tiagohm.markdownview.MarkdownView;
 
 
 public class ExpandableListAdapt extends BaseExpandableListAdapter {
@@ -31,7 +31,7 @@ public class ExpandableListAdapt extends BaseExpandableListAdapter {
     private Context context;
     private List<String> header;
     private HashMap<String, List<String>> expendedData;
-    private MarkdownView markdownView;
+    private WebView markdownView;
     private TextView txtlistHeader;
     private ImageView imageView;
     private String childtext;

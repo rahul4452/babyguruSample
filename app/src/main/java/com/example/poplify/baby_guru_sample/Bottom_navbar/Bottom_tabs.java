@@ -32,6 +32,7 @@ import com.example.poplify.baby_guru_sample.add_New_Baby_tab.Add_child_tab_frag;
 import com.example.poplify.baby_guru_sample.before_u_start.Before_we_start_frag;
 import com.example.poplify.baby_guru_sample.before_u_start.Select_frag;
 import com.example.poplify.baby_guru_sample.child_profile.Full_child_profile;
+import com.example.poplify.baby_guru_sample.child_profile.SelectChildSeeProfile;
 import com.example.poplify.baby_guru_sample.choose_method.Choose_method_frag;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.UserDetailAddResponse;
@@ -46,6 +47,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.util.HashMap;
+import java.util.Stack;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,35 +57,45 @@ import retrofit2.Response;
 public class Bottom_tabs extends AppCompatActivity {
 
 
+    private HashMap<String, Stack<Fragment>> mStacks;
+    public static final String TAB_TIMER = "tabTimer";
+    public static final String TAB_USER_PROFILE = "tabUser";
+    public static final String TAB_CRYING_SCALE = "tabCrying";
+    public static final String TAB_CHILD_PROFILE = "tabChild";
     FragmentManager fragmentManager;
     BottomNavigationView bottomNavigationView;
-    Typeface regular,regularMon;
+    Typeface regular, regularMon;
     SaveData saveData;
     private BeforeYouStartResponse serverExistUser1;
-
-
+    private String mCurrentTab;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_tabs_activity);
         fragmentManager = getSupportFragmentManager();
         saveData = new SaveData(getApplicationContext());
+        regular = Typeface.createFromAsset(getAssets(), "Comfortaa_Regular.ttf");
+        regularMon = Typeface.createFromAsset(getAssets(), "Montserrat-Regular.otf");
 
         getBeforeYouDetails();
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navlistener);
+
+        mStacks = new HashMap<>();
+        mStacks.put(TAB_TIMER, new Stack<Fragment>());
+        mStacks.put(TAB_USER_PROFILE, new Stack<Fragment>());
+        mStacks.put(TAB_CRYING_SCALE, new Stack<Fragment>());
+        mStacks.put(TAB_CHILD_PROFILE, new Stack<Fragment>());
 
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
+        bottomNavigationView.setSelectedItemId(R.id.tab1);
 
         //Setting fonts
-        regular = Typeface.createFromAsset(getAssets(),"Comfortaa_Regular.ttf");
-        regularMon = Typeface.createFromAsset(getAssets(),"Montserrat-Regular.otf");
+
         UserDetailAddResponse.User user = new UserDetailAddResponse().new User();
-
-
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(navlistener);
 
         final View activityRootView = findViewById(R.id.bottom_layout);
         activityRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -95,7 +108,7 @@ public class Bottom_tabs extends AppCompatActivity {
                 int heightDiff = activityRootView.getRootView().getHeight() - (r.bottom - r.top);
                 if (heightDiff > 100) {
                     bottomNavigationView.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     bottomNavigationView.setVisibility(View.INVISIBLE);
                 }
             }
@@ -104,8 +117,166 @@ public class Bottom_tabs extends AppCompatActivity {
 
     }
 
+    private void navigationBackground(int actionId) {
+        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+            MenuItem item = bottomNavigationView.getMenu().getItem(i);
+            boolean isChecked = item.getItemId() == actionId;
+            item.setChecked(isChecked);
+
+            if (i == 0 && isChecked) {
+                bottomNavigationView.setItemBackgroundResource(R.drawable.tab1);
+            } else if (i == 1 && isChecked == true) {
+                bottomNavigationView.setItemBackgroundResource(R.drawable.tab2);
+            } else if (i == 2 && isChecked == true) {
+                bottomNavigationView.setItemBackgroundResource(R.drawable.tab3);
+            } else if (i == 3 && isChecked == true) {
+                bottomNavigationView.setItemBackgroundResource(R.drawable.tab4);
+            }
+        }
+    }
+
+
+    int count;
+
+
+    Fragment selectFrag = null;
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navlistener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            navigationBackground(menuItem.getItemId());
+            try {
+                switch (menuItem.getItemId()) {
+
+                    case R.id.tab1:
+                        //viewFragment(new Paytab_frag(),"Frag_pay");
+//                        if(!serverExistUser1.getHasChild()) {
+////                            selectFrag = new Before_we_start_frag();
+//
+//                        }else {
+//                            selectFrag = new Select_frag();
+//                        }
+
+                        selectedTab(TAB_TIMER);
+                        break;
+
+                    case R.id.tab2:
+                        //viewFragment(new Add_child_tab_frag(),"Frag_other");
+                        //selectFrag = new User_Profile_frag();
+                        selectedTab(TAB_USER_PROFILE);
+                        break;
+
+                    case R.id.tab3:
+                        // viewFragment(new Paytab_frag(),"Frag_other");
+                        //                       selectFrag = new Choose_method_frag();
+                        selectedTab(TAB_CRYING_SCALE);
+                        break;
+
+                    case R.id.tab4:
+                        // viewFragment(new Add_child_tab_frag(),"Frag_other");
+//                        selectFrag = new SelectChildSeeProfile();
+                        selectedTab(TAB_CHILD_PROFILE);
+                        break;
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //replacementFragment(selectFrag);
+
+            return true;
+        }
+    };
+
+    private void selectedTab(String tabId) {
+
+        mCurrentTab = tabId;
+
+        if (mStacks.get(tabId).size() == 0) {
+            /*
+             *    First time this tab is selected. So add first fragment of that tab.
+             *    Dont need animation, so that argument is false.
+             *    We are adding a new fragment which is not present in stack. So add to stack is true.
+             */
+            if (tabId.equals(TAB_TIMER)) {
+                if (serverExistUser1.getHasChild()) {
+                    pushFragments(tabId, new Select_frag(), true);
+                } else {
+                    pushFragments(tabId, new Before_we_start_frag(), true);
+                }
+
+            } else if (tabId.equals(TAB_USER_PROFILE)) {
+                pushFragments(tabId, new User_Profile_frag(), true);
+            } else if (tabId.equals(TAB_CRYING_SCALE)) {
+                pushFragments(tabId, new Choose_method_frag(), true);
+            } else if (tabId.equals(TAB_CHILD_PROFILE)) {
+                pushFragments(tabId, new SelectChildSeeProfile(), true);
+            }
+        } else {
+            /*
+             *    We are switching tabs, and target tab is already has atleast one fragment.
+             *    No need of animation, no need of stack pushing. Just show the target fragment
+             */
+            pushFragments(tabId, mStacks.get(tabId).lastElement(), false);
+        }
+    }
+
+    public void pushFragments(String tabId, Fragment fragment, boolean shouldAdd) {
+        if (shouldAdd)
+            mStacks.get(tabId).push(fragment);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.replace(R.id.fragment_container_navbar, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+//        count = getSupportFragmentManager().getBackStackEntryCount();
+//
+//        if (count == 0) {
+//            super.onBackPressed();
+//            //additional code
+//        } else {
+//            getSupportFragmentManager().popBackStackImmediate();
+//
+//        }
+
+        if (mStacks.get(mCurrentTab).size() == 1) {
+            // We are already showing first fragment of current tab, so when back pressed, we will finish this activity..
+            finish();
+            return;
+        }
+
+        /* Goto previous fragment in navigation stack of this tab */
+        popFragments();
+
+    }
+
+    public void popFragments() {
+        Fragment fragment = mStacks.get(mCurrentTab).elementAt(mStacks.get(mCurrentTab).size() - 2);
+
+        /*pop current fragment from stack.. */
+        mStacks.get(mCurrentTab).pop();
+
+        /* We have the target fragment in hand.. Just show it.. Show a standard navigation animation*/
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.replace(R.id.fragment_container_navbar, fragment);
+        ft.commit();
+    }
+
+    private void gotoFragment(Fragment selectedFragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content, selectedFragment);
+        fragmentTransaction.commit();
+    }
+
     private void getBeforeYouDetails() {
-      {
+        {
 
             ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
             String token_header = saveData.get("login_token");
@@ -143,11 +314,11 @@ public class Bottom_tabs extends AppCompatActivity {
                         }
                     } else {
 
-                        if(!serverExistUser1.getHasChild()) {
-                            fragmentManager.beginTransaction().add(R.id.fragment_container_navbar, new Before_we_start_frag()).commit();
-                        }
-                        else {
-                            fragmentManager.beginTransaction().add(R.id.fragment_container_navbar, new Select_frag()).commit();
+                        assert serverExistUser1 != null;
+                        if (!serverExistUser1.getHasChild()) {
+                            bottomNavigationView.setSelectedItemId(R.id.tab1);
+                        } else {
+                            selectedTab(TAB_TIMER);
                         }
 
                     }
@@ -182,108 +353,7 @@ public class Bottom_tabs extends AppCompatActivity {
     }
 
 
-    private void navigationBackground(int actionId)
-    {
-        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++)
-        {
-            MenuItem item = bottomNavigationView.getMenu().getItem(i);
-            boolean isChecked = item.getItemId() == actionId;
-            item.setChecked(isChecked);
-
-            if(i==0&& isChecked)
-            {
-                bottomNavigationView.setItemBackgroundResource(R.drawable.tab1);
-            }
-            else if(i==1&&isChecked==true)
-            {
-                bottomNavigationView.setItemBackgroundResource(R.drawable.tab2);
-            }
-            else if(i==2&&isChecked==true)
-            {
-                bottomNavigationView.setItemBackgroundResource(R.drawable.tab3);
-            }
-            else if(i==3&&isChecked==true)
-            {
-                bottomNavigationView.setItemBackgroundResource(R.drawable.tab4);
-            }
-        }
-    }
-
-
-    int count;
-
-    @Override
-    public void onBackPressed() {
-
-
-
-         count = getSupportFragmentManager().getBackStackEntryCount();
-
-        if (count == 0) {
-            super.onBackPressed();
-            //additional code
-        } else {
-            getSupportFragmentManager().popBackStackImmediate();
-
-        }
-
-    }
-
-    Fragment selectFrag=null;
-
-
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navlistener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            navigationBackground(menuItem.getItemId());
-            try {
-
-
-                switch (menuItem.getItemId()) {
-
-                    case R.id.tab1:
-                        //viewFragment(new Paytab_frag(),"Frag_pay");
-                        if(!serverExistUser1.getHasChild()) {
-                            selectFrag = new Before_we_start_frag();
-                        }else {
-                            selectFrag = new Select_frag();
-                        }
-                        break;
-
-                    case R.id.tab2:
-                        //viewFragment(new Add_child_tab_frag(),"Frag_other");
-                            selectFrag = new User_Profile_frag();
-                        break;
-
-                    case R.id.tab3:
-                        // viewFragment(new Paytab_frag(),"Frag_other");
-                        selectFrag = new Choose_method_frag();
-                        break;
-
-                    case R.id.tab4:
-                        // viewFragment(new Add_child_tab_frag(),"Frag_other");
-                        selectFrag = new Full_child_profile();
-
-                        break;
-
-
-
-
-                }
-            }
-            catch (Exception e )
-            {
-                e.printStackTrace();
-            }
-            replacementFragment(selectFrag);
-
-            return true;
-        }
-    };
-
-    private void replacementFragment(Fragment fragment)
-    {
+    private void replacementFragment(Fragment fragment) {
         String backstack = null;
         String fragmentTag = null;
 
@@ -292,15 +362,13 @@ public class Bottom_tabs extends AppCompatActivity {
 
         backstack = fragment.getClass().getName();
         fragmentTag = backstack;
-        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backstack,0);
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backstack, 0);
         try {
-            if (fragmentPopped!=true) {
+            if (fragmentPopped != true) {
                 ft.add(R.id.fragment_container_navbar, fragment, fragmentTag).commit();
             }
             //ft.addToBackStack(backstack)
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

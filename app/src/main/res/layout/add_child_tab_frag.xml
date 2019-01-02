@@ -2,24 +2,24 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_child_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/add_child_layout"
     tools:context=".add_New_Baby_tab.Add_child_tab_frag">
 
-        <!--
+    <!--
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/_76sdp" />
+<android.support.constraint.Guideline
+    android:id="@+id/guideline24"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_end="@dimen/_76sdp" />
 -->
 
     <include
         android:id="@+id/toolbar_add"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -35,21 +35,20 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
 
             <LinearLayout
                 android:id="@+id/linearLayoutChild"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/profile_pic"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="@dimen/_20sdp"
-
-                android:layout_marginTop="@dimen/_minus20sdp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/profile_pic"
                 android:layout_marginEnd="@dimen/_20sdp"
+
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_minus20sdp"
                 android:background="@drawable/add_child_btn"
                 android:orientation="vertical">
 
@@ -68,15 +67,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginEnd="@dimen/_30sdp"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@drawable/button_with_border"
                     android:ems="10"
                     android:gravity="center_horizontal|center_vertical"
                     android:hint="@string/name"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_15sdp" />
 
                 <TextView
                     android:id="@+id/child_birt_txt"
@@ -94,15 +93,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginEnd="@dimen/_30sdp"
-                    android:padding="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_7sdp"
                     android:background="@drawable/button_with_border"
                     android:ems="10"
                     android:gravity="center_horizontal|center_vertical"
                     android:hint="@string/dob"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:padding="@dimen/_15sdp" />
 
                 <TextView
                     android:id="@+id/child_gender_txt"
@@ -120,8 +119,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_7sdp"
                     android:layout_marginBottom="@dimen/_28sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
                     android:background="@color/white">
 
                     <Spinner
@@ -143,38 +142,35 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_pic"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="28dp"
-                app:civ_circle_background_color="@color/tab2_color"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_70sdp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/_104sdp"
-                android:src="@mipmap/large_logo"
-                android:background="@drawable/tab1"
-                app:civ_border_width="@dimen/_2sdp"
-               />
+                android:layout_marginTop="28dp"
+                android:background="@mipmap/user_icon"
 
+                app:civ_border_width="@dimen/_2sdp"
+                app:civ_circle_background_color="@color/tab2_color" />
 
 
             <ImageView
                 android:id="@+id/select_profile"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
 
-                android:layout_alignStart="@+id/profile_pic"
                 android:layout_alignBottom="@+id/profile_pic"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/profile_pic"
+                android:layout_marginBottom="-7dp"
+                android:layout_marginEnd="129dp"
                 android:layout_marginStart="57dp"
                 android:layout_marginTop="71dp"
-                android:layout_marginEnd="129dp"
-                android:layout_marginBottom="-7dp"
-                android:src="@mipmap/upload_image"
-                />
+                android:src="@mipmap/upload_image" />
 
             <Button
                 android:id="@+id/add_child_btn_id"
@@ -182,8 +178,8 @@
                 android:layout_height="@dimen/_50sdp"
                 android:layout_below="@+id/linearLayoutChild"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/_22sdp"
                 android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_22sdp"
                 android:background="@drawable/add_child_btn"
                 android:gravity="center_vertical|center_horizontal"
                 android:lineSpacingExtra="@dimen/_12sdp"
@@ -197,8 +193,6 @@
 
 
     </ScrollView>
-
-
 
 
 </android.support.constraint.ConstraintLayout>

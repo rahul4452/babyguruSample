@@ -1,13 +1,16 @@
 package com.example.poplify.baby_guru_sample.rest;
 
+import com.example.poplify.baby_guru_sample.pojo.MyMessageResponse;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.LoginDetails;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.OtpUser;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.OtpUserValid;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.ResetPassword;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.SignUpDetails;
 import com.example.poplify.baby_guru_sample.pojo.request.userRequest.childRequest.ChildProfileResponse;
+import com.example.poplify.baby_guru_sample.pojo.response.GetTimerResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYouStartResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.ChildrenResponse;
+
 import com.example.poplify.baby_guru_sample.pojo.response.cryingScalePackage.CryingScaleResponse;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.GetUserDetails;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.LoginResponse;
@@ -15,8 +18,7 @@ import com.example.poplify.baby_guru_sample.pojo.response.SignUpDetailsRes;
 import com.example.poplify.baby_guru_sample.pojo.response.userResponse.UserDetailAddResponse;
 import com.google.gson.JsonObject;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.json.JSONObject;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -31,6 +33,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 
@@ -122,5 +125,14 @@ public interface ApiInterface {
     @Headers({"Accept: application/json", "X-OS:android", "X-Api-Version:1", "X-FIREBASE-TOKEN:token"})
     @GET("/children")
     Call<ChildrenResponse> getSelectChild(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email);
+
+    @Headers({"Accept: application/json", "X-OS:android", "X-Api-Version:1", "X-FIREBASE-TOKEN:token"})
+    @POST("/update_saved_method/{id}")
+    Call<MyMessageResponse> setPreferMethod(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email,@Path("id") int id,@Body JsonObject methodid);
+
+    @Headers({"Accept: application/json", "X-OS:android", "X-Api-Version:1", "X-FIREBASE-TOKEN:token"})
+    @GET("/get_timer_details")
+    Call<GetTimerResponse> timerActivityDetail(@Header("X-User-Token") String token_header, @Header("X-User-Email") String email, @Query("child_id") int id);
+
 
 }

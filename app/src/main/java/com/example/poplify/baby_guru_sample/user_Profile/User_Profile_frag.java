@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.ChildList;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
@@ -325,13 +326,13 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
             list_of_child.setChildName(childrenList.get(i).getName());
             list_of_child.setChildId(childrenList.get(i).getId());
 
-            if(childLists.size()!=2) {
+            if (childLists.size() != 2) {
                 childLists.add(list_of_child);
             }
         }
 
 
-            UserChildAdapter = new UserChildAdapter(getContext(), childLists);
+        UserChildAdapter = new UserChildAdapter(getContext(), childLists);
 
 
         if (childrenList.size() != 2) {
@@ -365,14 +366,21 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
                 Toast.makeText(getContext(), "Logout Not Happen", Toast.LENGTH_LONG).show();
                 break;
             case R.id.detailEditParent:
-                replacementFragment(new Basic_detail_frag());
+                Basic_detail_frag updateDetail = new Basic_detail_frag();
+                Bundle bundle = new Bundle();
+                bundle.putString("parentName", tvParentName.getText().toString());
+                bundle.putString("parentRelation", tvParentRelation.getText().toString());
+                if (serverExistUser.getUser().getImageUrl() != null) {
+                    bundle.putString("parentImage", serverExistUser.getUser().getImageUrl());
+                }
+                updateDetail.setArguments(bundle);
+                ((Bottom_tabs) getActivity()).pushFragments(Bottom_tabs.TAB_USER_PROFILE, updateDetail, true);
+                //replacementFragment(new Basic_detail_frag());
                 break;
             case R.id.chngPwdBtn:
                 Intent chngpwd = new Intent(getContext(), ChangePassword.class);
                 startActivity(chngpwd);
                 break;
-            default:
-                Toast.makeText(getContext(), "another button", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -427,7 +435,7 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
                 super(v);
                 imageUrls = v.findViewById(R.id.showChild);
                 childName = v.findViewById(R.id.childname);
-               // childId = v.findViewById(R.id.getChildId);
+                // childId = v.findViewById(R.id.getChildId);
             }
         }
 
@@ -472,14 +480,18 @@ public class User_Profile_frag extends Fragment implements View.OnClickListener 
                             bun.putInt("childId", childNameList.get(position).getChildId());
                             Full_child_profile full_child_profile = new Full_child_profile();
                             full_child_profile.setArguments(bun);
-                            replacementFragment(full_child_profile);
+                            //replacementFragment(full_child_profile);
+                            saveData.save("userProfile", true);
+                            ((Bottom_tabs) getActivity()).pushFragments(Bottom_tabs.TAB_USER_PROFILE, full_child_profile, true);
                             break;
 
                         case 1:
                             bun.putInt("childId", childNameList.get(position).getChildId());
                             Full_child_profile full_child_profile2 = new Full_child_profile();
                             full_child_profile2.setArguments(bun);
-                            replacementFragment(full_child_profile2);
+                            saveData.save("userProfile", true);
+                            //replacementFragment(full_child_profile2);
+                            ((Bottom_tabs) getActivity()).pushFragments(Bottom_tabs.TAB_USER_PROFILE, full_child_profile2, true);
                             break;
                     }
 

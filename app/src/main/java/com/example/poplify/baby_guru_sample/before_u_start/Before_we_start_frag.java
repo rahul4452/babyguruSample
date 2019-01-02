@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidadvance.topsnackbar.TSnackbar;
+import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
 import com.example.poplify.baby_guru_sample.R;
 
 import com.example.poplify.baby_guru_sample.adapter.InternetConnection;
@@ -88,11 +89,7 @@ public class Before_we_start_frag extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
     }
-
-
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -173,10 +170,7 @@ public class Before_we_start_frag extends Fragment {
                     // saveData.save("changePwd",serverExistUser.getUserLabels().getButtons().getChangePassword());
 
 
-                        setServerResponse(serverExistUser1);
-
-
-
+                    setServerResponse(serverExistUser1);
 
 
 //                    Toast.makeText(getContext(), "Details updated", Toast.LENGTH_LONG).show();
@@ -232,7 +226,8 @@ public class Before_we_start_frag extends Fragment {
             start_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    replacementFragment(new Select_frag());
+                    ((Bottom_tabs)getActivity()).pushFragments(Bottom_tabs.TAB_TIMER, new Select_frag(),true);
+                    //replacementFragment(new Select_frag());
                 }
             });
 
@@ -313,8 +308,6 @@ public class Before_we_start_frag extends Fragment {
         btnlayout = view.findViewById(R.id.letStartBtnLayout);
 
 
-
-        
         //*********************************************************
         // tb_title_before.setTextSize(12);
         tb_title_before.setTypeface(regular);
@@ -325,7 +318,6 @@ public class Before_we_start_frag extends Fragment {
         start_btn = view.findViewById(R.id.let_start_btn);
         start_btn.setTypeface(regular);
     }
-
 
 
     //Checking which group is expanded and change the right indicator

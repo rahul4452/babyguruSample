@@ -5,9 +5,11 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 
 import com.androidadvance.topsnackbar.TSnackbar;
 import com.bumptech.glide.Glide;
+import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
 import com.example.poplify.baby_guru_sample.add_New_Baby_tab.Add_child_tab_frag;
@@ -40,6 +43,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -207,7 +211,7 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
             genderSelected = gender.getSelected();
             if (genderSelected.equals(true) && gender.getName() != null) {
                 baby_gen_txt.setText(gender.getName());
-                bundle1.putInt("genderId",gender.getId());
+                bundle1.putInt("genderId", gender.getId());
             } else {
                 baby_gen_txt.setText(gender.getDefaultName());
             }
@@ -327,24 +331,24 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View view) {
         int btn = view.getId();
 
         switch (btn) {
             case R.id.child_edit_btn:
-
                 bundle1.putInt("childIdforUpdate", childId);
-                bundle1.putString("childName",child_name_txt.getText().toString().trim());
-                bundle1.putString("childDob",baby_born_date_txt.getText().toString().trim());
-                bundle1.putSerializable("labels",serverData.getChildLabels().getChildProfileLabels());
+                bundle1.putString("childName", child_name_txt.getText().toString().trim());
+                bundle1.putString("childDob", baby_born_date_txt.getText().toString().trim());
+                bundle1.putSerializable("labels", serverData.getChildLabels().getChildProfileLabels());
                 if (serverData.getChild().getImageUrl() != null) {
-                   bundle1.putString("childimageUrl",serverData.getChild().getImageUrl());
+                    bundle1.putString("childimageUrl", serverData.getChild().getImageUrl());
                 }
                 Add_child_tab_frag updateChild = new Add_child_tab_frag();
                 updateChild.setArguments(bundle1);
-                replacementFragment(updateChild);
-
+                //replacementFragment(updateChild);
+                ((Bottom_tabs) Objects.requireNonNull(getActivity())).pushFragments(Bottom_tabs.TAB_CHILD_PROFILE, updateChild, true);
                 break;
 
             case R.id.see_graph_btn:
@@ -354,12 +358,16 @@ public class Full_child_profile extends Fragment implements View.OnClickListener
 
             case R.id.chnge_method_btn:
                 Bundle changeMethodDAta = new Bundle();
-                changeMethodDAta.putSerializable("changeMethodDetails",serverData.getSleepCoachingDetails());
-                changeMethodDAta.putString("headerTitle",serverData.getSleepCoachingLabels().getHeader().getChooseMethod());
-                changeMethodDAta.putString("selectMethod",serverData.getChildLabels().getChildProfileLabels().getButtons().getSelectMethod());
+                changeMethodDAta.putInt("childId", serverData.getChild().getId());
                 ChooseMethod cm = new ChooseMethod();
                 cm.setArguments(changeMethodDAta);
-                replacementFragment(cm);
+                if (saveData.getBoolean("userProfile")) {
+                    ((Bottom_tabs) Objects.requireNonNull(getActivity())).pushFragments(Bottom_tabs.TAB_USER_PROFILE, cm, true);
+                   // saveData.remove("userProfile");
+                } else if(saveData.getBoolean("fullChildProfile")){
+                    ((Bottom_tabs) Objects.requireNonNull(getActivity())).pushFragments(Bottom_tabs.TAB_CHILD_PROFILE, cm, true);
+                }
+                //  replacementFragment(cm);
         }
     }
 

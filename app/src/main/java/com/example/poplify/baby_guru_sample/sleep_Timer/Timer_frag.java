@@ -1,86 +1,107 @@
 package com.example.poplify.baby_guru_sample.sleep_Timer;
 
 
-import android.content.Intent;
-import android.content.res.Resources;
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.icu.text.DecimalFormat;
+import android.icu.text.NumberFormat;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.androidadvance.topsnackbar.TSnackbar;
+import com.ankushgrover.hourglass.Hourglass;
 import com.budiyev.android.circularprogressbar.CircularProgressBar;
 import com.example.poplify.baby_guru_sample.R;
-import com.example.poplify.baby_guru_sample.adapter.CustomViewPager;
+import com.example.poplify.baby_guru_sample.adapter.Common;
 import com.example.poplify.baby_guru_sample.adapter.MyAdapter;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
-import com.example.poplify.baby_guru_sample.crying_scale.Crying_Scale;
-import java.text.DateFormat;
+import com.example.poplify.baby_guru_sample.pojo.response.GetTimerResponse;
+import com.example.poplify.baby_guru_sample.rest.ApiClient;
+import com.example.poplify.baby_guru_sample.rest.ApiInterface;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.Objects;
 
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Timer_frag extends Fragment {
+public class Timer_frag extends Fragment implements View.OnClickListener {
 
-    @BindView(R.id.chronomter) Chronometer cmTimer;
-    @BindView(R.id.btnstart) Button btnStart;
-    @BindView(R.id.cry_sleep) Button cry_sleep_act;
+
+    TextView cmTimer;
+    CircularProgressBar progressOuter, progressInner;
+    TextView selfText, totalText;
+    SaveData saveData;
+    Button startTimer, closeTimer;
+    LinearLayout showCryingScale;
+    Button stopTimer, cryingScale;
+    ProgressBar timerPb;
+    Typeface regular, regularMon;
+    Hourglass hourglass;
     Boolean resume = false;
     long elapsedTime;
     private final Handler handler = new Handler();
     String TAG = "TAG";
     SaveData sd;
-    String time_on_Pause,time_on_Resume;
-    long minutes,seconds,diff;
-    Date pauseDate,resumeDate;
+    String time_on_Pause, time_on_Resume;
 
-    CustomViewPager viewPager;
-    Typeface regular,regularMon;
-    CircularProgressBar pb ;
+    Date pauseDate, resumeDate;
+    RecyclerView viewPager;
+
+
     private int progressStatus = 0;
-     Handler handler2;
-
+    Handler handler2;
     final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
-    int page =0;
-
-    @BindView(R.id.openGurutips) ImageButton guru_btn;
-
+    int page = 0;
+    ImageButton guru_btn;
     MyAdapter md;
-
+    private TextView timerHeader;
+    private int childId;
+    private GetTimerResponse timerDetails;
+    private LinearLayout layout;
+    private ImageView pauseTimer;
+    private LinearLayoutManager mLayoutManager;
 
 
     public Timer_frag() {
         // Required empty public constructor
+
     }
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
 
 
     Thread timer_thread = new Thread(new Runnable() {
@@ -89,16 +110,13 @@ public class Timer_frag extends Fragment {
             try {
 
 
-                if (viewPager.getAdapter().getCount() == page) {
-                    page = 0;
-                }
-                else
-                {
-                    page++;
-
-                    viewPager.setCurrentItem(page);
-                }
-
+//                if (viewPager.getAdapter().getCount() == page) {
+//                    page = 0;
+//                } else {
+//                    page++;
+//
+//                   // viewPager.setCurrentItem(page);
+//                }
 
 
             } catch (Exception e) {
@@ -110,366 +128,537 @@ public class Timer_frag extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState)
-    {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        saveData = new SaveData(getContext());
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            childId = bundle.getInt("childId");
+        }
+
+    }
+
+    private void getDetailsFromServer(final View view) {
+
+        try {
+            ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
+            timerPb.setVisibility(View.VISIBLE);
+
+            String token_header = saveData.get("login_token");
+            String email_header = saveData.get("login_email");
+            Call<GetTimerResponse> responseCall = service.timerActivityDetail(token_header, email_header, childId);
+
+            responseCall.enqueue(new Callback<GetTimerResponse>() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onResponse(@NonNull Call<GetTimerResponse> call, @NonNull Response<GetTimerResponse> response) {
+
+                    boolean success = response.isSuccessful();
+                    timerDetails = response.body();
+
+                    String sa = timerDetails != null ? timerDetails.getBeforeYouStart().getDescription() : null;
+                    if (response.code() == 404) {
+                        try {
+                            timerPb.setVisibility(View.VISIBLE);
+                            JSONObject jObjError = new JSONObject(Objects.requireNonNull(response.errorBody()).string());
+                            TSnackbar snackbar = TSnackbar.make(view.findViewById(android.R.id.content), jObjError.getString("message"), TSnackbar.LENGTH_LONG);
+                            snackbar.setActionTextColor(Color.WHITE);
+                            View snackbarView = snackbar.getView();
+                            snackbarView.setBackgroundColor(getResources().getColor(R.color.light_pink));
+                            TextView textView = snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+                            textView.setTextColor(Color.WHITE);
+                            textView.setGravity(Gravity.CENTER_HORIZONTAL);
+                            Toast.makeText(getContext(), response.errorBody() + "" + response.message(), Toast.LENGTH_LONG).show();
+                            snackbar.show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        timerPb.setVisibility(View.GONE);
+                        Log.d(TAG, "onResponse: response Body" + response.body());
+                        setResponseFromServer(timerDetails);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<GetTimerResponse> call, @NonNull Throwable t) {
+                    timerPb.setVisibility(View.GONE);
+                    call.cancel();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    boolean isactive = false;
+    Integer activeMethodid;
+    List<GetTimerResponse.Card> cardList;
+    List<GetTimerResponse.InfiniteCard> infiniteCards;
+    private void setResponseFromServer(GetTimerResponse timerDetails) {
+
+        GetTimerResponse.Header header = timerDetails.getSleepCoachingLabels().getHeader();
+
+        GetTimerResponse.Buttons button = timerDetails.getSleepCoachingLabels().getButtons();
+
+        timerHeader.setText(header.getSleepCoaching());
+
+        startTimer.setText(button.getStart());
+
+        closeTimer.setText(button.getBabyIsAsleep());
+
+        stopTimer.setText(button.getBabyIsAsleep());
+
+        cryingScale.setText(button.getCryingScale());
+
+
+        String intialCard = timerDetails.getSleepCoachingDetails().getInitialCard().getInitialCard();
+
+        List<GetTimerResponse.ChooseMethod> card = timerDetails.getSleepCoachingDetails().getChooseMethods();
+
+
+        for (GetTimerResponse.ChooseMethod hi : card)
+        {
+            isactive = hi.getActive();
+            if(isactive){
+                activeMethodid = hi.getId();
+                cardList = hi.getCards();
+                infiniteCards = hi.getInfiniteCards();
+            }
+        }
+
+        for (GetTimerResponse.Card card2 : cardList){
+            Common common = new Common();
+            common.setCard(card2.getDetails());
+        }
+
+        for (GetTimerResponse.InfiniteCard infiniteCard : infiniteCards){
+            Common common = new Common();
+            common.setInfiniteCard(infiniteCard.getDetails());
+        }
+
+
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timer_frag, container, false);
 
-        FragmentManager fm =getChildFragmentManager();
-        ButterKnife.bind(this,view);
+        FragmentManager fm = getChildFragmentManager();
+
         sd = new SaveData(getContext());
 
+        initView(view);
 
-        handler2 = new Handler();
+//        getActivity().startService(new Intent(getActivity(), BroadcastService.class));
+        //handler2 = new Handler();
 
+        //viewPager.setScrollDurationFactor(30);
+        // viewPager.setPageTransformer(false, new SlideUpTransformer());
+//        md = new MyAdapter(fm, getContext());
+//
+//        md.setFragments(this.getActivity());
 
-        viewPager = (CustomViewPager) view.findViewById(R.id.pager);
-        viewPager.setScrollDurationFactor(30);
-       // viewPager.setPageTransformer(false, new SlideUpTransformer());
-        md = new MyAdapter(fm,getContext());
-
-        md.setFragments(this.getActivity());
-        viewPager.setAdapter(md);
-        viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount()-1);
-
-
-
-
-
-
-
-        //*****************--------------------------------------------*****************************++++
-        pb = view.findViewById(R.id.inner_timer);
-
-
-
-        //Setting fonts
-        regular = Typeface.createFromAsset(getActivity().getAssets(),"Comfortaa_Regular.ttf");
-        regularMon = Typeface.createFromAsset(getActivity().getAssets(),"Montserrat-Regular.otf");
+//        viewPager.setAdapter(md);
+//
+//        viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount() - 1);
 
         view.setTag("Timer_frag");
 
         return view;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getDetailsFromServer(view);
+    }
+
+    private void initView(View view) {
+        //Setting fonts
+        regular = Typeface.createFromAsset(getActivity().getAssets(), "Comfortaa_Regular.ttf");
+        regularMon = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Regular.otf");
+
+        viewPager = view.findViewById(R.id.pager);
+        viewPager.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        viewPager.setLayoutManager(mLayoutManager);
+
+
+        timerHeader = view.findViewById(R.id.toolbar_title);
+
+        //*****************--------------------------------------------*****************************++++
+        progressOuter = view.findViewById(R.id.outer_timer);
+        progressInner = view.findViewById(R.id.inner_timer);
+
+        cmTimer = view.findViewById(R.id.chronomter);
+
+        totalText = view.findViewById(R.id.total_text);
+        totalText.setTypeface(regularMon);
+
+        selfText = view.findViewById(R.id.self_text);
+        selfText.setTypeface(regularMon);
+
+        showCryingScale = view.findViewById(R.id.buttonLayout);
+
+        startTimer = view.findViewById(R.id.btnstart);
+
+        if (saveData.getBoolean("timerStart")) {
+            startTimer.setVisibility(View.GONE);
+        } else {
+            startTimer.setVisibility(View.VISIBLE);
+        }
+
+        //        if (startTimer.getVisibility()==View.VISIBLE) {
+//            startTimer.setVisibility(View.GONE);
+//        } else {
+//            startTimer.setVisibility(View.VISIBLE);
+//        }
+        startTimer.setTypeface(regular);
+        startTimer.setOnClickListener(this);
+
+
+        pauseTimer = view.findViewById(R.id.pauseTimer);
+        pauseTimer.setOnClickListener(this);
+
+        closeTimer = view.findViewById(R.id.btn_baby_sleep);
+
+        if (saveData.getBoolean("timerStart")) {
+            closeTimer.setVisibility(View.VISIBLE);
+        } else {
+            closeTimer.setVisibility(View.GONE);
+        }
+
+//        if(closeTimer.getVisibility()==View.VISIBLE){
+//            closeTimer.setVisibility(View.GONE);
+//        }
+//        else{
+//            closeTimer.setVisibility(View.VISIBLE);
+//        }
+        closeTimer.setTypeface(regular);
+        closeTimer.setOnClickListener(this);
+
+        stopTimer = view.findViewById(R.id.btn_baby_sleep2);
+        stopTimer.setOnClickListener(this);
+        stopTimer.setTypeface(regular);
+
+        cryingScale = view.findViewById(R.id.cry_sleep);
+        cryingScale.setOnClickListener(this);
+        cryingScale.setTypeface(regular);
+
+        timerPb = view.findViewById(R.id.timerProgressbar);
+        timerPb.setVisibility(View.VISIBLE);
+
+        layout = view.findViewById(R.id.linearLayout7);
+
+    }
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-    //----------------------------------------------------------------setting up the progress bar thread---------------------------------------------------------------------------//
 
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
 
+    @Override
+    public void onClick(View v) {
 
-    public void initprogressBar()
-    {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                do {
-                    progressStatus += seconds;
-                    // Update the progress bar and display the
-                    //current value in the text view
-                    handler.post(new Runnable() {
-                        public void run() {
-                            pb.setProgress(progressStatus);
+        switch (v.getId()) {
+            case R.id.btnstart:
+                // saveData.save("timerStart",true);
+                //timerPb.setVisibility(View.VISIBLE);
+                if (startTimer.getVisibility() == View.VISIBLE) {
+                    startTimer.setVisibility(View.GONE);
+                }
+
+                if (closeTimer.getVisibility() == View.GONE) {
+                    closeTimer.setVisibility(View.VISIBLE);
+                }
+
+                pauseTimer.setImageResource(R.mipmap.pause_timer);
+
+                if (layout.getVisibility() == View.GONE) {
+                    layout.setVisibility(View.VISIBLE);
+                }
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            timerPb.setVisibility(View.GONE);
+                            startTimerfunc();
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    });
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
-                }while (minutes != 10 );
-            }
-        }).start();
+                }, 3000);
+
+
+                break;
+            case R.id.btn_baby_sleep:
+                saveData.remove("timerStart");
+                hourglass.stopTimer();
+                break;
+
+            case R.id.pauseTimer:
+                hourglass.pauseTimer();
+                break;
+
+            case R.id.btn_baby_sleep2:
+
+                break;
+
+        }
+
     }
 
 
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-    //---------------------------------------------------------------start time on button click----------------------------------------------------------------------------//
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-
-    @OnClick(R.id.btnstart)
-    void startTimer(){
-
+    void startTimerfunc() {
         try {
-            runnable.run();
 
-
-            timer_thread.start();
-            initprogressBar();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
-
-    @OnClick(R.id.cry_sleep)
-    void startCryActivity()
-    {
-        Intent ol = new Intent(getContext(), Crying_Scale.class);
-
-        startActivity(ol);
-    }
-
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-    //--------------------------------------------------------------------clock timer setting thread-------------------------------------------------------------------//
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-
-
-            if (!resume) {
-                cmTimer.setBase(SystemClock.elapsedRealtime());
-                cmTimer.start();
-            } else {
-                cmTimer.start();
-            }
-            //
-
-
-  //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-  //-------------------------------------setting up the chronometer-------------------------------------------------------------------------------------------------------------//
-
-
-            cmTimer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener()
-            {
+            hourglass = new Hourglass(14400000, 1000) {
+                @SuppressLint("SetTextI18n")
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
-                public void onChronometerTick(Chronometer chronometer)
-                {
-                    try
-                    {
-                        if(!resume){
-                            minutes = ((SystemClock.elapsedRealtime() - cmTimer.getBase())/1000) / 60;
-                            seconds = ((SystemClock.elapsedRealtime() - cmTimer.getBase())/1000) % 60;
-                            elapsedTime = SystemClock.elapsedRealtime();
-                        }
-                        else {
-                            long minutes = ((elapsedTime - cmTimer.getBase())/1000) / 60;
-                            long seconds = ((elapsedTime - cmTimer.getBase())/1000) % 60;
-                            elapsedTime = elapsedTime + 1000;
-                            Log.d(TAG, "onChronometerTick: " + minutes + " : " + seconds);
+                public void onTimerTick(long millis) {
+                    try {
+                        final NumberFormat f = new DecimalFormat("00");
+                        final long hour = (millis / 3600000) % 24;
+                        final long min = (millis / 60000) % 60;
+                        final long sec = (millis / 1000) % 60;
+
+                        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                        Date startDate = simpleDateFormat.parse(f.format(hour) + ":" + f.format(min) + ":" + f.format(sec));
+                        Date endDate = simpleDateFormat.parse("04:00:00");
+
+                        long difference = endDate.getTime() - startDate.getTime();
+
+                        //seconds
+                        int just_seconds = (int) (difference / 1000);
+
+                        //minutes
+                        int just_minutes = just_seconds / 60;
+
+                        if (just_minutes >= 1) {
+                            just_seconds = (int) (difference - ((60 * 1000) * just_minutes)) / 1000;
                         }
 
-                    }catch (Exception e)
-                    {
-                        e.printStackTrace();
+                        //hours
+                        int just_hours = just_minutes / 60;
+
+                        new HMS(just_seconds, just_minutes, just_hours);
+                        cmTimer.setText(f.format(just_hours) + ":" + f.format(just_minutes) + ":" + f.format(just_seconds));
+                    } catch (ParseException p) {
+                        p.printStackTrace();
                     }
 
                 }
-            });
-            // act = getActivity();
 
-            // handler.postDelayed(this, 1000);
+                @Override
+                public void onTimerFinish() {
+
+                    cmTimer.setText("done");
+                } //14400000 milisecond for 4 hours
+
+//                @RequiresApi(api = Build.VERSION_CODES.N)
+//                @SuppressLint("SetTextI18n")
+//                public void onTick(long millis) {
+//                }
+//
+//                public void onFinish() {
+//
+//                }
+
+            };
+
+            hourglass.startTimer();
+        } catch (Exception i) {
+            i.printStackTrace();
         }
-    };
+    }
 
+    private class TimerProgress extends AsyncTask<String, Integer, String> {
 
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
 
-    @Override
-    public void onResume() {
+        }
 
+        @Override
+        protected String doInBackground(String... sUrl) {
+            try {
 
-
-
-
-        DateFormat df = new SimpleDateFormat("HH:mm:ss"); //format time
-        time_on_Resume = df.format(Calendar.getInstance().getTime());
-        try {
-            Log.d(TAG, "onResume: time onpause"+time_on_Resume);
-            if(time_on_Pause!=null) {
-                resumeDate = df.parse(time_on_Pause);
-                long diff = resumeDate.getTime() - pauseDate.getTime();
-                long Hours = diff/(1000 * 60 * 60);
-                long Mins = diff/(1000*60) % 60;
-                long Secs = (diff / 1000) % 60;
-
-                minutes+=Mins;
-                seconds+=Secs;
+            } catch (Exception e) {
+                // Error Log
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
             }
-            Log.d(TAG, "Differ IN Time : "+diff);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
 
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
 
-        super.onResume();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+        }
     }
 
+    class HMS {
+        int sec, min, hours;
 
-    //-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-
-    @Override
-    public void onPause()
-    {
-
-        DateFormat df = new SimpleDateFormat("HH:mm:ss"); //format time
-        time_on_Pause = df.format(Calendar.getInstance().getTime());
-        try
-        {
-            pauseDate = df.parse(time_on_Pause);
-            Log.d(TAG, "onChronometerTick: " + minutes + " : " + seconds);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+        public HMS(int sec, int min, int hours) {
+            this.sec = sec;
+            this.min = min;
+            this.hours = hours;
         }
 
+        public int getSec() {
+            return sec;
+        }
 
-        super.onPause();
+        public int getMin() {
+            return min;
+        }
+
+        public int getHours() {
+            return hours;
+        }
     }
 
+    class TimerRecycle extends RecyclerView.Adapter<TimerRecycle.TimerHolder> {
 
 
+        class TimerHolder extends RecyclerView.ViewHolder {
 
-//-----------------------------------------------------------------------------------------------------------------------------------------------------------------//
-    //------------------------------------------------------Setting up the Guru Tips------------------------------------------------------
+            TextView cardText;
 
-
-    @OnClick(R.id.openGurutips)
-    public void tips()
-    {
-
-        android.support.v7.app.AlertDialog.Builder dia_builder = new android.support.v7.app.AlertDialog.Builder(getContext(),R.style.GuruTheme);
-
-        View mview = getLayoutInflater().inflate(R.layout.dialog_guru,null);
-
-        Button ok_guru = mview.findViewById(R.id.guru_ok);
-        Button contact_guru =  mview.findViewById(R.id.guru_contact);
-        TextView head_guru  =  mview.findViewById(R.id.guru_heading);
-
-
-        //setting the text Font
-        head_guru.setTypeface(regular);
-        ok_guru.setTypeface(regularMon);
-        contact_guru.setTypeface(regularMon);
-
-
-
-        //Setting Up the Recycler View
-        RecyclerView recyclerView = mview.findViewById(R.id.guru_list);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        List<String> headlist = Arrays.asList(getResources().getStringArray(R.array.c));
-        List<String> bodylist = Arrays.asList(getResources().getStringArray(R.array.d));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        Recycle_Guru recycle_guru = new Recycle_Guru(headlist,bodylist,mview);
-
-
-        //call the recycler adapter
-
-        recyclerView.setAdapter(recycle_guru);
-
-
-        //show in the dialog box
-        dia_builder.setView(mview);
-        android.support.v7.app.AlertDialog dialog = dia_builder.create();
-        dialog.show();
-
-    }
-
-
-    public class Recycle_Guru extends RecyclerView.Adapter<Recycle_Guru.Guru_holder>
-    {
-
-        List<String> head_list,body_list;
-        View view;
-        Resources res;
-
-
-        public Recycle_Guru(List<String> head_list, List<String> body_list, View view) {
-            this.head_list = head_list;
-            this.body_list = body_list;
-            this.view = view;
-        }
-
-        public class Guru_holder extends RecyclerView.ViewHolder{
-            TextView head_txt,body_txt;
-            View v1,v2;
-
-            public Guru_holder(@NonNull View itemView) {
+            public TimerHolder(@NonNull View itemView) {
                 super(itemView);
-                head_txt = itemView.findViewById(R.id.text_head);
-                body_txt = itemView.findViewById(R.id.text_body);
-                v1 = itemView.findViewById(R.id.view);
-                v2 = itemView.findViewById(R.id.view2);
+                cardText = itemView.findViewById(R.id.pager_inner_text);
             }
         }
 
 
         @NonNull
         @Override
-        public Guru_holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        public TimerHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.pager_frag_1, viewGroup, false);
 
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_guru_layout,viewGroup,false);
-            Guru_holder guru_holder = new Guru_holder(view);
-            return guru_holder;
+            return new TimerHolder(v);
         }
 
-
         @Override
-        public void onBindViewHolder(@NonNull Guru_holder holder, int i) {
-            res = holder.itemView.getContext().getResources();
-            String s2 = head_list.get(i);
-            String s3 = body_list.get(i);
+        public void onBindViewHolder(@NonNull TimerHolder timerHolder, int i) {
 
-            int size = head_list.size()-1;
-
-            if(i==size)
-            {
-                holder.head_txt.setVisibility(View.GONE);
-                holder.v1.setVisibility(View.GONE);
-                holder.v2.setVisibility(View.GONE);
-            }
-            else {
-                holder.head_txt.setText(s2);
-                holder.body_txt.setText(s3);
-            }
         }
 
 
         @Override
         public int getItemCount() {
-            return head_list.size();
-        }
-
-
-    }
-
-
-
-
-    private class SlideUpTransformer implements ViewPager.PageTransformer {
-        @Override
-        public void transformPage(View view, float position) {
-            int pageWidth = view.getWidth();
-            int pageHeight = view.getHeight();
-
-            if (-1 < position && position < 0) {
-                float scaleFactor = 1 - Math.abs(position) * 0.1f;
-                float verticalMargin = pageHeight * (1 - scaleFactor) / 2;
-                float horizontalMargin = pageWidth * (1 - scaleFactor) / 2;
-                if (position < 0) {
-                    view.setTranslationX(horizontalMargin - verticalMargin / 2);
-                } else {
-                    view.setTranslationX(-horizontalMargin + verticalMargin / 2);
-                }
-                view.setScaleX(scaleFactor);
-                view.setScaleY(scaleFactor);
-            }
-
-            view.setTranslationX(view.getWidth() * -position);
-
-            if (position > 0) {
-                float yPosition = position * view.getHeight();
-                view.setTranslationY(yPosition);
-            }
+            return 0;
         }
     }
+
+    //    public class Recycle_Guru extends RecyclerView.Adapter<Recycle_Guru.Guru_holder> {
+//
+//        List<String> head_list, body_list;
+//        View view;
+//        Resources res;
+//
+//
+//        public Recycle_Guru(List<String> head_list, List<String> body_list, View view) {
+//            this.head_list = head_list;
+//            this.body_list = body_list;
+//            this.view = view;
+//        }
+//
+//        public class Guru_holder extends RecyclerView.ViewHolder {
+//            TextView head_txt, body_txt;
+//            View v1, v2;
+//
+//            public Guru_holder(@NonNull View itemView) {
+//                super(itemView);
+//                head_txt = itemView.findViewById(R.id.text_head);
+//                body_txt = itemView.findViewById(R.id.text_body);
+//                v1 = itemView.findViewById(R.id.view);
+//                v2 = itemView.findViewById(R.id.view2);
+//            }
+//        }
+//
+//
+//        @NonNull
+//        @Override
+//        public Guru_holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+//
+//            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_guru_layout, viewGroup, false);
+//            Guru_holder guru_holder = new Guru_holder(view);
+//            return guru_holder;
+//        }
+//
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull Guru_holder holder, int i) {
+//            res = holder.itemView.getContext().getResources();
+//            String s2 = head_list.get(i);
+//            String s3 = body_list.get(i);
+//
+//            int size = head_list.size() - 1;
+//
+//            if (i == size) {
+//                holder.head_txt.setVisibility(View.GONE);
+//                holder.v1.setVisibility(View.GONE);
+//                holder.v2.setVisibility(View.GONE);
+//            } else {
+//                holder.head_txt.setText(s2);
+//                holder.body_txt.setText(s3);
+//            }
+//        }
+//
+//
+//        @Override
+//        public int getItemCount() {
+//            return head_list.size();
+//        }
+//
+//
+//    }
+//
+//
+//    private class SlideUpTransformer implements ViewPager.PageTransformer {
+//        @Override
+//        public void transformPage(View view, float position) {
+//            int pageWidth = view.getWidth();
+//            int pageHeight = view.getHeight();
+//
+//            if (-1 < position && position < 0) {
+//                float scaleFactor = 1 - Math.abs(position) * 0.1f;
+//                float verticalMargin = pageHeight * (1 - scaleFactor) / 2;
+//                float horizontalMargin = pageWidth * (1 - scaleFactor) / 2;
+//                if (position < 0) {
+//                    view.setTranslationX(horizontalMargin - verticalMargin / 2);
+//                } else {
+//                    view.setTranslationX(-horizontalMargin + verticalMargin / 2);
+//                }
+//                view.setScaleX(scaleFactor);
+//                view.setScaleY(scaleFactor);
+//            }
+//
+//            view.setTranslationX(view.getWidth() * -position);
+//
+//            if (position > 0) {
+//                float yPosition = position * view.getHeight();
+//                view.setTranslationY(yPosition);
+//            }
+//        }
+//    }
 }

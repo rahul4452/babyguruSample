@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/childBgLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:padding="@dimen/_8sdp"
         android:layout_marginStart="@dimen/_18sdp"
         android:layout_marginEnd="@dimen/_18sdp"
@@ -18,7 +18,7 @@
         android:background="@drawable/bef_list_2_text"
         android:orientation="vertical">
 
-        <br.tiagohm.markdownview.MarkdownView
+        <WebView
             android:id="@+id/lblListitem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -18,7 +18,7 @@ import com.example.poplify.baby_guru_sample.pojo.response.childResponse.BeforeYo
 import java.util.ArrayList;
 import java.util.List;
 
-import br.tiagohm.markdownview.MarkdownView;
+//import br.tiagohm.markdownview.MarkdownView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +28,7 @@ public class BeforeGuruTipFrag extends Fragment {
     private Bundle bundle;
 
     private String SERIALIZED_KEY = "gurusTips";
-    private MarkdownView descriptionWebView;
+    private WebView descriptionWebView;
     private RecyclerView guruTipsRecycler;
     private List<String> guruMainContentLabel;
     private List<String> guruMainContentDesc;
@@ -108,7 +108,7 @@ public class BeforeGuruTipFrag extends Fragment {
 
         public class Guru_holder extends RecyclerView.ViewHolder{
             TextView head_txt;
-            MarkdownView body_txt;
+            WebView body_txt;
             View v1,v2;
 
             public Guru_holder(@NonNull View itemView) {

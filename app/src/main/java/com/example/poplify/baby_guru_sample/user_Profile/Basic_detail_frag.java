@@ -22,11 +22,15 @@ import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.Uri;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -74,6 +78,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Objects;
 
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -102,7 +107,7 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
     ImageView parentProfileBtn;
     CircleImageView parentProfileShow;
     EditText edParentName, edParentEmail;
-    ScrollView scrollViewbg;
+    ConstraintLayout scrollViewbg;
     FragmentManager fragmentManager;
     String relation_id;
     public static final int RC_PHOTO_PICKER_PERM = 123;
@@ -114,9 +119,24 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
     private static final int MY_REQUEST_CODE = 1;
     private UserDetailAddResponse serverresponse;
     private ArrayList<String> photoPaths = new ArrayList<>();
+    private String name;
+    private String relationName;
+    private String imageUrl;
 
     public Basic_detail_frag() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            name = bundle.getString("parentName");
+            relationName = bundle.getString("parentRelation");
+            imageUrl = bundle.getString("parentImage");
+        }
     }
 
     @Override
@@ -138,24 +158,22 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
     }
 
     private void init(final View view) {
-        //Setting Up the toolbar  title
-        toolbar = view.findViewById(R.id.toolbar_basic);
-        tb_title_parentAdd = view.findViewById(R.id.toolbar_title);
-        tb_title_parentAdd.setText(getResources().getString(R.string.basic_detail));
-        tb_title_parentAdd.setTypeface(regular);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-
-
         //Setting fonts
         regular = Typeface.createFromAsset(getActivity().getAssets(), "Comfortaa_Regular.ttf");
         regularMon = Typeface.createFromAsset(getActivity().getAssets(), "Montserrat-Regular.otf");
+
+
+        //Setting Up the toolbar  title
+        toolbar = view.findViewById(R.id.toolbar_basic);
+        tb_title_parentAdd = view.findViewById(R.id.toolbar_title);
+
+
+        tb_title_parentAdd.setText(getResources().getString(R.string.basic_detail));
+        tb_title_parentAdd.setTypeface(regular);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+
+
+
 
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
@@ -182,6 +200,7 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
         parentRelationChildTv = view.findViewById(R.id.relation_parent_txt); //textView Bday
         parentRelationChildTv.setTypeface(regularMon);
 
+
         parentEmailAddress = view.findViewById(R.id.parent_mail_txt); //textView Gender
         parentEmailAddress.setTypeface(regularMon);
 
@@ -196,23 +215,32 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
 
 
         //Button to add User
-
-
         addParentBtn = view.findViewById(R.id.add_parent_btn_id);
         addParentBtn.setTypeface(regular);
         addParentBtn.setOnClickListener(this);
 
 
-        //--------------------********************setting up the Profile Pic**********--------------------------//
+        //--------------------******************** Setting up the Profile Pic**********--------------------------//
 
         parentProfileShow = view.findViewById(R.id.parent_profile_pic);
 
+        if (getArguments() != null) {
+            try {
+                Glide.with(this)
+                        .load(imageUrl)
+                        .into(parentProfileShow);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         parentProfileBtn = view.findViewById(R.id.user_select_profile);
         parentProfileBtn.setOnClickListener(this);
 
-
         edRelationParent = view.findViewById(R.id.spinner);
+        if (getArguments() != null) {
+            edParentName.setText(name);
+        }
 
     }
 
@@ -222,6 +250,14 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
 
         //adapter.setDropDownViewResource(R.layout.gender_layout,gender);
         edRelationParent.setAdapter(adapter);
+
+        if (getArguments() != null) {
+            if (relationName.equals("father")) {
+                edRelationParent.setSelection(1);
+            } else {
+                edRelationParent.setSelection(0);
+            }
+        }
 
         edRelationParent.setPopupBackgroundDrawable(getResources().getDrawable(R.drawable.spinner_draw));
 
@@ -243,6 +279,7 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -254,12 +291,60 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
                 //verifyStoragePermissions(getActivity());
                 //change_profile_pic();
 
-                changeProfilePic();
+                selectImage();
                 break;
-            default:
-                Toast.makeText(getContext(), "Another Button", Toast.LENGTH_LONG).show();
-
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void selectImage() {
+        try {
+
+            final CharSequence[] options = {"Choose From Gallery", "Remove Pic", "Cancel"};
+            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+            builder.setTitle("Select Option");
+            builder.setItems(options, new DialogInterface.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+                    if (options[item].equals("Choose From Gallery")) {
+                        dialog.dismiss();
+                        changeProfilePic();
+
+                    } else if (options[item].equals("Remove Pic")) {
+                        dialog.dismiss();
+
+                    } else if (options[item].equals("Cancel")) {
+                        dialog.dismiss();
+                    }
+                }
+            });
+            builder.show();
+
+        } catch (Exception e) {
+            //Toast.makeText(this, "Camera Permission error", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void changeProfilePic() {
+        if (EasyPermissions.hasPermissions(getContext(), FilePickerConst.PERMISSIONS_FILE_PICKER)) {
+            onPickPhoto();
+        } else {
+            // Ask for one permission
+            EasyPermissions.requestPermissions(
+                    this,
+                    "Asking for permission",
+                    RC_PHOTO_PICKER_PERM,
+                    FilePickerConst.PERMISSIONS_FILE_PICKER);
+        }
+    }
+
+    private void onPickPhoto() {
+        FilePickerBuilder.getInstance().setMaxCount(1)
+                .setSelectedFiles(photoPaths)
+                .setActivityTheme(R.style.LibAppTheme)
+                .pickPhoto(this);
     }
 
     private void callApi(final View view) {
@@ -282,8 +367,12 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
         RequestBody requestName = RequestBody.create(MediaType.parse("multipart/form-data"), edParentName.getText().toString());
         RequestBody requestRelation = RequestBody.create(MediaType.parse("multipart/form-data"), relation_id);
         RequestBody requestlanguage = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
-
-        String path2 = photoPaths.get(0);
+        String path2=null;
+        if(photoPaths.size()!=0) {
+            path2 = photoPaths.get(0);
+        }else {
+            path2 = imageUrl;
+        }
 
         File file = new File(path2);
 
@@ -349,26 +438,6 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
 
 
 
-    private void changeProfilePic() {
-        if (EasyPermissions.hasPermissions(getContext(), FilePickerConst.PERMISSIONS_FILE_PICKER)) {
-            onPickPhoto();
-        } else {
-            // Ask for one permission
-            EasyPermissions.requestPermissions(
-                    this,
-                    "Asking for permission",
-                    RC_PHOTO_PICKER_PERM,
-                    FilePickerConst.PERMISSIONS_FILE_PICKER);
-        }
-    }
-
-    private void onPickPhoto() {
-        FilePickerBuilder.getInstance()
-                .setSelectedFiles(photoPaths)
-                .setActivityTheme(R.style.LibAppTheme)
-                .pickPhoto(this);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -376,13 +445,12 @@ public class Basic_detail_frag extends Fragment implements View.OnClickListener,
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     //photoPaths = data.getStringExtra(FilePickerConst.KEY_SELECTED_MEDIA);
                     photoPaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_MEDIA));
+                    addThemToView(photoPaths);
                 }
                 break;
-            default:
-
         }
 
-        addThemToView(photoPaths);
+
     }
 
     private void addThemToView(ArrayList<String> imagePaths) {

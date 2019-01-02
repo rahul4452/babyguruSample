@@ -2,20 +2,21 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayoutChoose"
-    android:background="@color/white"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/methodTypeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/_9sdp"
-        android:paddingTop="@dimen/_6sdp"
-        android:paddingBottom="@dimen/_6sdp"
         android:layout_marginBottom="@dimen/_6sdp"
-        app:layout_constraintBottom_toTopOf="@id/framelayout"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/_6sdp"
+        android:paddingTop="@dimen/_6sdp"
+        app:layout_constraintBottom_toTopOf="@id/constraintLayoutChoose"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +26,8 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:background="#c0c0c0" />
 
         <TextView
@@ -44,15 +45,15 @@
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
 
             android:background="#c0c0c0" />
     </LinearLayout>
 
 
     <FrameLayout
-        android:id="@+id/framelayout"
+        android:id="@+id/constraintLayoutChoose"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -68,10 +69,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_11sdp"
-            android:layout_marginTop="@dimen/_11sdp"
-
             android:layout_marginEnd="@dimen/_11sdp"
+            android:layout_marginStart="@dimen/_11sdp"
+
+            android:layout_marginTop="@dimen/_10sdp"
             android:orientation="vertical">
 
             <TextView
@@ -80,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/choose_method_rec2"
                 android:gravity="center_horizontal|center_vertical"
-                android:padding="@dimen/_12sdp"
+                android:padding="@dimen/_8sdp"
                 android:text="Cuddle Calm Continue"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp" />
@@ -92,28 +93,27 @@
                 android:background="@drawable/bef_list_1_text"
                 android:orientation="vertical">
 
-                <br.tiagohm.markdownview.MarkdownView
-                    android:id="@+id/webViewChoose"
+                <WebView
+                    android:id="@+id/webviewChoose"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_6sdp"
-                    android:layout_marginTop="@dimen/_6sdp"
-                    android:layout_marginEnd="@dimen/_6sdp"
-
-                    />
+                    android:layout_gravity="top|center_horizontal"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginTop="@dimen/_19sdp" />
 
                 <TextView
                     android:id="@+id/read_more_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:layout_marginTop="@dimen/_14sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
                     android:background="@drawable/child_button_layout"
+                    android:paddingBottom="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_19sdp"
                     android:paddingStart="@dimen/_19sdp"
                     android:paddingTop="@dimen/_6sdp"
-                    android:paddingEnd="@dimen/_19sdp"
-                    android:paddingBottom="@dimen/_6sdp"
                     android:text="read more"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
@@ -126,6 +126,7 @@
             android:id="@+id/method_image"
             android:layout_width="@dimen/_84sdp"
             android:layout_height="@dimen/_84sdp"
+
             android:layout_marginStart="@dimen/_1sdp"
             android:src="@drawable/method_one_patch" />
 

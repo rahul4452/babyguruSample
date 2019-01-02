@@ -1,33 +1,23 @@
-package com.example.poplify.baby_guru_sample.before_u_start;
+package com.example.poplify.baby_guru_sample.child_profile;
 
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,16 +27,10 @@ import com.example.poplify.baby_guru_sample.Bottom_navbar.Bottom_tabs;
 import com.example.poplify.baby_guru_sample.R;
 import com.example.poplify.baby_guru_sample.adapter.ChildList;
 import com.example.poplify.baby_guru_sample.adapter.SaveData;
-import com.example.poplify.baby_guru_sample.add_New_Baby_tab.Add_child_tab_frag;
-import com.example.poplify.baby_guru_sample.child_profile.ChooseMethod;
-import com.example.poplify.baby_guru_sample.choose_method.Choose_method_frag;
-import com.example.poplify.baby_guru_sample.pojo.request.userRequest.childRequest.ChildProfileResponse;
+import com.example.poplify.baby_guru_sample.before_u_start.Select_frag;
 import com.example.poplify.baby_guru_sample.pojo.response.childResponse.ChildrenResponse;
 import com.example.poplify.baby_guru_sample.rest.ApiClient;
 import com.example.poplify.baby_guru_sample.rest.ApiInterface;
-import com.example.poplify.baby_guru_sample.sleep_Timer.Timer_frag;
-import com.example.poplify.baby_guru_sample.user_Profile.User_Profile_frag;
-import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,9 +39,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import br.tiagohm.markdownview.MarkdownView;
-//import br.tiagohm.markdownview.css.styles.Github;
-import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,42 +47,33 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Select_frag extends Fragment implements View.OnClickListener {
+public class SelectChildSeeProfile extends Fragment {
 
-
+    SaveData saveData;
     TextView child_1, screenTitle;
     WebView selectBaby;
     Typeface regular, regularMon;
     CircleImageView select_child;
     FragmentManager fragmentManager;
     RecyclerView selectFragRecycle;
-    SaveData saveData;
     private ChildrenResponse existChildren;
     private String childIndex;
     private List<ChildrenResponse.Child> childrenList;
     private ArrayList<ChildList> childLists = new ArrayList<>();
-    private RecyclerView.Adapter selectChildAdapter;
+    private RecyclerView.Adapter seeChildAdapter;
     private LinearLayout linearLayout, mainLayout;
     private LinearLayoutManager mLayoutManager;
-    private ContentLoadingProgressBar progressBar;
 
-    public Select_frag() {
+    public SelectChildSeeProfile() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_select_frag, container, false);
-        //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
+        View view = inflater.inflate(R.layout.fragment_select_frag, container, false);
 
         saveData = new SaveData(getContext());
         initSelectFrag(view);
@@ -109,61 +81,14 @@ public class Select_frag extends Fragment implements View.OnClickListener {
 
         sendCallToServer(view);
 
-
         return view;
     }
 
-    private void initSelectFrag(View view) {
-
-        //Setting fonts
-        regular = Typeface.createFromAsset(getResources().getAssets(), "Comfortaa_Regular.ttf");
-        regularMon = Typeface.createFromAsset(getResources().getAssets(), "Montserrat-Regular.otf");
-        fragmentManager = getActivity().getSupportFragmentManager();
-
-        //textview for setting child name
-        child_1 = view.findViewById(R.id.child1_name);
-
-        mainLayout = view.findViewById(R.id.firstchildImageLayout);
-
-        //setting up the header
-        screenTitle = view.findViewById(R.id.toolbar_title);
-        screenTitle.setTypeface(regular);
-
-        selectBaby = view.findViewById(R.id.selct_your);
-
-            selectBaby.setBackgroundColor(Color.argb(1, 0, 0, 0));
-            selectBaby.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-        //selectBaby.setBackgroundColor(0);
-
-        //button for start session
-        select_child = view.findViewById(R.id.add_child);
-        select_child.setOnClickListener(this);
-
-        //Recycler View
-        selectFragRecycle = view.findViewById(R.id.my_recycler_view_child_SelectFrag);
-        selectFragRecycle.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        selectFragRecycle.setLayoutManager(mLayoutManager);
-
-
-        //Progressbar
-        progressBar = view.findViewById(R.id.selectChildProgress);
-
-
-        //Linear Layout
-        linearLayout = view.findViewById(R.id.imageLayoutSelectChild);
-
-        child_1.setTypeface(regularMon);
-    }
-
-
-    public void sendCallToServer(View view) {
+    private void sendCallToServer(View view) {
         ApiInterface service = ApiClient.getClient().create(ApiInterface.class);
         String token_header = saveData.get("login_token");
         String email_header = saveData.get("login_email");
 
-        progressBar.setVisibility(View.VISIBLE);
         Call<ChildrenResponse> responseCall = service.getSelectChild(token_header, email_header);
         responseCall.enqueue(new Callback<ChildrenResponse>() {
             @Override
@@ -171,7 +96,6 @@ public class Select_frag extends Fragment implements View.OnClickListener {
 
                 boolean success = response.isSuccessful();
                 existChildren = response.body();
-
 
                 if (!success) {
                     switch (response.code()) {
@@ -197,7 +121,7 @@ public class Select_frag extends Fragment implements View.OnClickListener {
                     //progressBar.setVisibility(View.GONE);
                     //saveData.save("changePwd", serverExistUser.getUserLabels().getButtons().getChangePassword());
 
-                    progressBar.setVisibility(View.GONE);
+
                     getServerResponse(existChildren);
 
 
@@ -207,7 +131,7 @@ public class Select_frag extends Fragment implements View.OnClickListener {
 
             @Override
             public void onFailure(Call<ChildrenResponse> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+
                 call.cancel();
                 //progressBar.setVisibility(View.VISIBLE);
             }
@@ -215,9 +139,7 @@ public class Select_frag extends Fragment implements View.OnClickListener {
     }
 
     private void getServerResponse(ChildrenResponse existChildren) {
-
-
-        childIndex = existChildren.getChildIndexLabel().getSleepCoaching();
+        childIndex = existChildren.getChildIndexLabel().getChildIndex();
 
 
         selectBaby.loadData(childIndex, "text/html", "UTF-8");
@@ -238,47 +160,30 @@ public class Select_frag extends Fragment implements View.OnClickListener {
             }
         }
 
-        selectChildAdapter = new SelectChildAdapter(getContext(), childLists);
+        seeChildAdapter = new SeeChildAdapter(getContext(), childLists);
 
         if (childLists.size() != 2) {
             linearLayout.setVisibility(View.VISIBLE);
-            selectFragRecycle.setAdapter(selectChildAdapter);
+            selectFragRecycle.setAdapter(seeChildAdapter);
 
         } else {
             linearLayout.setVisibility(View.GONE);
-            selectFragRecycle.setAdapter(selectChildAdapter);
+            selectFragRecycle.setAdapter(seeChildAdapter);
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.add_child:
-                replacementFragment(new Add_child_tab_frag());
-        }
-    }
-
-    public class SelectChildAdapter extends RecyclerView.Adapter<SelectChildAdapter.ViewHolder> {
-
-
-        // List<Data> list = Collections.emptyList();
+    class SeeChildAdapter extends RecyclerView.Adapter<SeeChildAdapter.ViewHolder> {
 
         Context contxt;
         ArrayList<ChildList> childFullList;
         ChildList childList;
-        private static final String TAG = "SelectChildAdapter";
 
-        // Provide a suitable constructor (depends on the kind of dataset).
-
-
-        public SelectChildAdapter(Context contxt, ArrayList<ChildList> selectChildList) {
+        public SeeChildAdapter(Context contxt, ArrayList<ChildList> childFullList) {
             this.contxt = contxt;
-            this.childFullList = selectChildList;
+            this.childFullList = childFullList;
+
         }
 
-        // Provide a reference to the views for each data item.
-        // Complex data items may need more than one view per item, and
-        // you provide access to all the views for a data item in a view holder.
         public class ViewHolder extends RecyclerView.ViewHolder {
             public CircleImageView imageUrls;
             public TextView childName, childId;
@@ -292,10 +197,12 @@ public class Select_frag extends Fragment implements View.OnClickListener {
         }
 
 
+        @NonNull
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.showexistingchild, parent, false);
+        public SeeChildAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
+            View v = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.showexistingchild, viewGroup, false);
 
             // Set the view's size, margins, paddings and layout parameters.
 
@@ -303,65 +210,49 @@ public class Select_frag extends Fragment implements View.OnClickListener {
             regularMon = Typeface.createFromAsset(contxt.getAssets(), "Montserrat-Regular.otf");
 
             return new ViewHolder(v);
+
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
+        public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
-            childList = childFullList.get(position);
+            childList = childFullList.get(i);
             try {
                 if (childList.getChildImageUrl() != null) {
                     Glide.with(getContext())
                             .load(childList.getChildImageUrl())
-                            .into(holder.imageUrls);
+                            .into(viewHolder.imageUrls);
                 } else {
-                    holder.imageUrls.setImageResource(R.drawable.childbg);
+                    viewHolder.imageUrls.setImageResource(R.drawable.childbg);
                 }
-                holder.childName.setText(childList.getChildName());
-                holder.childName.setTypeface(regularMon);
+                viewHolder.childName.setText(childList.getChildName());
+                viewHolder.childName.setTypeface(regularMon);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
-            holder.imageUrls.setOnClickListener(new View.OnClickListener() {
+            viewHolder.imageUrls.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    switch (position) {
+                    switch (i) {
                         case 0:
                             Bundle bundle = new Bundle();
-                            bundle.putInt("childId", childFullList.get(position).getChildId());
-                            if (childFullList.get(position).isSavedMethod()) {
-                                Timer_frag timer_frag = new Timer_frag();
-                                timer_frag.setArguments(bundle);
-                                ((Bottom_tabs) getActivity()).pushFragments(Bottom_tabs.TAB_TIMER, timer_frag, true);
-                                //replacementFragment(timer_frag);
-                            } else {
-                                ChooseMethod selectMethod = new ChooseMethod();
-                                selectMethod.setArguments(bundle);
-                                saveData.save("timer",true);
-                                ((Bottom_tabs) getActivity()).pushFragments(Bottom_tabs.TAB_TIMER, selectMethod, true);
-                                // replacementFragment(selectMethod);
-                            }
+                            bundle.putInt("childId", childFullList.get(i).getChildId());
+                            Full_child_profile full_child_profile = new Full_child_profile();
+                            full_child_profile.setArguments(bundle);
+                            saveData.save("fullChildProfile",true);
+                            ((Bottom_tabs)getActivity()).pushFragments(Bottom_tabs.TAB_CHILD_PROFILE, full_child_profile,true);
+                            //replacementFragment(full_child_profile);
                             break;
+
                         case 1:
                             Bundle bundle2 = new Bundle();
-                            bundle2.putInt("childId", childFullList.get(position).getChildId());
-                            if (childFullList.get(position).isSavedMethod()) {
-                                Timer_frag timer_frag = new Timer_frag();
-                                timer_frag.setArguments(bundle2);
-                                ((Bottom_tabs) getActivity()).pushFragments(Bottom_tabs.TAB_TIMER, timer_frag, true);
-                                //saveData.save("timer",true);
-                                //replacementFragment(timer_frag);
-                            } else {
-                                ChooseMethod selectMethod = new ChooseMethod();
-                                selectMethod.setArguments(bundle2);
-                                saveData.save("timer",true);
-                                ((Bottom_tabs) getActivity()).pushFragments(Bottom_tabs.TAB_TIMER, selectMethod, true);
-                                //replacementFragment(selectMethod);
-                            }
-                            //saveData.save("timer",true);
+                            bundle2.putInt("childId", childFullList.get(i).getChildId());
+                            Full_child_profile full_child_profile2 = new Full_child_profile();
+                            full_child_profile2.setArguments(bundle2);
+                            saveData.save("fullChildProfile",true);
+                            ((Bottom_tabs)getActivity()).pushFragments(Bottom_tabs.TAB_CHILD_PROFILE, full_child_profile2,true);
+                           // replacementFragment(full_child_profile2);
                             break;
                     }
                 }
@@ -369,33 +260,43 @@ public class Select_frag extends Fragment implements View.OnClickListener {
             });
         }
 
+
         @Override
         public int getItemCount() {
-            // Hackish: This is set to INT_MAX so that user has a lot of free space to move around to
-            // make the view appear as infinite. This should be improved.
             return childFullList.size();
-//        return mDataset.length;
         }
-
     }
 
+    private void initSelectFrag(View view) {
+        //Setting fonts
+        regular = Typeface.createFromAsset(getResources().getAssets(), "Comfortaa_Regular.ttf");
+        regularMon = Typeface.createFromAsset(getResources().getAssets(), "Montserrat-Regular.otf");
+        fragmentManager = getActivity().getSupportFragmentManager();
 
-    public void showHideFragment(final Fragment fragment) {
+        //textview for setting child name
+        child_1 = view.findViewById(R.id.child1_name);
 
-        assert getFragmentManager() != null;
-        FragmentTransaction fragTransaction = fragmentManager.beginTransaction();
-        fragTransaction.setCustomAnimations(android.R.animator.fade_in,
-                android.R.animator.fade_out);
+        mainLayout = view.findViewById(R.id.firstchildImageLayout);
 
-        if (fragment.isHidden()) {
-            fragTransaction.show(fragment);
-            Log.d("hidden", "Show");
-        } else {
-            fragTransaction.hide(fragment);
-            Log.d("Shown", "Hide");
-        }
+        //setting up the header
+        screenTitle = view.findViewById(R.id.toolbar_title);
+        screenTitle.setTypeface(regular);
 
-        fragTransaction.commit();
+        selectBaby = view.findViewById(R.id.selct_your);
+
+        //button for start session
+        select_child = view.findViewById(R.id.add_child);
+
+        //Recycler View
+        selectFragRecycle = view.findViewById(R.id.my_recycler_view_child_SelectFrag);
+        selectFragRecycle.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        selectFragRecycle.setLayoutManager(mLayoutManager);
+
+        //Linear Layout
+        linearLayout = view.findViewById(R.id.imageLayoutSelectChild);
+
+        child_1.setTypeface(regularMon);
     }
 
     private void replacementFragment(Fragment fragment) {
@@ -419,5 +320,6 @@ public class Select_frag extends Fragment implements View.OnClickListener {
             e.printStackTrace();
         }
     }
+
 
 }

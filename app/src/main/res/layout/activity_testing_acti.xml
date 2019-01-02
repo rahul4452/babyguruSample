@@ -7,109 +7,232 @@
     android:background="@color/bg_color"
     tools:context=".before_u_start.Before_we_start_frag">
 
+    <Chronometer
+        android:id="@+id/chronomter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:textSize="@dimen/_27sdp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline45"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/cord"
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginStart="8dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/pager"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:text="TextView"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="232dp" />
+
+    <com.example.poplify.baby_guru_sample.adapter.CustomViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/let_start_btn"
+        android:layout_height="@dimen/_130sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+
+        app:layout_constraintBottom_toTopOf="@+id/guideline61"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline68" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline61"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/_97sdp" />
+
+    <com.budiyev.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/outer_timer"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="@dimen/_140sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        app:animateProgress="true"
+        app:backgroundStrokeColor="@color/bef_list_4"
+        app:backgroundStrokeWidth="@dimen/_8sdp"
+        app:drawBackgroundStroke="true"
+        app:foregroundStrokeCap="round"
+        app:foregroundStrokeColor="#ffff4081"
+        app:foregroundStrokeWidth="@dimen/_3sdp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline45"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:id="@+id/app_bar_layout"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsingToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleTextAppearance="@android:color/transparent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-                <FrameLayout
-                    android:id="@+id/relativeLayout4"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_106sdp"
-                    android:layout_marginTop="?attr/actionBarSize"
-                    android:background="@color/white"
-                    app:layout_collapseMode="parallax"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_106sdp"
-                        android:background="@drawable/before_we_start" />
-
-                    <ImageView
-                        android:layout_width="@dimen/_146sdp"
-                        android:layout_height="@dimen/_146sdp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@mipmap/large_logo"
-                        android:visibility="visible" />
-                </FrameLayout>
-
-                <include
-                    android:id="@+id/toolbar_we_start1"
-                    layout="@layout/toolbar"
-                    app:layout_collapseMode="pin" />
+        app:layout_constraintTop_toBottomOf="@+id/timer_toolbar"
+        app:progressAnimationDuration="500" />
 
 
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
+    <com.budiyev.android.circularprogressbar.CircularProgressBar
+        android:id="@+id/inner_timer"
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_110sdp"
+        app:animateProgress="true"
+        app:backgroundStrokeColor="@color/timer_logo"
+        app:backgroundStrokeWidth="@dimen/_8sdp"
+        app:drawBackgroundStroke="true"
+        app:foregroundStrokeCap="round"
+        app:foregroundStrokeColor="#ffff4081"
+        app:foregroundStrokeWidth="@dimen/_3sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/outer_timer"
+        app:layout_constraintEnd_toEndOf="@+id/outer_timer"
+        app:layout_constraintStart_toStartOf="@+id/outer_timer"
+        app:layout_constraintTop_toTopOf="@+id/outer_timer"
+        app:progressAnimationDuration="500" />
 
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:fillViewport="true"
-            android:visibility="visible"
-            app:layout_anchor="@id/app_bar_layout"
-            app:layout_anchorGravity="bottom|center_horizontal"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/pause_timer"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/inner_timer"
+        app:layout_constraintEnd_toEndOf="@+id/inner_timer"
+        app:layout_constraintStart_toStartOf="@+id/inner_timer"
+        app:layout_constraintTop_toTopOf="@+id/inner_timer" />
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:visibility="visible">
+    <ImageButton
+        android:id="@+id/openGurutips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/chronomter"
+        app:layout_constraintTop_toTopOf="@+id/guideline45"
+        app:layout_constraintVertical_bias="0.608"
+        app:srcCompat="@drawable/top_tips" />
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tabLayoutBefore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_28sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginEnd="@dimen/_28sdp"
-                    android:background="@drawable/child_btn_bg"
-                    android:theme="@style/Base.Widget.Design.TabLayout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/pagerForBefore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tabLayoutBefore" />
-            </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline68"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/_295sdp" />
 
-        </android.support.v4.widget.NestedScrollView>
+    <Button
+        android:id="@+id/btnstart"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_1sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_29sdp"
+        android:background="@drawable/button_backgrond"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/let_start_btn"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline61"
+        app:layout_constraintVertical_bias="0.309" />
 
-    </android.support.design.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/btn_baby_sleep"
+        android:layout_width="@dimen/_215sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_1sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_29sdp"
+        android:background="@drawable/button_backgrond"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="baby is asleep"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline61"
+        app:layout_constraintVertical_bias="0.309" />
+
+
+    <Button
+        android:id="@+id/btn_baby_sleep_2"
+        android:layout_width="@dimen/_145sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_1sdp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_29sdp"
+        android:background="@drawable/let_start"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="@dimen/_10sdp"
+        android:text="baby is asleep"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline61"
+        app:layout_constraintVertical_bias="0.309" />
+
+    <Button
+        android:id="@+id/cry_sleep"
+        android:layout_width="@dimen/_145sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="@dimen/_29sdp"
+        android:background="@drawable/button_backgrond"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="@dimen/_10sdp"
+        android:text="@string/crying_head"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_18sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_baby_sleep_2"
+        app:layout_constraintTop_toTopOf="@+id/guideline61"
+        app:layout_constraintVertical_bias="0.52" />
+
 
 
 

@@ -1,11 +1,13 @@
 package com.example.poplify.baby_guru_sample.add_New_Baby_tab;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,11 +18,13 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -66,6 +70,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -102,7 +107,7 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
     SaveData saveData;
     String SERIALIZED_KEY = "updateChildData";
     public static final int RC_PHOTO_PICKER_PERM = 123;
-    private ArrayList<String> photoPaths ;
+    private ArrayList<String> photoPaths;
     private String childName;
     private String childDob;
     private String childImageUrl;
@@ -163,11 +168,9 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
         //Setting Up the toolbar  title
         toolbar = view.findViewById(R.id.toolbar_add);
         tb_title_add = view.findViewById(R.id.toolbar_title);
-        if(childLabels!=null)
-        {
+        if (childLabels != null) {
             tb_title_add.setText("edit child");
-        }
-        else {
+        } else {
             tb_title_add.setText(saveData.get("addChild"));
         }
         tb_title_add.setTypeface(regular);
@@ -222,9 +225,10 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
 
         profile_btn = view.findViewById(R.id.select_profile);
         profile_btn.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View view) {
-                changeProfilePic();
+                selectImage();
             }
         });
 
@@ -238,6 +242,37 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
             }
         }
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void selectImage() {
+        try {
+
+            final CharSequence[] options = {"Choose From Gallery", "Remove Pic", "Cancel"};
+            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+            builder.setTitle("Select Option");
+            builder.setItems(options, new DialogInterface.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void onClick(DialogInterface dialog, int item) {
+                    if (options[item].equals("Choose From Gallery")) {
+                        dialog.dismiss();
+                        changeProfilePic();
+
+                    } else if (options[item].equals("Remove Pic")) {
+                        dialog.dismiss();
+
+                    } else if (options[item].equals("Cancel")) {
+                        dialog.dismiss();
+                    }
+                }
+            });
+            builder.show();
+
+        } catch (Exception e) {
+            //Toast.makeText(this, "Camera Permission error", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -260,13 +295,10 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
         String token_header = saveData.get("login_token");
         String email_header = saveData.get("login_email");
 
-        if(spinner.getSelectedItem().equals("Boy"))
-        {
+        if (spinner.getSelectedItem().equals("Boy")) {
             updatedGender = "1";
-        }
-        else
-        {
-            updatedGender="2";
+        } else {
+            updatedGender = "2";
         }
 
         RequestBody requestName = RequestBody.create(MediaType.parse("multipart/form-data"), ent_name.getText().toString().trim());
@@ -275,19 +307,17 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
         File file;
 
         String childImage;
-        if(photoPaths!=null) {
+        if (photoPaths != null) {
             childImage = photoPaths.get(0);
-             file = new File(childImage);
-        }
-        else
-        {
-             file = new File("");
+            file = new File(childImage);
+        } else {
+            file = new File("");
         }
         //+++++++=========================+++++++++
         //set Image in Api
         MultipartBody.Part childImageMultipart = MultipartBody.Part.createFormData("child[image]", file.getName(), RequestBody.create(MediaType.parse("image/*"), file));
 
-        Call<ChildProfileResponse.Child> responseCall = service.updateChild(token_header, email_header, childId,requestName,requestDateBirth,requestGender,childImageMultipart);
+        Call<ChildProfileResponse.Child> responseCall = service.updateChild(token_header, email_header, childId, requestName, requestDateBirth, requestGender, childImageMultipart);
         responseCall.enqueue(new Callback<ChildProfileResponse.Child>() {
             @Override
             public void onResponse(Call<ChildProfileResponse.Child> call, Response<ChildProfileResponse.Child> response) {
@@ -315,7 +345,7 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
                         case 500:
                             try {
                                 //JSONObject jObjError = new JSONObject(response.errorBody().string());
-                                TSnackbar snackbar = TSnackbar.make(view.findViewById(android.R.id.content)," Something went Wrong !! ", TSnackbar.LENGTH_LONG);
+                                TSnackbar snackbar = TSnackbar.make(view.findViewById(android.R.id.content), " Something went Wrong !! ", TSnackbar.LENGTH_LONG);
                                 snackbar.setActionTextColor(Color.WHITE);
                                 View snackbarView = snackbar.getView();
                                 snackbarView.setBackgroundColor(getResources().getColor(R.color.light_pink));
@@ -335,7 +365,7 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
                             .getSupportFragmentManager();
 
                     String fragmentTag = fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName();
-                    fm.popBackStack(fragmentTag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    fm.popBackStack(fragmentTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 }
             }
 
@@ -357,7 +387,7 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
         //adapter.setDropDownViewResource(R.layout.gender_layout,gender);
         spinner.setAdapter(adapter);
         if (childName != null) {
-            spinner.setSelection(genderId-1);
+            spinner.setSelection(genderId - 1);
         }
         spinner.setPopupBackgroundDrawable(getResources().getDrawable(R.drawable.spinner_draw));
 
@@ -376,8 +406,9 @@ public class Add_child_tab_frag extends Fragment implements View.OnClickListener
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void changeProfilePic() {
-        if (EasyPermissions.hasPermissions(getContext(), FilePickerConst.PERMISSIONS_FILE_PICKER)) {
+        if (EasyPermissions.hasPermissions(Objects.requireNonNull(getContext()), FilePickerConst.PERMISSIONS_FILE_PICKER)) {
             onPickPhoto();
         } else {
             // Ask for one permission

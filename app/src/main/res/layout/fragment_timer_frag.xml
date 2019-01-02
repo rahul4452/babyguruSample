@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/timer_frag"
@@ -10,237 +9,247 @@
     android:background="@color/white"
     tools:context=".sleep_Timer.Timer_frag">
 
-            <include
-                android:id="@+id/timer_toolbar"
-                layout="@layout/toolbar" />
+    <include
+        android:id="@+id/timer_toolbar"
+        layout="@layout/toolbar" />
 
-            <Chronometer
-                android:id="@+id/chronomter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:textSize="@dimen/_27sdp"
-                app:layout_constraintBottom_toTopOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline45"
-                app:layout_constraintVertical_bias="0.0" />
+    <FrameLayout
+        android:id="@+id/frameLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28sdp"
+        app:layout_constraintBottom_toTopOf="@+id/chronomter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer_toolbar"
+        app:layout_constraintVertical_chainStyle="spread">
+
+        <com.budiyev.android.circularprogressbar.CircularProgressBar
+            android:id="@+id/outer_timer"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginStart="@dimen/_8sdp"
+            app:animateProgress="true"
+            app:backgroundStrokeColor="@color/bef_list_4"
+            app:backgroundStrokeWidth="@dimen/_4sdp"
+            app:drawBackgroundStroke="true"
+            app:foregroundStrokeCap="round"
+            app:foregroundStrokeColor="#ffff4081"
+            app:foregroundStrokeWidth="@dimen/_3sdp"
+            app:progressAnimationDuration="500" />
 
 
+        <com.budiyev.android.circularprogressbar.CircularProgressBar
+            android:id="@+id/inner_timer"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_110sdp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            app:animateProgress="true"
+            app:backgroundStrokeColor="@color/timer_logo"
+            app:backgroundStrokeWidth="@dimen/_5sdp"
+            app:drawBackgroundStroke="true"
+            app:foregroundStrokeCap="round"
+            app:foregroundStrokeColor="#ffff4081"
+            app:foregroundStrokeWidth="@dimen/_3sdp"
+            app:progressAnimationDuration="500" />
+
+        <ImageView
+            android:id="@+id/pauseTimer"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:src="@mipmap/start_timer"
+            android:layout_gravity="center_horizontal|center_vertical"
+            />
+
+    </FrameLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/chronomter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="40dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/pager"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="84dp"
-                android:text="TextView"
-                app:layout_constraintBaseline_toBaselineOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline45"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="232dp" />
-
-    <com.example.poplify.baby_guru_sample.adapter.CustomViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_130sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-
-        app:layout_constraintBottom_toTopOf="@+id/guideline61"
+        android:layout_marginBottom="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:textSize="@dimen/_27sdp"
+        android:padding="@dimen/_5sdp"
+        android:scaleY="1.2"
+        android:scaleX="1.1"
+        android:text="00:00:00"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline68" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
+        app:layout_constraintVertical_chainStyle="spread" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline61"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_end="@dimen/_97sdp" />
-
-    <com.budiyev.android.circularprogressbar.CircularProgressBar
-        android:id="@+id/outer_timer"
-        android:layout_width="@dimen/_140sdp"
-        android:layout_height="@dimen/_140sdp"
-        app:animateProgress="true"
-        app:backgroundStrokeColor="@color/bef_list_4"
-        app:backgroundStrokeWidth="@dimen/_8sdp"
-        app:drawBackgroundStroke="true"
-        app:foregroundStrokeCap="round"
-        app:foregroundStrokeColor="#ffff4081"
-        app:foregroundStrokeWidth="@dimen/_3sdp"
-        app:progressAnimationDuration="500"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_25sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline45"
+        android:padding="@dimen/_2sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/chronomter">
+
+        <View
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:background="@color/light_purple" />
+
+        <TextView
+            android:id="@+id/self_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_3sdp"
+            android:text="Self-setting Timer"
+            android:textSize="@dimen/_11sdp" />
+
+        <View
+            android:layout_width="@dimen/_13sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:background="@color/light_pink" />
+
+        <TextView
+            android:id="@+id/total_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:padding="@dimen/_3sdp"
+            android:text="Total-Setting Timer"
+            android:textSize="@dimen/_11sdp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+        app:layout_constraintVertical_bias="0.047"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_7sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/pager"
+        app:layout_constraintVertical_chainStyle="packed">
+
+        <Button
+            android:id="@+id/btnstart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginEnd="@dimen/_59sdp"
+            android:layout_marginStart="@dimen/_59sdp"
+            android:background="@drawable/button_backgrond"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingBottom="@dimen/_7sdp"
+            android:paddingTop="@dimen/_7sdp"
+
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_baby_sleep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginEnd="@dimen/_59sdp"
+            android:layout_marginStart="@dimen/_59sdp"
+            android:background="@drawable/button_backgrond"
+            android:gravity="center_vertical|center_horizontal"
+            android:paddingBottom="@dimen/_7sdp"
+            android:paddingTop="@dimen/_7sdp"
+
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/twoButtonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btn_baby_sleep2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/button_backgrond"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingBottom="@dimen/_7sdp"
+                android:paddingTop="@dimen/_7sdp"
+
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/cry_sleep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_weight="1"
+                android:background="@drawable/button_backgrond"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingBottom="@dimen/_7sdp"
+                android:paddingTop="@dimen/_7sdp"
+
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:visibility="visible" />
 
 
-    <com.budiyev.android.circularprogressbar.CircularProgressBar
-        android:id="@+id/inner_timer"
-        android:layout_width="@dimen/_110sdp"
-        android:layout_height="@dimen/_110sdp"
-        app:animateProgress="true"
-        app:backgroundStrokeColor="@color/timer_logo"
-        app:backgroundStrokeWidth="@dimen/_8sdp"
-        app:drawBackgroundStroke="true"
-        app:foregroundStrokeCap="round"
-        app:foregroundStrokeColor="#ffff4081"
-        app:foregroundStrokeWidth="@dimen/_3sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/outer_timer"
-        app:layout_constraintEnd_toEndOf="@+id/outer_timer"
-        app:layout_constraintStart_toStartOf="@+id/outer_timer"
-        app:layout_constraintTop_toTopOf="@+id/outer_timer"
-        app:progressAnimationDuration="500" />
+        </LinearLayout>
 
+    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView9"
+    <ProgressBar
+        android:id="@+id/timerProgressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:src="@drawable/pause_timer"
-        app:layout_constraintBottom_toBottomOf="@+id/inner_timer"
-        app:layout_constraintEnd_toEndOf="@+id/inner_timer"
-        app:layout_constraintStart_toStartOf="@+id/inner_timer"
-        app:layout_constraintTop_toTopOf="@+id/inner_timer" />
-
-    <ImageButton
-        android:id="@+id/openGurutips"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="28dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/chronomter"
-        app:layout_constraintTop_toTopOf="@+id/guideline45"
-        app:layout_constraintVertical_bias="0.608"
-        app:srcCompat="@drawable/top_tips" />
-
-
-
-    <android.support.constraint.Guideline
-          android:id="@+id/guideline68"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          app:layout_constraintGuide_begin="@dimen/_295sdp" />
-
-    <Button
-        android:id="@+id/btnstart"
-        android:layout_width="@dimen/_215sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_29sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_1sdp"
-        android:background="@drawable/button_backgrond"
-        android:visibility="visible"
-        android:text="@string/let_start_btn"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_18sdp"
-        android:gravity="center_vertical|center_horizontal"
+        android:indeterminate="true"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline61"
-        app:layout_constraintVertical_bias="0.309" />
-
-    <Button
-        android:id="@+id/btn_baby_sleep"
-        android:layout_width="@dimen/_215sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_29sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_1sdp"
-        android:background="@drawable/button_backgrond"
-        android:text="baby is asleep"
-        android:visibility="gone"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_18sdp"
-        android:gravity="center_vertical|center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline61"
-        app:layout_constraintVertical_bias="0.309" />
-
-
-    <Button
-        android:id="@+id/btn_baby_sleep_2"
-        android:layout_width="@dimen/_145sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_29sdp"
-        android:layout_marginBottom="@dimen/_1sdp"
-        android:background="@drawable/let_start"
-        android:visibility="gone"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="@dimen/_10sdp"
-        android:text="baby is asleep"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_18sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline61"
-        app:layout_constraintVertical_bias="0.309" />
-
-    <Button
-        android:id="@+id/cry_sleep"
-        android:layout_width="@dimen/_145sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="@dimen/_29sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
-        android:background="@drawable/button_backgrond"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="@dimen/_10sdp"
-        android:text="@string/crying_head"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_18sdp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_baby_sleep_2"
-        app:layout_constraintTop_toTopOf="@+id/guideline61"
-        app:layout_constraintVertical_bias="0.52" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

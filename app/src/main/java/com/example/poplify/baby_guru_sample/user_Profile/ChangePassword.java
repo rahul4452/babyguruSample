@@ -207,7 +207,6 @@ public class ChangePassword extends AppCompatActivity implements View.OnClickLis
                 } else {
                     try {
                         JsonObject changePwdObj = new JsonObject().get(response.body().toString()).getAsJsonObject();
-
                         TSnackbar snackbar = TSnackbar.make(findViewById(android.R.id.content), changePwdObj.get("message").toString(), TSnackbar.LENGTH_LONG);
                         snackbar.setActionTextColor(Color.WHITE);
                         View snackbarView = snackbar.getView();
